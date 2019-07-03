@@ -16,8 +16,7 @@ public class RotateListBothSideFromKPostion {
 			prev= curr;
 			curr=cnext;	
 		}
-
-		head = prev;
+        Node temp = prev;
 		prev = null;
 		while(curr!=null){			
 			cnext = curr.next;
@@ -26,7 +25,7 @@ public class RotateListBothSideFromKPostion {
 			curr=cnext;
 		}		
 		node.next = prev;		
-		return head;
+		return temp;
 
 	}
 	private  void printList(Node head) {
@@ -41,7 +40,7 @@ public class RotateListBothSideFromKPostion {
 		RotateListBothSideFromKPostion list = new RotateListBothSideFromKPostion();
 		list.head = new Node(1);
 		list.head.next = new Node(2);
-		list.head.next.next = new Node(2);
+		list.head.next.next = new Node(3);
 		list.head.next.next.next = new Node(4);
 		list.head.next.next.next.next = new Node(7);
 		list.head.next.next.next.next.next = new Node(8);
@@ -51,7 +50,7 @@ public class RotateListBothSideFromKPostion {
 		System.out.print("Original List :: ");
 		list.printList(list.head);
 		System.out.println();
-		list.head= list.rotateListBothSideFromKthPostion(list.head,6);
+		list.head= list.rotateListBothSideFromKthPostion(list.head,4);
 		System.out.print("Rotated List   :: ");
 
 		list.printList(list.head);

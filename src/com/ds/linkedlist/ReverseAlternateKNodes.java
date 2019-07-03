@@ -57,7 +57,7 @@ public class ReverseAlternateKNodes {
 		System.out.print("Original List :: ");
 		list.printList(list.head);
 		System.out.println();
-		list.head= list.reverseAlternateKNodes(list.head,2);
+		list.head= list.reverseAlternateKNodes(list.head,3);
 		System.out.print("Reverse List   :: ");
 
 		list.printList(list.head);
