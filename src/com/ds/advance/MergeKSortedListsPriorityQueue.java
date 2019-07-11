@@ -5,7 +5,7 @@ import java.util.Comparator;
 import java.util.List;
 import java.util.PriorityQueue;
 
-public class MergeKSortedListPriorityQueue {
+public class MergeKSortedListsPriorityQueue {
 
 	Node head1;
 	Node head2;
@@ -46,7 +46,7 @@ public class MergeKSortedListPriorityQueue {
 	public static void main(String[] args) {
 
 
-		MergeKSortedListPriorityQueue list = new MergeKSortedListPriorityQueue();
+		MergeKSortedListsPriorityQueue list = new MergeKSortedListsPriorityQueue();
 
 		list.head1 = new Node(3);
 		list.head1.next = new Node(7);
