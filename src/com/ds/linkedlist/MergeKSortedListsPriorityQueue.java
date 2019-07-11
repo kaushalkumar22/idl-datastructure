@@ -1,4 +1,4 @@
-package com.ds.advance;
+package com.ds.linkedlist;
 
 import java.util.Arrays;
 import java.util.Comparator;
@@ -83,7 +83,7 @@ public class MergeKSortedListsPriorityQueue {
 		}
 		System.out.println("");
 	}
-	static class Node {
+	static private class Node {
 		int element;
 		Node next;
 		Node tail;
