@@ -28,20 +28,27 @@ public class SubstringWithConcatenatingAllWords {
 		System.out.println(findSubstring( s, words));
 	}
 	static List<Integer> findSubstring(String s, String[] words) {
-		final Map<String, Integer> counts = new HashMap<>();
-		for (final String word : words) {
-			counts.put(word, counts.getOrDefault(word, 0) + 1);
+		List<Integer> indexes = new ArrayList<>();
+		if(words.length==0 ||words[0].length()==0) {
+			return indexes; 
 		}
-		final List<Integer> indexes = new ArrayList<>();
-		final int n = s.length(), num = words.length, len = words[0].length();
-		for (int i = 0; i < n - num * len + 1; i++) {
-			final Map<String, Integer> seen = new HashMap<>();
+		Map<String, Integer> wcountMap = new HashMap<>();	
+
+		int slen = s.length();
+		int wcount = words.length; 
+		int wlen = words[0].length();
+
+		for (String word : words) {
+			wcountMap.put(word, wcountMap.getOrDefault(word, 0) + 1);
+		}
+		for (int i = 0; i < slen - wcount * wlen + 1; i++) {
+			Map<String, Integer> seen = new HashMap<>();
 			int j = 0;
-			while (j < num) {
-				final String word = s.substring(i + j * len, i + (j + 1) * len);
-				if (counts.containsKey(word)) {
+			while (j < wcount) {
+				String word = s.substring(i + j * wlen, i + (j + 1) * wlen);
+				if (wcountMap.containsKey(word)) {
 					seen.put(word, seen.getOrDefault(word, 0) + 1);
-					if (seen.get(word) > counts.getOrDefault(word, 0)) {
+					if (seen.get(word) > wcountMap.getOrDefault(word, 0)) {
 						break;
 					}
 				} else {
@@ -49,7 +56,7 @@ public class SubstringWithConcatenatingAllWords {
 				}
 				j++;
 			}
-			if (j == num) {
+			if (j == wcount) {
 				indexes.add(i);
 			}
 		}
