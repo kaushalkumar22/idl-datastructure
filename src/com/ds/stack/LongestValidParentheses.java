@@ -1,4 +1,4 @@
-package com.ds.advance;
+package com.ds.stack;
 
 import java.util.Stack;
 
@@ -41,7 +41,7 @@ The idea only update the result (max) when we find a "pair" and push -1 to stack
 	public static int longestValidParentheses(String s) {
         Stack<Integer> stack = new Stack<>();
         int result = 0;
-        stack.push(-1);//if only one left in stack then ex ()
+        stack.push(-1);
         for (int i = 0; i < s.length(); i++) {
             if (s.charAt(i) == ')' && stack.size() > 1 && s.charAt(stack.peek()) == '(') {
                 stack.pop();

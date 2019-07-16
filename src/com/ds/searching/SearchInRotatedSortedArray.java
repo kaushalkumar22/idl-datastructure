@@ -1,4 +1,4 @@
-package com.ds.advance;
+package com.ds.searching;
 /**
  * Suppose an array sorted in ascending order is rotated at some pivot unknown to you beforehand.
 
@@ -19,21 +19,22 @@ Output: 4
 public class SearchInRotatedSortedArray {
 	
 	public static void main(String[] args) {
-		int[] nums = {5,6,7,0,1,2,3,4};
-				System.out.println(search(nums,2));
+		int[] nums = {4,5,6,7,0,1,2};
+				System.out.println(search(nums,0));
 	}
 	static int search(int[] nums, int target) {
-	    int low = 0, high = nums.length;
-	    while (low < high) {
-	        int mid = (low + high) / 2;
+	    int lo = 0, hi = nums.length;
+	    while (lo < hi) {
+	        int mid = (lo + hi) / 2;
 	        
-	        int num = ((nums[mid] < nums[0])==(target < nums[0])) ? nums[mid]
+	        double num = (nums[mid] < nums[0]) == (target < nums[0])
+	                   ? nums[mid]
 	                   : target < nums[0] ? Integer.MIN_VALUE : Integer.MAX_VALUE;
 	                   
 	        if (num < target)
-	            low = mid + 1;
+	            lo = mid + 1;
 	        else if (num > target)
-	            high = mid;
+	            hi = mid;
 	        else
 	            return mid;
 	    }
