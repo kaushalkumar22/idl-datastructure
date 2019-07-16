@@ -25,22 +25,25 @@ public class TrappingRainWater {
 		int[] A= {0,1,0,2,1,0,1,3,2,1,2,1};
 		System.out.println(trap(A,A.length));
 	}
-	static int trap(int A[], int n) {
-        int left=0; int right=n-1;
-        int res=0;
-        int maxleft=0, maxright=0;
-        while(left<=right){
-            if(A[left]<=A[right]){
-                if(A[left]>=maxleft) maxleft=A[left];
-                else res+=maxleft-A[left];
-                left++;
-            }
-            else{
-                if(A[right]>=maxright) maxright= A[right];
-                else res+=maxright-A[right];
-                right--;
-            }
-        }
-        return res;
-    }
+	public static int trap(int[] nums) {
+		int left=0;
+		int right=nums.length-1;
+		int trappedWater=0;
+		int leftmax=0;
+		int rightmax=0;
+		while(left<=right){
+			leftmax  = Math.max(leftmax,nums[left]);
+			rightmax = Math.max(rightmax,nums[right]);
+			//rightmax  will make sure there is a boundary from right side which is having max height and there is a boundary from left side leftmax 
+			//so anything smaller fall between these means upto that height water can be trap.
+			if(leftmax<=rightmax){
+				trappedWater= trappedWater + (leftmax-nums[left]);  // leftmax is smaller than rightmax, so the (leftmax-A[a]) water can be stored
+				left++;
+			}else{
+				trappedWater= trappedWater+(rightmax-nums[right]);
+				right--;
+			}
+		}
+		return trappedWater;
+	}
 }
