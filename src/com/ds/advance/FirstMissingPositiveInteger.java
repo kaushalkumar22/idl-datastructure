@@ -12,7 +12,10 @@ Example 2:
 Input: [3,4,-1,1]
 Output: 2
 algorithm should run in O(n) time and uses constant extra space.
-https://leetcode.com/problems/first-missing-positive
+
+this algo is based on index swapping ,suppose nums[i] =k then swap the nums[i] at k location in nums 
+provided k should be in range of 0<k<=n
+then start iterating from begin if there is not proper value at the index means that index number is missing
  * @author I339640
  *
  */
