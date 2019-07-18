@@ -35,10 +35,10 @@ public class WildcardMatching {
 	
 	public static void main(String[] args) {
 
-		String str="acdcb";
-		String pattern="a*c?b";
+		String str="acdfghjdcb";
+		String pattern="a*d?b";
 		System.out.println(wildcardMatchingLinearLime( str,  pattern));
-		System.out.println(wildcardMatchingDynamicPrograming( str,  pattern));
+		//System.out.println(wildcardMatchingDynamicPrograming( str,  pattern));
 		
 	}
 	static boolean wildcardMatchingDynamicPrograming(String str, String pattern) {
