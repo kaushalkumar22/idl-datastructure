@@ -64,7 +64,7 @@ public class ConstructSortedDLL2BalancedBST {
 		}
 
 		printInorderOrderTraversalHelper(root.prev);
-		System.out.print(root.data + " ");
+		System.out.print(root.val + " ");
 		printInorderOrderTraversalHelper(root.next);
 	}
 
@@ -76,14 +76,15 @@ public class ConstructSortedDLL2BalancedBST {
 		dll.convertDllToBST();
 		dll.printInorderOrderTraversal();
 	}
-}
+	private class ListNode {
+		int val;
+		ListNode prev;
+		ListNode next;
 
-class ListNode {
-	int data;
-	ListNode prev;
-	ListNode next;
-
-	public ListNode(int data) {
-		this.data = data;
+		public ListNode(int data) {
+			this.val = data;
+		}
 	}
 }
+
+

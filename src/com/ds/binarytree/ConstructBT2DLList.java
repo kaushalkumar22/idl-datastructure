@@ -9,11 +9,11 @@ Given a binary tree, convert it into a doubly linked list as described:
  */
 public class ConstructBT2DLList {
 
-	private Node root;
-	private Node head;
-	private Node curr;
+	private TreeNode root;
+	private TreeNode head;
+	private TreeNode curr;
 
-	private void convertBST2DLL(Node root) {
+	private void convertBST2DLL(TreeNode root) {
 
 		if(root==null)
 			return;
@@ -43,35 +43,37 @@ public class ConstructBT2DLList {
 		convertBST2DLL(root.right);
 	}
 
-	private void printList(Node node) {
+	private void printList(TreeNode node) {
 		while (node != null) {
-			System.out.print(node.data + " ");
+			System.out.print(node.val + " ");
 			node = node.right;
 		}
 	}
-
+	private TreeNode prev = null;
+	public void flatten(TreeNode root) {
+		if (root == null)
+			return;
+		flatten(root.right);
+		flatten(root.left);
+		root.right = prev;
+		root.left = null;
+		prev = root;
+	}
 	public static void main(String[] args) {
 
 		ConstructBT2DLList tree = new ConstructBT2DLList();
-		tree.root = new Node(10);
-		tree.root.left = new Node(12);
-		tree.root.right = new Node(15);
-		tree.root.left.left = new Node(25);
-		tree.root.left.right = new Node(30);
-		tree.root.right.left = new Node(36);
-		tree.root.right.right = new Node(40);
+		tree.root = new TreeNode(10);
+		tree.root.left = new TreeNode(12);
+		tree.root.right = new TreeNode(15);
+		tree.root.left.left = new TreeNode(25);
+		tree.root.left.right = new TreeNode(30);
+		tree.root.right.left = new TreeNode(36);
+		tree.root.right.right = new TreeNode(40);
 
 		tree.convertBST2DLL(tree.root);
-		tree.printList(tree.head);
+		tree.printList(tree.head);//25 12 30 10 36 15 40
+		tree.flatten(tree.root);
+		tree.printList(tree.prev);//10 12 25 30 15 36 40 
 	}
-	private static class Node {
-
-		int data;
-		Node left, right;
-
-		Node(int item) {
-			data = item;
-			left = right = null;
-		}
-	}
+	
 }
