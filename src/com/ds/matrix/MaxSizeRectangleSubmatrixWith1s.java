@@ -1,6 +1,6 @@
 package com.ds.matrix;
 
-import com.ds.leetcode.problemset.Histogram;
+import com.ds.problemset.Histogram;
 
 public class MaxSizeRectangleSubmatrixWith1s {
 
