@@ -1,4 +1,4 @@
-package com.ds.problemset;
+package com.ds.twopointertechnique;
 
 import java.util.Arrays;
 
