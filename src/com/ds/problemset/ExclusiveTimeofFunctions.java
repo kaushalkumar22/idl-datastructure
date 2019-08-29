@@ -1,4 +1,8 @@
 package com.ds.problemset;
+
+import java.util.List;
+import java.util.Stack;
+
 /**
  * On a single threaded CPU, we execute some functions.  Each function has a unique id between 0 and N-1.
 We store logs in timestamp order that describe when a function is entered or exited.

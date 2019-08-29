@@ -10,7 +10,7 @@ import java.util.Arrays;
  * The sum that is closest to the target is 2. (-1 + 2 + 1 = 2).
  *
  */
-public class ThreeSumClosest {
+public class TripletsSumClosestToK {
 
 	public static void main (String[] args) { 
 		int arr[] = {-1, 2, 1, -4}; 
