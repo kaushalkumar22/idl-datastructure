@@ -1,4 +1,4 @@
-package com.ds.problemset;
+package com.ds.trie;
 
 /**
 Design a data structure that supports the following two operations:

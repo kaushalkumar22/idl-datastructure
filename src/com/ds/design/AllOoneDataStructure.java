@@ -1,4 +1,4 @@
-package com.ds.problemset;
+package com.ds.design;
 
 import java.util.HashMap;
 import java.util.HashSet;

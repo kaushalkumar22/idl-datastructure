@@ -1,8 +1,10 @@
 package com.ds.problemset;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 public class GroupAnagrams {
 
@@ -32,4 +34,24 @@ public class GroupAnagrams {
 		            }
 		            return res;
 		    }
+	public static List<List<String>> groupAnagrams2(String[] strs) {
+
+		Map<String, List<String>> map = new HashMap<String, List<String>>();
+
+		for (String s : strs) {
+			char[] ca = s.toCharArray();
+			Arrays.sort(ca);
+			String keyStr = String.valueOf(ca);
+			if (map.containsKey(keyStr)) {
+				List<String> list =map.get(keyStr);
+				list.add(keyStr);
+
+			}else {
+				List<String> list =new ArrayList<String>();
+				list.add(keyStr);
+				map.put(keyStr, list);
+			}
+		}
+		return new ArrayList<List<String>>(map.values());
+	}
 }

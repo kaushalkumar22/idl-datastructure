@@ -1,6 +1,6 @@
 package com.ds.linkedlist;
 
-public class Add2NumsRepByLL {
+public class AddTwoNumbers {
 
 	private Node head,head1, head2;
 	int carry = 0;
@@ -56,7 +56,7 @@ public class Add2NumsRepByLL {
 
 	public static void main(String[] args) {
 
-		Add2NumsRepByLL list = new Add2NumsRepByLL();
+		AddTwoNumbers list = new AddTwoNumbers();
 
 		list.head1 = new Node(7);
 		list.head1.next = new Node(5);
