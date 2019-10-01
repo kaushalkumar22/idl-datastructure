@@ -1,7 +1,5 @@
 package com.ds.problemset;
 
-import java.util.Arrays;
-
 /**
  * Sample Input
  * 

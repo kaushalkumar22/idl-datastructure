@@ -1,9 +1,0 @@
----
-VM version: May  6 2019 13:12:21 - 81_REL - optU - windows amd64 - 6 - bas2:315134 (mixed mode)
-
-Time:2019-09-1016:38:12
-Pid: 19276
-Hostname: INLN34673327A
-current dir: C:\wspace\idl-datastructure
----
-   :    [14176] 16:38:12 ***ERROR (:0): OutOfMemoryError: Could not allocate 24 bytes
