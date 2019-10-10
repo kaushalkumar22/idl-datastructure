@@ -1,6 +1,6 @@
 package com.ds.matrix;
 
-import com.ds.problemset.Histogram;
+import com.ds.common.hard.Histogram;
 
 public class MaxSizeRectangleSubmatrixWith1s {
 

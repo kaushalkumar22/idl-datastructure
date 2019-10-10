@@ -1,6 +1,6 @@
 eclipse.preferences.version=1
+encoding//src/com/ds/common/hard/LongestPalindromicSubstring.java=UTF-8
+encoding//src/com/ds/common/hard/MergeKSortedLists.java=UTF-8
 encoding//src/com/ds/kinarray/KthSmallestElementInUnsortedArrayUsingQuickSelect.java=UTF-8
 encoding//src/com/ds/linkedlist/MergeKSortedLists.java=UTF-8
-encoding//src/com/ds/problemset/LongestPalindromicSubstring.java=UTF-8
-encoding//src/com/ds/problemset/MergeKSortedLists.java=UTF-8
-encoding//src/com/ds/problemset/SlidingWindowMaximum.java=UTF-8
+encoding//src/com/ds/slidingwindow/SlidingWindowMaximum.java=UTF-8
