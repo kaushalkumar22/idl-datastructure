@@ -1,10 +1,7 @@
-package com.ds.binarytree.construct;
+package com.ds.binarytree.common;
 
 import java.util.Arrays;
 import java.util.List;
-
-import com.ds.binarytree.common.TreeNode;
-import com.ds.binarytree.common.TreeUtil;
 
 /**
  * Given a binary tree, flatten it to a linked list in-place.

@@ -8,7 +8,7 @@ the size of Binary Tree.
 
 We can save space by storing Preorder traversal and a marker for NULL pointers. 
  */
-public class SerializeDeserializeBT {
+public class SerializeAndDeserializeBT {
 	private  Node root;	
 	private static List<String> list = new ArrayList<String>();
 	private static int index = 0;
@@ -51,7 +51,7 @@ public class SerializeDeserializeBT {
 	}
 	public static void main(String args[]) {
 
-		SerializeDeserializeBT tree = new SerializeDeserializeBT();
+		SerializeAndDeserializeBT tree = new SerializeAndDeserializeBT();
 
 		/*tree.root = new Node(1);
 		tree.root.left = new Node(2);

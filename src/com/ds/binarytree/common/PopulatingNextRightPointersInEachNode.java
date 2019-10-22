@@ -1,6 +1,6 @@
 package com.ds.binarytree.common;
 //http://www.geeksforgeeks.org/connect-nodes-at-same-level-with-o1-extra-space/
-public class ConnectNodesAtSameLevel {
+public class PopulatingNextRightPointersInEachNode {
 
 	static Node root;
 
@@ -77,7 +77,7 @@ public class ConnectNodesAtSameLevel {
 	}
 
 	public static void main(String args[]) {
-		ConnectNodesAtSameLevel tree = new ConnectNodesAtSameLevel();
+		PopulatingNextRightPointersInEachNode tree = new PopulatingNextRightPointersInEachNode();
 		tree.root = new Node(10);
 		tree.root.left = new Node(8);
 		tree.root.right = new Node(2);

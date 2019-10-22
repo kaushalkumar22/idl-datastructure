@@ -26,7 +26,7 @@ Output: 4
 
  *
  */
-public class BinaryTreeDistributeCoins {
+public class DistributeCoinsInBinaryTree {
 	
 	public static void main(String[] args) {
 		List<Integer> nums = (List<Integer>) Arrays.asList(1,0,0,null,3);

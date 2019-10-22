@@ -1,6 +1,15 @@
 package com.ds.binarytree.common;
+/**
+Given a binary tree, find the lowest common ancestor (LCA) of two given nodes in the tree.
+According to the definition of LCA on Wikipedia: “The lowest common ancestor is defined between two nodes 
+p and q as the lowest node in T that has both p and q as descendants (where we allow a node to be a descendant of itself).”
+Given the following binary tree:  root = [3,5,1,6,2,0,8,null,null,7,4]
 
-public class LowestCommonAncestor{
+
+ * @author I339640
+ *
+ */
+public class LowestCommonAncestorOfABinaryTree{
 	private  Node root;
 	Node findLowestCommonAncestor(Node node, Node n1, Node n2){
 
@@ -19,7 +28,7 @@ public class LowestCommonAncestor{
 	}
 
 	public static void main(String args[]){
-		LowestCommonAncestor tree = new LowestCommonAncestor();
+		LowestCommonAncestorOfABinaryTree tree = new LowestCommonAncestorOfABinaryTree();
 		tree.root = new Node(1);
 		tree.root.left = new Node(2);
 		tree.root.right = new Node(3);
