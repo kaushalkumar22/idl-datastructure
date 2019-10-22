@@ -1,4 +1,4 @@
-package com.ds.binarytree.verify;
+package com.ds.binarytree.validate;
 
 import java.util.Arrays;
 import java.util.Deque;
