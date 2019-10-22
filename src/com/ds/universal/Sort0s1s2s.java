@@ -1,4 +1,4 @@
-package com.ds.common.medium;
+package com.ds.universal;
 
 //Dutch National Flag Algorithm
 public class Sort0s1s2s {

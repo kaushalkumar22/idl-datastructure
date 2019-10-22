@@ -1,4 +1,4 @@
-package com.ds.common.medium;
+package com.ds.universal;
 
 class StairClimbing 
 {

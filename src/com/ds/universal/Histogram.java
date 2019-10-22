@@ -1,4 +1,4 @@
-package com.ds.common.hard;
+package com.ds.universal;
 
 import java.util.Stack;
 

@@ -1,4 +1,4 @@
-package com.ds.common.medium;
+package com.ds.universal;
 
 /*Given an array of size n, find the element which occurs more than n/2 times. 
  * This element is called Majority Element.

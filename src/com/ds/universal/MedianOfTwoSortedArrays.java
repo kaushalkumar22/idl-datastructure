@@ -1,4 +1,4 @@
-package com.ds.common.hard;
+package com.ds.universal;
 
 /**There are two sorted arrays nums1 and nums2 of size m and n respectively.
 

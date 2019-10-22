@@ -1,4 +1,4 @@
-package com.ds.common.medium;
+package com.ds.universal;
 
 /*Given an array of integers, print the leaders in the array. A leader is an element which is larger than all the
  * elements in the array to its right.

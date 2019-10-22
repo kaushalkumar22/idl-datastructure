@@ -1,4 +1,4 @@
-package com.ds.common.hard;
+package com.ds.universal;
 /**
  Given an input string (s) and a pattern (p), implement wildcard pattern matching with support for '?' and '*'.
 '?' Matches any single character.

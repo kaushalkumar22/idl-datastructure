@@ -1,4 +1,4 @@
-package com.ds.common.medium;
+package com.ds.universal;
 
 /* Given an array of size n, find a peak element in the array. Peak element is the element which is 
  * greater than or equal to its neighbors.
