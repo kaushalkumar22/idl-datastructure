@@ -1,9 +1,0 @@
----
-VM version: May  6 2019 13:12:21 - 81_REL - optU - windows amd64 - 6 - bas2:315134 (mixed mode)
-
-Time:2019-10-1716:41:28
-Pid: 14012
-Hostname: INLN34673327A
-current dir: C:\wspace\idl-datastructure
----
-   :    [3360]  16:41:28 ***ERROR (:0): StackOverflowError
