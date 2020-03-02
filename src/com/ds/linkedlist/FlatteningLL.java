@@ -1,5 +1,16 @@
 package com.ds.linkedlist;
-
+/* Let us create the following linked list
+5 -> 10 -> 19 -> 28
+|    |     |     |
+V    V     V     V
+7    20    22    35
+|          |     |
+V          V     V
+8          50    40
+|                |
+V                V
+30               45
+*/
 public class FlatteningLL {
 
 	Node head;  // head of list
@@ -34,18 +45,7 @@ public class FlatteningLL {
 
 		FlatteningLL list = new FlatteningLL();
 
-		/* Let us create the following linked list
-	            5 -> 10 -> 19 -> 28
-	            |    |     |     |
-	            V    V     V     V
-	            7    20    22    35
-	            |          |     |
-	            V          V     V
-	            8          50    40
-	            |                |
-	            V                V
-	            30               45
-		 */
+	
 		list.head =  new Node(5);
 		list.head.right =  new Node(10);
 		list.head.right.right =  new Node(19);

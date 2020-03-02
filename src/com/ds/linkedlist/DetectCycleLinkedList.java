@@ -1,4 +1,8 @@
 package com.ds.linkedlist;
+
+import java.util.Arrays;
+import java.util.List;
+
 /**Use Hashing:
 Traverse the list one by one and keep putting the node addresses in a Hash Table. At any point,
  if NULL is reached then return false and if next of current node points to any of the previously 
@@ -19,11 +23,11 @@ This is the fastest method. Traverse linked list using two pointers.  Move one p
 */
 public class DetectCycleLinkedList {
 	
-	private  Node head;
+	
 
-	private	boolean isContainsLoop(Node head){
-		Node  slowPtr = head;
-		Node  fastPtr = head;
+	private	boolean isContainsLoop(ListNode head){
+		ListNode  slowPtr = head;
+		ListNode  fastPtr = head;
 
 		while(slowPtr!=null&&fastPtr!=null){
 			fastPtr = fastPtr.next; // advance the fast pointer
@@ -41,34 +45,15 @@ public class DetectCycleLinkedList {
 		}
 		return false;                // we reach here if we reach the tail
 	}
-	private  void printList(Node head) {
-		while (head != null) {
-			System.out.print(head.data + "-->");
-			head = head.next;
-		}
-		System.out.println("");
-	}
 	public static void main(String[] args) {
-		DetectCycleLinkedList list = new DetectCycleLinkedList(); 
-		list.head = new Node(50);
-        list.head.next = new Node(20);
-        list.head.next.next = new Node(15);
-        list.head.next.next.next = new Node(4);
-        list.head.next.next.next.next = new Node(10);
-        list.printList(list.head);
-        // Creating a loop for testing 
-        list.head.next.next.next.next.next = list.head.next.next;
-       
-		System.out.println("list having cycle:"+list.isContainsLoop(list.head));
 		
-	}
-	private static class Node{
-		int data;
-		Node next;
-		 Node(int data){
-			this.data = data;
-			next = null;
-		}
+		List<Integer> nums =Arrays.asList(50,20,15,4,10);
+		ListNode list = ListUtil.createList(nums);	
+		System.out.print("Original List :: ");
+		ListUtil.print(list);
+		list.next.next.next.next.next = list.next.next;	// Creating a loop for testing 
+		DetectCycleLinkedList detectCycle = new DetectCycleLinkedList(); 
+		System.out.println("list having cycle:"+detectCycle.isContainsLoop(list));	
 	}
 }
 

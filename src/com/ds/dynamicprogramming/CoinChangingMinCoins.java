@@ -3,8 +3,8 @@ package com.ds.dynamicprogramming;
 public class CoinChangingMinCoins {
 
 	public static void main ( String args[] ) {
-		int total = 15;
-		int coins[] = {7, 3, 2, 6};
+		int total = 5;
+		int coins[] = {1,2,5};
 		CoinChangingMinCoins cc = new CoinChangingMinCoins();
 		int bottomUpValue = cc.minCoin(total, coins);
 		System.out.print(String.format("Bottom up and top down result %s", bottomUpValue));

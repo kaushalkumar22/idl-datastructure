@@ -1,44 +1,26 @@
 package com.ds.linkedlist;
 
+import java.util.Arrays;
+import java.util.List;
+
 public class DeleteKthNodeWithoutTraverse {
 
-	private Node head;
 	public static void main(String[] args) {
 		
+		List<Integer> nums = Arrays.asList(7,5,9,4,6,10);
+		ListNode listNode = ListUtil.createList(nums);	
+		System.out.print("Original List :: ");
+		ListUtil.print(listNode);
 		DeleteKthNodeWithoutTraverse list = new DeleteKthNodeWithoutTraverse();
-		list.head = new Node(7);
-		list.head.next = new Node(5);
-		list.head.next.next = new Node(9);
-	    list.head.next.next.next = new Node(4);
-		list.head.next.next.next.next = new Node(6);
-		list.printList(list.head);
-		list.deleteNode(list.head.next.next.next);
-		list.printList(list.head);
-		
+		list.deleteNode (listNode.next.next);
+		System.out.print("After delete List :: ");
+		ListUtil.print(listNode);	
 	}
 	
-	private void deleteNode(Node n) {
+	private void deleteNode(ListNode n) {
 		if (n == null || n.next == null) return; 
 
-		n.data = n.next.data; 
+		n.val = n.next.val; 
 		n.next = n.next.next; 
 	}
-	
-	private  void printList(Node head) {
-		while (head != null) {
-			System.out.print(head.data + "-->");
-			head = head.next;
-		}
-		System.out.println("");
-	}
-	private static class Node{
-		int data;
-		Node next;
-
-		private Node(int ele){
-			data = ele;
-			next = null;
-		}
-	}
-
 }

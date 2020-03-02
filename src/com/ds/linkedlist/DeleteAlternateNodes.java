@@ -1,55 +1,40 @@
 package com.ds.linkedlist;
 
+import java.util.Arrays;
+import java.util.List;
+
 public class DeleteAlternateNodes {
 	
-	private  Node head;
-	
-	private void deleteAlternateNode(Node head){
+	private void deleteAlternateListNode(ListNode curr){
+			
+		if(curr==null||curr.next==null) return;
+		curr.next=curr.next.next;
+		deleteAlternateListNode(curr.next);
+
+		//ListNode curr = head;
+				/*if(curr!=null&&curr.next!=null){
+					curr.next=  curr.next.next;
+					deleteAlternateListNode(curr.next);
+				}*/
 		
-		Node curr = head;
-		if(curr!=null&&curr.next!=null){
-			curr.next=  curr.next.next;
-			deleteAlternateNode(curr.next);
-		}
 	/*	while(curr!=null&&curr.next!=null){
 			curr.next=  curr.next.next;
 			curr = curr.next;
 		}*/
 	}
-	private  void printList(Node head) {
-		while (head != null) {
-			System.out.print(head.data + "-->");
-			head = head.next;
-		}
-		System.out.println("");
-	}
+
 	
 	public static void main(String[] args) {
 
+		List<Integer> nums =Arrays.asList(7,5,9,4,6,10);
+		ListNode listNode = ListUtil.createList(nums);	
+		System.out.print("Original List :: ");
+		ListUtil.print(listNode);
 		DeleteAlternateNodes list = new DeleteAlternateNodes();
-
-		list.head = new Node(7);
-		list.head.next = new Node(5);
-		list.head.next.next = new Node(9);
-	    list.head.next.next.next = new Node(4);
-		list.head.next.next.next.next = new Node(6);
-		list.head.next.next.next.next.next = new Node(10);
-		
-		System.out.print("1st List :: ");		
-		list.printList(list.head);
-		
-		list.deleteAlternateNode (list.head);
+		list.deleteAlternateListNode (listNode);
 		System.out.print("After delete List :: ");
-
-		list.printList(list.head);
+		ListUtil.print(listNode);
 	}
-	static class Node {
-		int data;
-		Node next;
-		Node(int d) {
-			data = d;
-			next = null;
-		}
-	}
+	
 
 }

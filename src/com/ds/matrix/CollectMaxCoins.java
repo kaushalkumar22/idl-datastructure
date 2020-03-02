@@ -14,8 +14,6 @@ public class CollectMaxCoins {
 	private static int  N = arr.length;
 	private static int[][] coins = new int[N][N];
 	public static void main(String[] args) {
-
-
 		for(int i=0;i<N;i++){
 			for(int j=0;j<N;j++){
 				if(arr[i][j]=='#'){
@@ -28,6 +26,15 @@ public class CollectMaxCoins {
 			}
 		}
 		System.out.println("Maximum number of collected coins is "+ collectMaxCoins(coins,0,0,0));
+		System.out.println("Maximum number of collected coins is "+ maxCoins(arr));
+		int dp[][][] = new int[N][N][2];
+		for(int i=0;i<N;i++){
+			for(int j=0;j<N;j++){
+				for(int k=0;k<2;k++){
+					dp[i][j][k]=-1;
+				}
+			}
+		}
 		
 	}
 	private static boolean collectMaxCoins(int coins[][], int row ,int column,int maxPoint){
@@ -112,7 +119,4 @@ public class CollectMaxCoins {
 		// is right
 		return maxCoinsUtil(arr, 0, 0, 1, dp);
 	}
-
-	// Driver program to test above function
-
 }

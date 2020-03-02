@@ -1,12 +1,22 @@
 package com.ds.linkedlist;
 
-public class AddTwoNumbers {
+import java.util.Arrays;
+import java.util.List;
+/**
+You are given two non-empty linked lists representing two non-negative integers. 
+The digits are stored in order and each of their nodes contain a single digit. 
+Add the two numbers and return it as a linked list.
 
-	private Node head,head1, head2;
+Input: (5->2 -> 4 -> 3) + (5 -> 6 -> 4)
+Output: 7 -> 0 -> 8
+Explanation: 5342 + 465 = 5807.
+ *
+ */
+public class AddTwoNumbers {
+	private ListNode head;
 	int carry = 0;
-	Node curr =null;
 	
-	private	void doAddLinkedListsNodes (Node first, Node second,int size1,int size2){
+	private	void doAddLinkedListsNodes (ListNode first, ListNode second,int size1,int size2){
 		
 		if(size1>1&&size2>1&&size1==size2){ 
 			doAddLinkedListsNodes (first.next,second.next,size1-1,size2-1);
@@ -17,77 +27,35 @@ public class AddTwoNumbers {
 		}
 		doAddNodes( first, second,size1,size2);
 	}
-	private  void doAddNodes(Node first,Node second,int size1,int size2) {
+	private  void doAddNodes(ListNode first,ListNode second,int size1,int size2) {
 
-		//System.out.println(first.data+" "+ second.data+" "+size1+" "+size2);
-		int tempCarry = carry;
-		int sum = carry + (size1>=size2 ?first.data:0) + (size2>=size1 ?second.data:0) ;
-		carry = (sum >= 10) ? 1 : 0;
-		sum = sum % 10;
-		if(tempCarry==0){
-			crearteNode(sum);
+		int sum = carry + (size1>=size2 ?first.val:0) + (size2>=size1 ?second.val:0) ;	
+		if(carry==0){
+			crearteNode(sum % 10);
 		}else{
-			head.data=sum;
+			head.val= sum % 10;
 		}
+		carry = (sum >9) ? 1 : 0;
 		if (carry > 0) {
 			crearteNode(carry);
 		}
 	}
 	private  void crearteNode(int data) {
-		Node node = new Node(data);
+		ListNode node = new ListNode(data);
 		node.next = head;
 		head=node;
 	}
-	private  void printList(Node head) {
-		while (head != null) {
-			System.out.print(head.data + "-->");
-			head = head.next;
-		}
-		System.out.println("");
-	}
-	private static  int listSize(Node head) {
-		int count =0;
-		while (head != null) {
-			count++;
-			head = head.next;
-		}
-		return count;
-	}
-
 	public static void main(String[] args) {
 
+		List<Integer> nums1 = Arrays.asList(7,5,9,4,6);
+		List<Integer> nums2 = Arrays.asList(8,4,8);
+		ListNode list1 = ListUtil.createList(nums1);
+		ListNode list2 = ListUtil.createList(nums2);
 		AddTwoNumbers list = new AddTwoNumbers();
-
-		list.head1 = new Node(7);
-		list.head1.next = new Node(5);
-		list.head1.next.next = new Node(9);
-	    list.head1.next.next.next = new Node(4);
-		list.head1.next.next.next.next = new Node(6);
-		
-		System.out.print("1st List :: ");		
-		list.printList(list.head1);
-		
-		list.head2 = new Node(8);
-		list.head2.next = new Node(4);
-		list.head2.next.next = new Node(8);
-		
-		System.out.print("2nd List :: ");
-		list.printList(list.head2);
-
-		int size1 = listSize(list.head1);
-		int size2 = listSize(list.head2);
-		list.doAddLinkedListsNodes (list.head1, list.head2,size1,size2);
+		int length1 = ListUtil.length(list1);
+		int length2 = ListUtil.length(list2);
+		list.doAddLinkedListsNodes (list1, list2,length1,length2);
 		System.out.print("Sum List :: ");
-
-		list.printList(list.head);
+		ListUtil.print(list.head);
 	}
-	static class Node {
-		int data;
-		Node next;
-		Node(int d) {
-			data = d;
-			next = null;
-		}
-	}
-
 }
