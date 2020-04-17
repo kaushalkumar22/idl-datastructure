@@ -1,4 +1,4 @@
-package com.ds.kinarray;
+package com.ds.kth;
 //Time complexity of this solution is O(n + kLogn).
 public class KthLargestElementInUnsortedArrayUsingHeap {
 

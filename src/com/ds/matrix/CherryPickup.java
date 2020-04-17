@@ -7,7 +7,8 @@ package com.ds.matrix;
 
 Your task is to collect maximum number of cherries possible by following the rules below:
 
-Starting at the position (0, 0) and reaching (N-1, N-1) by moving right or down through valid path cells (cells with value 0 or 1);
+Starting at the position (0, 0) and reaching (N-1, N-1) by moving right or down through 
+valid path cells (cells with value 0 or 1);
 After reaching (N-1, N-1), returning to (0, 0) by moving left or up through valid path cells;
 When passing through a path cell containing a cherry, you pick it up and the cell becomes an empty cell (0);
 If there is no valid path between (0, 0) and (N-1, N-1), then no cherries can be collected.
@@ -23,6 +24,7 @@ public class CherryPickup {
 				{-1, 1, 1, -1, 1},
 				{1, 0, 0, 1, 0},
 				{1, 0, -1, 1, 0}
+				
 		};
 		System.out.println(cherryPickup(grid));
 	}

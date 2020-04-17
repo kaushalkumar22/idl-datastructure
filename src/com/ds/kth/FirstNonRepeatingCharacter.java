@@ -1,4 +1,4 @@
-package com.ds.kinarray;
+package com.ds.kth;
 
 /*Use index array for storing the index of the string elements.
  *1. Create an index array.

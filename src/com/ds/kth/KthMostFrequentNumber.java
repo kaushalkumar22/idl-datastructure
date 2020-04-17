@@ -1,4 +1,4 @@
-package com.ds.kinarray;
+package com.ds.kth;
 import java.util.HashMap;
 import java.util.Map;
  
