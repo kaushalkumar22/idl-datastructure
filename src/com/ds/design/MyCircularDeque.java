@@ -95,13 +95,13 @@ public class MyCircularDeque {
 	}
 
 
-class MyCircularDeque {
+class MyCircularDeque1 {
     int size;
     int k;
     DoubleListNode head;
     DoubleListNode tail;
     /** Initialize your data structure here. Set the size of the deque to be k. */
-    public MyCircularDeque(int k) {
+    public MyCircularDeque1(int k) {
         head = new DoubleListNode(-1);
         tail = new DoubleListNode(-1);
         head.pre = tail;

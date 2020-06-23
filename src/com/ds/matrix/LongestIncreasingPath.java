@@ -1,19 +1,74 @@
 package com.ds.matrix;
 
+import java.util.PriorityQueue;
+
 /**
- * Date 03/10/2016
- * @author Tushar Roy
- *
- * Given a 2D matrix find longest increasing path length in this matrix.
- *
- * Time complexity is O(n*m)
- * Space complexity is O(n*m)
- *
- * Reference
- * https://leetcode.com/problems/longest-increasing-path-in-a-matrix/
+ Given an integer matrix, find the length of the longest increasing path.
+
+From each cell, you can either move to four directions: left, right, up or down. You may NOT
+move diagonally or move outside of the boundary (i.e. wrap-around is not allowed).
+
+Example 1:
+
+Input: nums = 
+[
+  [9,9,4],
+  [6,6,8],
+  [2,1,1]
+] 
+Output: 4 
+Explanation: The longest increasing path is [1, 2, 6, 9].
+Example 2:
+
+Input: nums = 
+[
+  [3,4,5],
+  [3,2,6],
+  [2,2,1]
+] 
+Output: 4 
+Explanation: The longest increasing path is [3, 4, 5, 6]. Moving diagonally is not allowed.
  */
 public class LongestIncreasingPath {
 
+	private static int[][] dir = new int[][]{{0, 1}, {0, -1}, {1, 0}, {-1, 0}};
+	private int maxLen = 0;
+
+	public int longestIncreasingPathDP(int[][] matrix) {
+	    
+	    // Algo thinking: reverse thinking
+	    //      (1) Use a maxPQ
+	    //      (2) DP
+	    // time = O(N*M*lg(N*M)), space = O(N*M)
+	    
+	    if (matrix == null || matrix.length == 0) return 0;
+	    
+	    int n = matrix.length;
+	    int m = matrix[0].length;
+	    
+	    PriorityQueue<int[]> maxPQ = new PriorityQueue<>((a, b) -> b[2] - a[2]);
+	    for (int i = 0; i < n; i++) {
+	        for (int j = 0; j < m; j++) {
+	            maxPQ.offer(new int[]{i, j, matrix[i][j]});
+	        }
+	    }
+	    
+	    int[][] dp = new int[n][m];
+	    while (!maxPQ.isEmpty()) {
+	        int[] cell = maxPQ.poll();
+	        int i = cell[0], j = cell[1];
+	        dp[i][j] = 1;
+	        for (int[] d: dir) {
+	            int newI = i + d[0], newJ = j + d[1];
+	            if (newI < 0 || newI >= n || newJ < 0 || newJ >= m || matrix[i][j] >= matrix[newI][newJ]) continue;
+	            dp[i][j] = Math.max(dp[i][j], dp[newI][newJ] + 1);
+	        }
+	        
+	        maxLen = Math.max(maxLen, dp[i][j]);
+	    }
+	    
+	    return maxLen;
+	}
     public int longestIncreasingPath(int[][] matrix) {
         if (matrix.length == 0 || matrix[0].length == 0) {
             return 0;

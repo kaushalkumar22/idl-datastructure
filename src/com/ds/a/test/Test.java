@@ -22,37 +22,36 @@ public class Test {
 	
 	}
 
-	 private static String  beHViewWithFieldCreateStatement = "CREATE COLUMN VIEW change_on_setup.%s TYPE hierarchy WITH PARAMETERS (\n" +
-		        "'hierarchyDefinition'='{\n" +
-		        "\"MULTIPARENT\":true,\n" +
-		        "\"ORPHANS\":true,\n" +
-		        "\"PARAMETERS\":[\n"
-		        + "{\"name\":\"$$EFFECTIVE_DATE$$\",\"type\":\"CHAR(10)\"},\n"
-		        + "{\"name\":\"$$EFFECTIVE_STATUS$$\",\"type\":\"CHAR(1)\"},\n"
-		        + "{\"name\":\"$$EFFECTIVE_STATUS_I$$\",\"type\":\"CHAR(1)\"},\n"
-		        + "{\"name\":\"$$RECORD_STATUS$$\",\"type\":\"NVARCHAR(128)\"},\n"
-		        + "{\"name\":\"$$RECORD_STATUS_P$$\",\"type\":\"NVARCHAR(128)\"},\n"
-		        + "{\"name\":\"$$OBJECT_TYPE$$\",\"type\":\"NVARCHAR(512)\"},\n"
-		        + "{\"name\":\"$$BA_TYPE$$\",\"type\":\"NUMBER(512)\"}\n"
-		        + "],\n" 
-		        + "\"RUNTIMEOBJECTTYPE\":\"iter\",\n" 
-		        + "\"SOURCEQUERY\":"
-		        + "(\"SELECT T1.INTERNAL_ID as pred, T0.INTERNAL_ID as succ FROM (SELECT ROW_ID, INTERNAL_ID, %s from change_on_setup.%s \n"
-		        + "WHERE OBJECT_TYPE = ''$$OBJECT_TYPE$$'' \n"
-		        + "AND ((''$$EFFECTIVE_DATE$$'') BETWEEN to_varchar(EFFECTIVE_START_DATE,''yyyy-mm-dd'') AND to_varchar(EFFECTIVE_END_DATE,''yyyy-mm-dd'')) \n"
-		        + "AND (EFFECTIVE_STATUS = ''$$EFFECTIVE_STATUS$$'' OR EFFECTIVE_STATUS = ''$$EFFECTIVE_STATUS_I$$'') \n"
-		        + "AND (RECORD_STATUS = ''$$RECORD_STATUS$$'' OR RECORD_STATUS = ''$$RECORD_STATUS_P$$''))T0 \n"
-		        + "LEFT OUTER JOIN (SELECT ROW_ID, INTERNAL_ID, %s from change_on_setup.%s \n"
-		        + "WHERE OBJECT_TYPE = ''$$OBJECT_TYPE$$'' \n"
-		        + "AND ((''$$EFFECTIVE_DATE$$'') BETWEEN to_varchar(EFFECTIVE_START_DATE,''yyyy-mm-dd'') \n"
-		        + "AND to_varchar(EFFECTIVE_END_DATE,''yyyy-mm-dd'')) \n"
-		        + "AND (EFFECTIVE_STATUS = ''$$EFFECTIVE_STATUS$$'' OR EFFECTIVE_STATUS = ''$$EFFECTIVE_STATUS_I$$'') \n"
-		        + "AND (RECORD_STATUS = ''$$RECORD_STATUS$$'' OR RECORD_STATUS = ''$$RECORD_STATUS_P$$''))T1 ON T1.INTERNAL_ID = T0.%s )\n" 
-		        +"UNION ALL (SELECT CAST (BA_NUMBER as INTEGER) as succ, -999999 as pred FROM change_on_setup.TMP_BA_COND WHERE BA_TYPE=''$$BA_TYPE$$'')\n"
-		        +"UNION ALL (SELECT -999999 as succ, NULL as pred FROM DUMMY)\",\n"
-		        +"\"SOURCETYPE\":\"RECURSIVE\"}'\n" 
-		        +")\n" 
-		        +";";
+	private static String  beHViewWithFieldCreateStatement = "CREATE COLUMN VIEW change_on_setup.%s TYPE hierarchy WITH PARAMETERS (\n" +
+			"'hierarchyDefinition'='{\n" +
+			"\"MULTIPARENT\":true,\n" +
+			"\"ORPHANS\":true,\n" +
+			"\"PARAMETERS\":["
+			+ "{\"name\":\"$$EFFECTIVE_DATE$$\",\"type\":\"CHAR(10)\"},\n"
+			+ "{\"name\":\"$$EFFECTIVE_STATUS$$\",\"type\":\"CHAR(1)\"},\n"
+			+ "{\"name\":\"$$EFFECTIVE_STATUS_I$$\",\"type\":\"CHAR(1)\"},\n"
+			+ "{\"name\":\"$$RECORD_STATUS$$\",\"type\":\"NVARCHAR(128)\"},\n"
+			+ "{\"name\":\"$$RECORD_STATUS_P$$\",\"type\":\"NVARCHAR(128)\"},\n"
+			+ "{\"name\":\"$$OBJECT_TYPE$$\",\"type\":\"NVARCHAR(512)\"},\n"
+			+"{\"name\":\"$$BA_TYPE$$\",\"type\":\"NUMBER(512)\"},\n"
+		    +"{\"name\":\"$$DIRECTION$$\",\"type\":\"NVARCHAR(30)\"}\n"
+			+ "],\n" +
+			"\"RUNTIMEOBJECTTYPE\":\"iter\",\n" +
+			"\"SOURCEQUERY\":\"(SELECT T1.INTERNAL_ID as pred, T0.INTERNAL_ID as succ FROM (SELECT ROW_ID, INTERNAL_ID, %s from change_on_setup.%s WHERE OBJECT_TYPE = ''$$OBJECT_TYPE$$'' \n"
+			+ "AND ((''$$EFFECTIVE_DATE$$'') BETWEEN to_varchar(EFFECTIVE_START_DATE,''yyyy-mm-dd'') AND to_varchar(EFFECTIVE_END_DATE,''yyyy-mm-dd'')) \n"
+			+ "AND (EFFECTIVE_STATUS = ''$$EFFECTIVE_STATUS$$'' OR EFFECTIVE_STATUS = ''$$EFFECTIVE_STATUS_I$$'') \n"
+			+ "AND (RECORD_STATUS = ''$$RECORD_STATUS$$'' OR RECORD_STATUS = ''$$RECORD_STATUS_P$$''))T0 LEFT OUTER JOIN (SELECT ROW_ID, INTERNAL_ID, %s from change_on_setup.%s \n"
+			+ "WHERE OBJECT_TYPE = ''$$OBJECT_TYPE$$'' AND ((''$$EFFECTIVE_DATE$$'') BETWEEN to_varchar(EFFECTIVE_START_DATE,''yyyy-mm-dd'') \n"
+			+ "AND to_varchar(EFFECTIVE_END_DATE,''yyyy-mm-dd'')) AND (EFFECTIVE_STATUS = ''$$EFFECTIVE_STATUS$$'' OR EFFECTIVE_STATUS = ''$$EFFECTIVE_STATUS_I$$'') \n"
+			+ "AND (RECORD_STATUS = ''$$RECORD_STATUS$$'' OR RECORD_STATUS = ''$$RECORD_STATUS_P$$''))T1 ON T1.INTERNAL_ID = T0.%s) \n"
+			+"UNION ALL (SELECT  CAST(BA_NUMBER as INTEGER) succ ,-999999 pred FROM BIZX_DITDB.TMP_BA_COND WHERE BA_TYPE=''$$BA_TYPE$$'' and ''$$DIRECTION$$''=''SUCCESSOR'') \n"
+		    +"UNION ALL (SELECT -999999 succ,NULL pred FROM DUMMY where  ''$$DIRECTION$$'' =''SUCCESSOR'') \n"
+		    +"UNION ALL (SELECT -999999 pred, CAST(BA_NUMBER as INTEGER) succ FROM BIZX_DITDB.TMP_BA_COND WHERE BA_TYPE=''$$BA_TYPE$$'' and  ''$$DIRECTION$$'' =''PREDECESSOR'') \n"
+		    +"UNION ALL (SELECT NULL pred,-999999 succ FROM DUMMY where  ''$$DIRECTION$$'' =''PREDECESSOR'')\", \n"
+			+"\"SOURCETYPE\":\"RECURSIVE\"}'\n" +
+			")\n" +
+			";";
+
 
 }
  class HanaHierarchyQueryBuilder implements Serializable {
