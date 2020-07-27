@@ -7,16 +7,12 @@ package com.algo.array;
  * Return the element repeated N times.
  * 
  * 
+ * Input: [1,2,3,3] Output: 3
  * 
- * Example 1:
- * 
- * Input: [1,2,3,3] Output: 3 Example 2:
- * 
- * Input: [2,1,2,5,3,2] Output: 2 Example 3:
+ * Input: [2,1,2,5,3,2] Output: 2
  * 
  * Input: [5,1,5,2,5,3,5,4] Output: 5
  * 
- * @author I339640
  *
  */
 public class NRepeatedElementInSize2NArray {

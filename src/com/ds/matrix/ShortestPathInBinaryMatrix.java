@@ -1,6 +1,7 @@
 package com.ds.matrix;
 
 import java.util.LinkedList;
+import java.util.Queue;
 
 /**
  * n an N by N square grid, each cell is either empty (0) or blocked (1).

@@ -12,16 +12,19 @@ package com.algo.array;
  * 
  * Return 0 if there is no mountain.
  * 
- * Input: [2,1,4,7,3,2,5] Output: 5 Explanation: The largest mountain is
- * [1,4,7,3,2] which has length 5.
+ * Input: [2,1,4,7,3,2,5] Output: 5 
+ * Explanation: The largest mountain is [1,4,7,3,2] which has length 5.
  * 
  * Input: [2,2,2] Output: 0 Explanation: There is no mountain.
- * 
- * @author I339640
  *
  */
 public class LongestMountainInArray {
 
+	public static void main(String[] args) {
+	//int[] nums = {0,1,2,3,4,5,4,3,2,1,0};//
+	int[] nums = {2,2,2};//2,1,4,7,3,2,5
+	System.out.println(longestMountain(nums));
+	}
 	/*
 	 * Intuition: We have already many 2-pass or 3-pass problems, like 821.
 	 * Shortest Distance to a Character. They have almost the same idea. One
@@ -35,7 +38,7 @@ public class LongestMountainInArray {
 	 * 
 	 * Time Complexity: O(N)
 	 */
-	public int longestMountain(int[] A) {
+	public static int longestMountain(int[] A) {
 		int N = A.length, res = 0;
 		int[] up = new int[N], down = new int[N];
 		for (int i = N - 2; i >= 0; --i)
@@ -49,5 +52,6 @@ public class LongestMountainInArray {
 		}
 		return res;
 	}
+	
 
 }

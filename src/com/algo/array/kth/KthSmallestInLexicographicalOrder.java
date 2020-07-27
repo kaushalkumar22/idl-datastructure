@@ -6,8 +6,6 @@ package com.algo.array.kth;
  * 
  * Note: 1 <= k <= n <= 109.
  * 
- * Example:
- * 
  * Input: n: 13 k: 2
  * 
  * Output: 10

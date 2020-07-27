@@ -34,11 +34,9 @@ public class CircularArrayLoop {
 	}
 
 	public static boolean circularArrayLoop(int[] nums) {
-		// Handle bad input
-		if (nums == null || nums.length < 2)
-			return false;
-
+		
 		int len = nums.length;
+		if (nums == null || len < 2) {return false;}
 
 		/**
 		 * Check every possible start location. We may start at a short-loop,
@@ -55,7 +53,8 @@ public class CircularArrayLoop {
 
 			// Stagger our starts, so we don't conclude we've found a loop,
 			// as we might otherwise when slow == fast.
-			int slow = i, fast = advance(nums, slow);
+			int slow = i;
+			int fast = nextIndex(nums, slow);
 
 			/**
 			 * Whether i is positive or negative defines our direction, so if
@@ -63,14 +62,15 @@ public class CircularArrayLoop {
 			 * differ, we can't be in a 'forward' or a 'backward' loop, so we
 			 * exit the traverse.
 			 */
-			while (nums[i] * nums[fast] > 0 && nums[i] * nums[advance(nums, fast)] > 0) {
+			while (nums[i] * nums[fast] > 0 && nums[i] * nums[nextIndex(nums, fast)] > 0) {
 				if (slow == fast) {
-					if (slow == advance(nums, slow))
+					if (slow == nextIndex(nums, slow))
 						break; // 1-element loop
 					return true;
 				}
-				slow = advance(nums, slow);
-				fast = advance(nums, advance(nums, fast));
+				slow = nextIndex(nums, slow);
+				fast = nextIndex(nums, fast);
+				fast = nextIndex(nums, fast );
 			}
 
 			/**
@@ -82,9 +82,9 @@ public class CircularArrayLoop {
 			slow = i;
 			int sgn = nums[i];
 			while (sgn * nums[slow] > 0) {
-				int tmp = advance(nums, slow);
+				int next = nextIndex(nums, slow);
 				nums[slow] = 0;
-				slow = tmp;
+				slow = next;
 			}
 		}
 
@@ -92,16 +92,9 @@ public class CircularArrayLoop {
 		// therefore there isn't one, so return false.
 		return false;
 	}
-	/**
-	 * Moves the pointer 'i' ahead one iteration.
-	 */
-	private static int advance(int[] nums, int i) {
-		int len = nums.length;
-		i += nums[i];
-		if (i < 0)
-			i += len;
-		else if (i > len - 1)
-			i %= len;
-		return i;
-	}
+	
+		 public static int nextIndex(int[] nums,int index) {
+		        int n = nums.length;
+		        return index + nums[index] >= 0? (index + nums[index]) % n: n + ((index + nums[index]) % n);
+		    }
 }

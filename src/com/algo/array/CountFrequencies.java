@@ -13,20 +13,7 @@ package com.algo.array;
  */
 public class CountFrequencies {
 
-	// O(n^2) time and O(1) space
-	public static void countFrequenciesNaive(int[] input) {
-		int n = input.length;
-		for (int i = 1; i <= n; i++) {
-			int count = 0;
-			for (int j = 0; j < n; j++) {
-				if (input[j] == i) {
-					count++;
-				}
-			}
-			System.out.println(i + " " + count);
-		}
-	}
-
+	
 	// O(n) time and O(n) space
 	public static void countFrequencies(int[] input) {
 		int n = input.length;

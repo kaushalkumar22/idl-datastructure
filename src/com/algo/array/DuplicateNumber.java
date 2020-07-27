@@ -5,8 +5,6 @@ package com.algo.array;
  * and n (inclusive), prove that at least one duplicate number must exist.
  * Assume that there is only one duplicate number, find the duplicate one.
  * 
- * Example 1:
- * 
  * Input: [1,3,4,2,2] Output: 2
  * 
  * Input: [3,1,3,4,2] Output: 3

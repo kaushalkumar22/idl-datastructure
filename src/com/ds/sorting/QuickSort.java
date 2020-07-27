@@ -1,42 +1,43 @@
 package com.ds.sorting;
 
+import java.util.Arrays;
+
 public class QuickSort {
 
 	public static void main(String[] args) {
 
-		int arr[] = {5,3,8,2,9,12,76,13,1,7,23};
-		quickSort(arr, 0,arr.length-1);
-		for(int i=0;i<arr.length;i++){
-			System.out.print(arr[i]+",");
-		}
+		int nums[] = {5,3,8,2,9,12,76,13,1,7,23};
+		System.out.println(Arrays.toString(nums));
+		quickSort(nums, 0,nums.length-1);
+		System.out.println(Arrays.toString(nums));	
 	}
-	static void quickSort(int[] arr, int start,int end){
+	static void quickSort(int[] nums, int low,int high){
 
-		if(start>=end) return;
-		int pIndex = partition( arr,start,end);
-		quickSort(arr,start,pIndex-1);
-		quickSort(arr,pIndex+1,end);
+		if(low>high) return;
+		int pIndex = partition( nums,low,high);
+		quickSort(nums,low,pIndex-1);
+		quickSort(nums,pIndex+1,high);
 
 	}
-	public static int partition(int[] arr,int start,int end) {
+	public static int partition(int[] nums,int low,int high) {
 
-		int pIndex =start;
-		int pivot = arr[end];
-		for(int i=start;i<=end;i++){
-			if(arr[i]<pivot){
-				swap(arr,i,pIndex);
+		int pIndex =low;
+		int pivot = nums[high];
+		for(int i=low;i<=high;i++){
+			if(nums[i]<pivot){
+				swap(nums,i,pIndex);
 				pIndex++;
 			}
 		}
-		swap(arr,pIndex,end);
+		swap(nums,pIndex,high);
 		return pIndex;
 
 	}
-	public static void swap(int[] arr,int index,int pIndex){
+	public static void swap(int[] nums,int index,int pIndex){
 
-		int temp =arr[index];
-		arr[index]=arr[pIndex];
-		arr[pIndex]= temp;
+		int temp =nums[index];
+		nums[index]=nums[pIndex];
+		nums[pIndex]= temp;
 	}
 }
 

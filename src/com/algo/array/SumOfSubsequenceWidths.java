@@ -20,6 +20,10 @@ import java.util.Arrays;
  */
 public class SumOfSubsequenceWidths {
 
+	public static void main(String[] args) {
+		int[] nums = {2,1,3};
+		System.out.println(sumSubseqWidths(nums));
+	}
 	/*Explanation
 	The order in initial arrays doesn't matter,my first intuition is to sort the array.
 
@@ -45,11 +49,14 @@ public class SumOfSubsequenceWidths {
 	Q. why do we plus mod before return?
 	A In Cpp and Java, mod on negative number will still get a negative number.
 */
-	    public int sumSubseqWidths(int[] A) {
+	    public static int sumSubseqWidths(int[] A) {
 	        Arrays.sort(A);
 	        long c = 1, res = 0, mod = (long)1e9 + 7;
-	        for (int i = 0, n = A.length; i < n; ++i, c = c * 2 % mod)
+	        int n = A.length;
+	        for (int i = 0;i < n; ++i) {
 	            res = (res + A[i] * c - A[n - i - 1] * c) % mod;
+	            c = c * 2 % mod;
+	        }
 	        return (int)((res + mod) % mod);
 	    }
 }
