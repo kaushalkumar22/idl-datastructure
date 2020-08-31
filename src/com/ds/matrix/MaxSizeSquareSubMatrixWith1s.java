@@ -27,6 +27,24 @@ public class MaxSizeSquareSubMatrixWith1s {
 		
 		return maxSize;
 	}
+	 static int maximalSquare(int[][] matrix) {
+	       
+	        int m = matrix.length, n = matrix[0].length, sz = 0, pre = 0;
+	        int[] cur = new int[n+1];
+	        for (int i = 0; i < m; i++) {
+	            for (int j = 0; j < n; j++) {
+	                int temp = cur[j];
+	                if (i!=0 || j!=0 || matrix[i][j] == '0') {
+	                    cur[j] = matrix[i][j] - '0';
+	                } else {
+	                    cur[j] = Math.min(pre, Math.min(cur[j], cur[j - 1])) + 1;
+	                }
+	                sz = Math.max(cur[j], sz);
+	                pre = temp;
+	            }
+	        }
+	        return sz * sz;
+	    }
 	public static void main(String[] args) {
 		int matrix[][] = {
 				{ 0, 1, 1, 0, 1, 1 },
@@ -37,6 +55,8 @@ public class MaxSizeSquareSubMatrixWith1s {
 				{ 0, 1, 1, 1, 0, 1 }
 		};
 		System.out.println(getMaxSizeSquareSubmatrixWithAllOnes(matrix));
+		System.out.println(maximalSquare(matrix));
+
 	}
 
 }

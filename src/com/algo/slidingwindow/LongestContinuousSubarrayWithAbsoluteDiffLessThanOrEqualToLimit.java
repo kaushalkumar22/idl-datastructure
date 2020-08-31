@@ -49,8 +49,7 @@ System.out.println("hi");
 	/*
 	 * Intuition
 	 * 
-	 * Last week we learned, in 1425. Constrained Subsequence Sum how to get minimum
-	 * in a subarray when sliding.
+	 * Constrained Subsequence Sum how to get minimum in a subarray when sliding.
 	 * 
 	 * This week, we need to get both the maximum and the minimum, at the same time.
 	 * 

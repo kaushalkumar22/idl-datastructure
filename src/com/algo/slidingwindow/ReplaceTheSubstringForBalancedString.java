@@ -36,8 +36,8 @@ package com.algo.slidingwindow;
 public class ReplaceTheSubstringForBalancedString {
 
 	public static void main(String[] args) {
-		// TODO Auto-generated method stub
-
+String  s = "QQQQ";
+System.out.println(balancedString( s));
 	}
 	/*
 	 * Intuition
@@ -92,17 +92,18 @@ public class ReplaceTheSubstringForBalancedString {
 	 * Space O(1)
 	 */
 
-	    public int balancedString(String s) {
-	        int[] count = new int[128];
+	    public static int balancedString(String s) {
+	        int[] count = new int[26];
 	        int n = s.length(), res = n, i = 0, k = n / 4;
 	        for (int j = 0; j < n; ++j) {
-	            ++count[s.charAt(j)];
+	            ++count[s.charAt(j)-'A'];
 	        }
 	        for (int j = 0; j < n; ++j) {
-	            --count[s.charAt(j)];
-	            while (i < n && count['Q'] <= k && count['W'] <= k && count['E'] <= k && count['R'] <= k) {
+	            --count[s.charAt(j)-'A'];
+	            while (i < n && count['Q'-'A'] <= k && count['W'-'A'] <= k 
+	            		&& count['E'-'A'] <= k && count['R'-'A'] <= k) {
 	                res = Math.min(res, j - i + 1);
-	                ++count[s.charAt(i++)];
+	                ++count[s.charAt(i++)-'A'];
 	            }
 	        }
 	        return res;

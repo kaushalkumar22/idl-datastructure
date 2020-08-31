@@ -2,7 +2,7 @@ package com.algo.array.kth;
 
 import java.util.Stack;
 
-import com.ds.binarytree.common.TreeNode;
+import com.algo.binarytree.common.TreeNode;
 
 /**
  * Given a binary search tree, write a function kthSmallest to find the kth

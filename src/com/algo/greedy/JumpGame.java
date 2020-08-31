@@ -76,10 +76,9 @@ public class JumpGame {
 	 * 
 	 */
 	boolean canJump(int nums, int n) {
-	    int goal=n-1, i;
-	    for (i=n; i--;)
-	        if (i+nums[i] >= goal)
-	            goal=i;
-	    return !goal;
+		/*
+		 * int goal=n-1, i; for (i=0;i=n; i--;) if (i+nums[i] >= goal) goal=i;
+		 */
+	    return false;
 	}
 }

@@ -39,6 +39,8 @@ public class FruitIntoBaskets {
 		
 		int[] tree={3,3,3,1,2,1,1,2,3,3,4};
 		System.out.println(totalFruit(tree));
+		System.out.println(totalFruit1(tree));
+
 	}
 
 	/*
@@ -79,4 +81,31 @@ public class FruitIntoBaskets {
 	        }
 	        return res;
 	    }
+	    public static int totalFruit1(int[] s) {
+	        //  if(s.length==1) return 1;
+	              int left = 0;
+	  			int right = 0;
+	  			int count = 0;
+	  			int maxLen = 0;
+	  			int[] cCount = new int[s.length+1];
+
+	  			for (right = 0; right < s.length; right++) {
+	  				//increment the count if new char, and also increment the respective char count in 'cCount'.
+	  				if (cCount[s[right]]++ == 0) {
+	  					count++;
+	  				}
+
+	  				while (count > 2) {
+	  					if (cCount[s[left]] == 1)
+	  						count--;
+	  					cCount[s[left++]]--;
+	  				}
+
+	  				
+	  					maxLen = Math.max(maxLen, right - left + 1);
+	  				
+	  			}
+
+	  			return maxLen == 0 ? 0 : maxLen;   
+	      }
 }

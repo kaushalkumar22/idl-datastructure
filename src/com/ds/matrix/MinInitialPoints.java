@@ -1,4 +1,7 @@
 package com.ds.matrix;
+
+import java.util.Arrays;
+
 /**
  * Given a grid with each cell consisting of positive, negative or no points i.e, zero points. 
  * We can move across a cell only if we have positive points ( > 0 ). 
@@ -14,33 +17,47 @@ package com.ds.matrix;
  *
  */
 public class MinInitialPoints{
-	
+
 	private static int  getMinInitialPoints(int points[][]){
-		
-		int c = points.length;
-		int r = points[0].length;
-		int[][] minPointTable = new int[r][c];
-		int m = r, n = c;
+
+		int col = points.length;
+		int row = points[0].length;
+		int[][] dp = new int[row][col];
+
 
 		//we will start from Destination with minimum point minPointTable[m-1][n] 
-		minPointTable[m-1][n-1] = points[m-1][n-1] > 0? 1: Math.abs(points[m-1][n-1]) + 1;
+		dp[row-1][col-1] = points[row-1][col-1] > 0? 1: Math.abs(points[row-1][col-1]) + 1;
 
 		//Fill last row and last column as base to fill entire table
-		for (int i = m-2; i >= 0; i--)
-			minPointTable[i][n-1] = Math.max(minPointTable[i+1][n-1] - points[i][n-1], 1);
-		for (int j = n-2; j >= 0; j--)
-			minPointTable[m-1][j] = Math.max(minPointTable[m-1][j+1] - points[m-1][j], 1);
+		for (int i = row-2; i >= 0; i--)
+			dp[i][col-1] = Math.max(dp[i+1][col-1] - points[i][col-1], 1);
+		for (int j = col-2; j >= 0; j--)
+			dp[row-1][j] = Math.max(dp[row-1][j+1] - points[row-1][j], 1);
 
 		// fill the table in bottom-up fashion
-		for (int i=m-2; i>=0; i--)
+		for (int i=row-2; i>=0; i--)
 		{
-			for (int j=n-2; j>=0; j--)
+			for (int j=col-2; j>=0; j--)
 			{
-				minPointTable[i][j] = Math.max(Math.min(minPointTable[i+1][j], minPointTable[i][j+1]) - points[i][j], 1);
+				dp[i][j] = Math.max(Math.min(dp[i+1][j], dp[i][j+1]) - points[i][j], 1);
 			}
 		}
 
-		return minPointTable[0][0];
+		return dp[0][0];
+	}
+	static int  calculateMinimumHP1(int[][] dungeon) {
+		int row=dungeon.length;
+		int	col=dungeon[0].length;
+		int[] dp = new int[row+1];
+		Arrays.fill(dp, Integer.MAX_VALUE);
+		dp[row-1]=1;
+		for(int j=col-1;j>=0;j--){
+			for(int i=row-1;i>=0;i--){
+				dp[i]=Math.min(dp[i],dp[i+1])-dungeon[i][j];
+				dp[i]=Math.max(1,dp[i]);
+			}
+		}
+		return dp[0];
 	}
 	public static void main(String[] args) {
 		int[][] points = {
@@ -48,6 +65,6 @@ public class MinInitialPoints{
 				{-5, -10,  1}, 
 				{10,  30, -5} 
 		};
-		System.out.println("Minimum Initial Points : " + getMinInitialPoints(points));
+		System.out.println("Minimum Initial Points : " + calculateMinimumHP1(points));
 	}
 }

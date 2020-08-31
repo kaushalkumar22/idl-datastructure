@@ -16,19 +16,12 @@ package com.algo.slidingwindow;
  * substring from t, return 0.
  * 
  * 
- * 
- * Example 1:
- * 
  * Input: s = "abcd", t = "bcdf", maxCost = 3 Output: 3 Explanation: "abc" of s
  * can change to "bcd". That costs 3, so the maximum length is 3.
- * 
- * Example 2:
  * 
  * Input: s = "abcd", t = "cdef", maxCost = 3 Output: 1 Explanation: Each
  * character in s costs 2 to change to charactor in t, so the maximum length is
  * 1.
- * 
- * Example 3:
  * 
  * Input: s = "abcd", t = "acde", maxCost = 0 Output: 1 Explanation: You can't
  * make any change, so the maximum length is 1.
@@ -38,7 +31,9 @@ package com.algo.slidingwindow;
 public class GetEqualSubstringsWithinBudget {
 
 	public static void main(String[] args) {
-		// TODO Auto-generated method stub
+		String s = "abcd", t = "cdef";
+		int maxCost = 3;
+		System.out.println(equalSubstring( s, t, maxCost));
 
 	}
 	/*
@@ -52,16 +47,17 @@ public class GetEqualSubstringsWithinBudget {
 	 * Time O(N) for one pass Space O(1)
 	 */
 
-	    public int equalSubstring(String s, String t, int k) {
-	        int n = s.length(), i = 0, j;
-	        for (j = 0; j < n; ++j) {
-	            k -= Math.abs(s.charAt(j) - t.charAt(j));
-	            if (k < 0) {
-	                k += Math.abs(s.charAt(i) - t.charAt(i));
-	                ++i;
+	    public static int equalSubstring(String s, String t, int maxCost) {
+	        int  left = 0;
+	        int right; 
+	        for (right = 0; right < s.length(); ++right) {
+	        	maxCost -= Math.abs(s.charAt(right) - t.charAt(right));
+	            if (maxCost < 0) {
+	            	maxCost += Math.abs(s.charAt(left) - t.charAt(left));
+	                ++left;
 	            }
 	        }
-	        return j - i;
+	        return right - left;
 	    }
 
 

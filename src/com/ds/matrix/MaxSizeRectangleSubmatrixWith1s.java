@@ -1,6 +1,6 @@
 package com.ds.matrix;
 
-import com.algo.universal.Histogram;
+import com.algo.stack.common.Histogram;
 
 public class MaxSizeRectangleSubmatrixWith1s {
 

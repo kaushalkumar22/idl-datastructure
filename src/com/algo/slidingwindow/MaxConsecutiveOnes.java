@@ -13,6 +13,13 @@ package com.algo.slidingwindow;
  */
 public class MaxConsecutiveOnes {
 
+	public static void main(String[] args) {
+		int[] A = {1,1,1,0,0,0,1,1,1,1,0};
+		int K = 2;
+		System.out.println(longestOnes(A,K));
+		System.out.println(longestOnes1(A,K));
+
+	}
 	/*
 	 * Intuition
 	 * 
@@ -25,14 +32,25 @@ public class MaxConsecutiveOnes {
 	 * (as well as j).
 	 */
 
-
-	    public int longestOnes(int[] A, int K) {
-	        int i = 0, j;
-	        for (j = 0; j < A.length; ++j) {
-	            if (A[j] == 0) K--;
-	            if (K < 0 && A[i++] == 0) K++;
-	        }
-	        return j - i;
-	    }
-
+	public static int longestOnes(int[] A, int K) {
+		int i = 0, j = 0;
+		for (i = 0; i < A.length; ++i) {
+			K -= 1 - A[i];
+			if (K < 0) K += 1 - A[j++];
+		}
+		return i - j;
+	}
+	// Longest Repeating Character Replacement
+	public static int longestOnes1(int[] A, int K) {
+		int zeroCount=0,start=0,res=0;
+		for(int end=0;end<A.length;end++){
+			if(A[end] == 0) zeroCount++;
+			while(zeroCount > K){
+				if(A[start] == 0) zeroCount--;
+				start++;
+			}
+			res=Math.max(res,end-start+1);
+		}
+		return res;
+	}
 }
