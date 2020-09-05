@@ -36,7 +36,7 @@ public class DeleteNNodesAfterMNodes {
 
 	private void deleteListNodes(ListNode head, int m, int n) {
 
-		if (head == null || head.next == null)
+		if (head == null)
 			return;
 
 		ListNode curr = head, temp = null;

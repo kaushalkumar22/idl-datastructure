@@ -1,27 +1,40 @@
 package com.algo.twopointers;
 
+import java.util.Arrays;
+
 /**
  * Given an array of integers A sorted in non-decreasing order, return an array
  * of the squares of each number, also in sorted non-decreasing order.
+ * 
  * Input: [-4,-1,0,3,10] Output: [0,1,9,16,100]
  * 
- * @author I339640
+ * Input: [-7,-3,2,3,11] Output: [4,9,9,49,121]
  *
  */
 public class SquaresOfASortedArray {
-	 public int[] sortedSquares(int[] A) {
-	        int n = A.length;
-	        int[] result = new int[n];
-	        int i = 0, j = n - 1;
-	        for (int p = n - 1; p >= 0; p--) {
-	            if (Math.abs(A[i]) > Math.abs(A[j])) {
-	                result[p] = A[i] * A[i];
-	                i++;
-	            } else {
-	                result[p] = A[j] * A[j];
-	                j--;
-	            }
-	        }
-	        return result;
-	    }
+
+	public static void main(String[] args) {
+      int[] A = {-7,-3,2,3,11};
+      System.out.println(Arrays.toString(sortedSquares(A)));
+	}
+	//take two pointer left and right  and compare values of both index
+	//which one is greater put at the end of a new array repeat the same
+	public static int[] sortedSquares(int[] A) {
+	
+		int left=0;
+		int right = A.length-1;
+		int[] result =new int[A.length];
+		int c =A.length-1;
+		while(left<=right) {
+			if(Math.abs(A[left])>Math.abs(A[right])) {
+				result[c--]=A[left]*A[left];
+				left++;
+			}else {
+				result[c--]=A[right]*A[right];
+				right--;
+			}
+		}
+		return result;
+
+	}
 }

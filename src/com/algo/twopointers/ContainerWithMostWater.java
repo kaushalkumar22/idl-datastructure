@@ -1,4 +1,4 @@
-package com.algo.universal;
+package com.algo.twopointers;
 
 /**
  * Given n non-negative integers a1, a2, ..., an , where each represents a point
@@ -17,21 +17,28 @@ package com.algo.universal;
  * 
  */
 public class ContainerWithMostWater {
-	
 
 	public static void main(String[] args) {
 		int[] height= {1,8,6,2,5,4,8,3,7};
 		System.out.println(maxArea(height));
 	}
-	static int maxArea(int[] arr) {
+	private static int maxArea(int[] arr) {
 		int water = 0;
-		int left = 0, right = arr.length - 1;
-		while (left < right) {
-			int height = Math.min(arr[left], arr[right]);
-			water = Math.max(water, (right - left) * height);
-			while (left < right && arr[left] <= height) left++;
-			while (left < right && arr[right] <= height) right--;
+		int height =0;
+		int left =0;
+		int right =arr.length-1;
+		while(left<right) {
+			height= Math.min(arr[left], arr[right]);
+			water = Math.max(water, (right-left)*height);
+			
+			while(left<right&&arr[left]<=height) {
+				left++;
+			}
+			while(left<right&&arr[right]<=height) {
+				right--;
+			}
 		}
 		return water;
+
 	}
 }

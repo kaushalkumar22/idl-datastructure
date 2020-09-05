@@ -17,7 +17,7 @@ time complexity O(nlon(n))
  * @author IBM
  *
  */
-public class TripletsSumZero {
+public class ThreeSumZero {
 	public static void main (String[] args) { 
 		int arr[] = {-1,0,1,2,-1,-4}; 
 		System.out.println(threeSum(arr)); 
@@ -41,9 +41,12 @@ public class TripletsSumZero {
 
 				if(nums[i]+nums[low]+nums[high]==0){
 					triplets.add(Arrays.asList(nums[i],nums[low],nums[high]));			
-					while(low<high&&nums[low]==nums[low+1]) low++;//if there are duplicate need to skip and forward 
-					while(low<high&&nums[high]==nums[high-1]) high--;//if there are duplicate need to skip and backward 
-
+					while(low<high&&nums[low]==nums[low+1]) {
+						low++;//if there are duplicate need to skip and forward 
+					}
+					while(low<high&&nums[high]==nums[high-1]) {
+						high--;//if there are duplicate need to skip and backward 
+					}
 					low++;
 					high--;
 				}else if(nums[i]+nums[low]+nums[high]<0) {

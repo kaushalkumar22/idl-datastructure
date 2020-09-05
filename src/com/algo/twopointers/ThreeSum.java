@@ -9,10 +9,8 @@ import java.util.List;
  * The solution set must not contain duplicate triplets.
  * Given array nums = [-1,0,1,2,-1,4], and target = 3.
  * output[[-1, 0, 4], [0, 1, 2]]
- *
- *
  */
-public class TripletsSumK {
+public class ThreeSum {
 	public static void main (String[] args) { 
 		int arr[] = {-1,0,1,2,-1,4}; 
 		int k=3;

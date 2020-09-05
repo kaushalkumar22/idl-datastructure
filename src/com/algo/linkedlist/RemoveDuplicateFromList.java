@@ -5,7 +5,7 @@ package com.algo.linkedlist;
 import java.util.Hashtable;
 public class RemoveDuplicateFromList {
 	
-	private Node head;
+	private static Node head;
 	private Node last;
 	public static void main(String[] args) {
 		RemoveDuplicateFromList list = new RemoveDuplicateFromList();
@@ -20,7 +20,8 @@ public class RemoveDuplicateFromList {
 		list.createList(8);
 		list.createList(9);
 		System.out.print("Actual Linked  ");
-		list.displayForward();	 
+		list.displayForward();	
+		list.deleteDuplicates( head);
 		list.removeDuplicateWithBuffer();
 		System.out.print("With Buffer    ");
 		list.displayForward();
@@ -43,6 +44,18 @@ public class RemoveDuplicateFromList {
 			current = current.next;
 		}
 	}
+	public Node deleteDuplicates(Node head) {
+        Node curr=head;
+        while(curr != null&&curr.next != null){
+            if( curr.data == curr.next.data){
+                curr.next= curr.next.next;
+            }{
+                curr=curr.next;
+            }
+        }
+       
+        return head;
+}
 	void removeDuplicateWithoutBuffer() {
 		if(head == null){ 
 			return;

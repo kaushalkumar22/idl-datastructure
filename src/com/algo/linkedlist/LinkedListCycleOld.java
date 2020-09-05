@@ -21,7 +21,7 @@ This is the fastest method. Traverse linked list using two pointers.  Move one p
  pointer by two.  If these pointers meet at some node then there is a loop.  If pointers do not meet then 
  linked list doesn’t have loop.
 */
-public class DetectCycleLinkedList {
+public class LinkedListCycleOld {
 	
 	
 
@@ -52,7 +52,7 @@ public class DetectCycleLinkedList {
 		System.out.print("Original List :: ");
 		ListUtil.print(list);
 		list.next.next.next.next.next = list.next.next;	// Creating a loop for testing 
-		DetectCycleLinkedList detectCycle = new DetectCycleLinkedList(); 
+		LinkedListCycleOld detectCycle = new LinkedListCycleOld(); 
 		System.out.println("list having cycle:"+detectCycle.isContainsLoop(list));	
 	}
 }

@@ -1,6 +1,8 @@
 package com.algo.linkedlist;
 
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 import java.util.Stack;
 
 /**
@@ -20,31 +22,37 @@ import java.util.Stack;
  * second node value of 1, and third node value of 5.
  * 
  * 
+ * Input: [2,1,5] Output: [5,5,0] 
  * 
- * Example 1:
+ * Input: [2,7,4,3,5] Output: [7,0,5,5,0]
  * 
- * Input: [2,1,5] Output: [5,5,0] Example 2:
- * 
- * Input: [2,7,4,3,5] Output: [7,0,5,5,0] Example 3:
- * 
- * Input: [1,7,5,1,9,2,5,1] Output: [7,9,9,9,0,5,0,0]F
- * 
- * @author I339640
+ * Input: [1,7,5,1,9,2,5,1] Output: [7,9,9,9,0,5,0,0]
  *
  */
 public class NextGreaterNodeInLinkedList {
-	
+	public static void main(String[] args) {
+		ListNode head = ListUtil.createList(Arrays.asList(1,7,5,1,9,2,5,1));
+		System.out.print("Original List :: ");
+		ListUtil.print(head);
+		int[] res = new NextGreaterNodeInLinkedList().nextLargerNodes(head);
+		System.out.println(Arrays.toString(res));
+	}
 	 public int[] nextLargerNodes(ListNode head) {
-	        ArrayList<Integer> A = new ArrayList<>();
-	        for (ListNode node = head; node != null; node = node.next)
-	            A.add(node.val);
-	        int[] res = new int[A.size()];
-	        Stack<Integer> stack = new Stack<>();
-	        for (int i = 0; i < A.size(); ++i) {
-	            while (!stack.isEmpty() && A.get(stack.peek()) < A.get(i))
-	                res[stack.pop()] = A.get(i);
-	            stack.push(i);
-	        }
-	        return res;
-	    }
+	     
+		 ListNode curr = head;
+		 List<Integer> li = new ArrayList<Integer>();
+		 while(curr!=null) {
+			li.add(curr.val);
+			 curr=curr.next;
+		 }
+		 int[] res = new int[li.size()];
+		 Stack<Integer> st = new Stack<Integer>();
+		 for(int i=0;i<li.size();i++) {
+			 while(!st.isEmpty()&&li.get(st.peek())<li.get(i)) {
+				 res[st.pop()]=li.get(i);
+			 }
+			 st.push(i);
+		 }
+		 return res;
+	}
 }

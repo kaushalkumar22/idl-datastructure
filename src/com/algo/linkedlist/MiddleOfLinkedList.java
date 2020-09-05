@@ -1,62 +1,49 @@
 package com.algo.linkedlist;
 
+import java.util.Arrays;
+import java.util.List;
 
-
+/**
+ * Given a non-empty, singly linked list with head node head, return a middle
+ * node of linked list.
+ * 
+ * If there are two middle nodes, return the second middle node.
+ * 
+ * 
+ * Input: [1,2,3,4,5] Output: Node 3 from this list (Serialization: [3,4,5]) The
+ * returned node has value 3. (The judge's serialization of this node is
+ * [3,4,5]). Note that we returned a ListNode object ans, such that: ans.val =
+ * 3, ans.next.val = 4, ans.next.next.val = 5, and ans.next.next.next = NULL.
+ * 
+ * Example 2:
+ * 
+ * Input: [1,2,3,4,5,6] Output: Node 4 from this list (Serialization: [4,5,6])
+ * Since the list has two middle nodes with values 3 and 4, we return the second
+ * one.
+ *
+ * 
+ */
 public class MiddleOfLinkedList {
-	
-	private Node head;
-	private Node last;
+
 	public static void main(String[] args) {
-		
+
 		MiddleOfLinkedList list = new MiddleOfLinkedList();
-		list.linkLast(5);
-		list.linkLast(3);
-		list.linkLast(6);
-		list.linkLast(7);
-		list.linkLast(13);
-		list.linkLast(12);		
-		list.linkLast(11);
-		
-		list.displayForward();
-		Node k1=list.linkLastMidlle();
-		System.out.println(k1.data);
+		List<Integer> nums = Arrays.asList(1, 2, 2, 4, 7, 8, 10, 15, 20);
+		ListNode node = ListUtil.createList(nums);
+		System.out.print("Original List :: ");
+		ListUtil.print(node);
+		ListNode k1 = list.linkLastMidlle(node);
+		System.out.println("Middle " + k1.val);
 	}
-	
-	private Node linkLastMidlle() {
-		Node p1 = head;
-		Node p2 = head;
-		while (p2.next != null){
+
+	private ListNode linkLastMidlle(ListNode head) {
+		ListNode p1 = head;
+		ListNode p2 = head;
+		while (p2 != null && p2.next != null) {
 			p1 = p1.next;
 			p2 = p2.next.next;
-		
+
 		}
 		return p1;
-	}
-	private void linkLast(int e) {
-		Node current = last;
-		Node newNode = new Node(e);
-		last = newNode;
-		if (current == null)
-			head = newNode;
-		else
-			current.next = newNode;
-	}
-	public void displayForward() {
-		System.out.print("List: ");
-		Node current = head; 
-		while (current != null) 
-		{
-			System.out.print(current.data+"-->");
-			current = current.next; 
-		}
-		System.out.println("");
-	}
-	private static class Node{
-		int data;
-		Node next;
-		private Node(int ele){
-			data = ele;
-			next = null;
-		}
 	}
 }

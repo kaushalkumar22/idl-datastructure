@@ -1,4 +1,4 @@
-package com.algo.array.pi;
+package com.algo.twopointers;
 
 import java.util.Arrays;
 import java.util.stream.Collectors;
