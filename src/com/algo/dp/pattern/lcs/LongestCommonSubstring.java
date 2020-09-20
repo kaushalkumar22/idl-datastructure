@@ -14,27 +14,32 @@ public class LongestCommonSubstring {
 		}
 		System.out.println(LCS( s1,  s2));
 	}
-public static int LCS(String s1, String s2) {
-		
-	int m= s1.length();
-	int n =s2.length();
-	int[][] T = new int[m+1][n+1];
-	int max = Integer.MIN_VALUE;
-	for(int i=1;i<m+1;i++) {
-		for(int j=1;j<n+1;j++) {
-			if(s1.charAt(i-1)==s2.charAt(j-1)) {
-				T[i][j] = 1+T[i-1][j-1];
-				max= Math.max(max, T[i][j]);
-			}else {
-				T[i][j] =0;//in java this else part not require its already 0
-				max= Math.max(max, T[i][j]);
+	public static int LCS(String s1, String s2) {
+
+		int m= s1.length();
+		int n =s2.length();
+		int[][] T = new int[m+1][n+1];
+		String[][] dp = new String[m+1][n+1];
+		int max = Integer.MIN_VALUE;
+		String str="";
+		for(int i=1;i<m+1;i++) {
+			for(int j=1;j<n+1;j++) {
+				if(s1.charAt(i-1)==s2.charAt(j-1)) {
+					T[i][j] = 1+T[i-1][j-1];
+					dp[i][j] = s1.charAt(i-1)+dp[i-1][j-1];
+					if(max<T[i][j]) {
+						max= T[i][j];
+						str=dp[i][j];
+					}
+
+				}
 			}
 		}
-	}
+		System.out.println(str);
 		return max;
 	}
 	public static List<String> commonSubstring(String S1, String S2) {
-		
+
 		Integer match[][] = new Integer[S1.length()][S2.length()];
 
 		int len1 = S1.length();
@@ -52,13 +57,13 @@ public static int LCS(String s1, String s2) {
 						match[i][j] = match[i - 1][j - 1] + 1;
 
 					if (match[i][j] > max) // If you find a longer common substring re-initialize the max count and
-											// update the result list.
+						// update the result list.
 					{
 						max = match[i][j];
 						result = new ArrayList<String>();
 						result.add(S1.substring(i - max + 1, i + 1)); // substring starts at i-max+1 and ends at i
 					} else if (match[i][j] == max) // else if you find a common substring with the max length, store it
-													// in the list.
+						// in the list.
 					{
 						result.add(S1.substring(i - max + 1, i + 1));
 					}

@@ -1,5 +1,7 @@
 package com.algo.dp.pattern.lcs;
 
+import java.util.Arrays;
+
 /**
  * Given two strings str1 and str2, return the shortest string that has both
  * str1 and str2 as subsequences. If multiple answers exist, you may return any
@@ -20,7 +22,6 @@ public class ShortestCommonSupersequence {
 	public static void main(String[] args) {
 		String s1="abac";
 		String s2="cab";
-		System.out.println(null+s1);
 		System.out.println(shortestCommonSupersequenceLength( s1,  s2) );
 		System.out.println(shortestCommonSupersequence( s1,  s2));
 	}
@@ -61,11 +62,8 @@ public class ShortestCommonSupersequence {
 		int n =s2.length();
 
 		String[][] T= new String[m+1][n+1];
-		for(int i=0;i<m+1;i++) {
-			for(int j=0;j<n+1;j++) {
-				T[i][j]="";
-			}
-		}
+		for (int i = 0; i < T.length; i++) 
+		      Arrays.fill(T[i], "");
 		for(int i=1;i<m+1;i++) {
 			for(int j=1;j<n+1;j++) {
 				if(s1.charAt(i-1)==s2.charAt(j-1)) {

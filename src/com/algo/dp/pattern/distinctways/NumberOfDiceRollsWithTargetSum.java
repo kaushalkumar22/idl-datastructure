@@ -24,6 +24,7 @@ import java.util.Arrays;
  * Input: n = 5 Output: 68
  *
  */
+//This problem is like 518. Coin Change 2, with the difference that the total number of coins (dices) should be equal to d.
 public class NumberOfDiceRollsWithTargetSum {
 
 	public static void main(String[] args) {

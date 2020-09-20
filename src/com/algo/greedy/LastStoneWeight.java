@@ -1,5 +1,7 @@
 package com.algo.greedy;
 
+import java.util.PriorityQueue;
+
 /**
  * 
  * We have a collection of stones, each stone has a positive integer weight.
@@ -25,5 +27,12 @@ package com.algo.greedy;
  *
  */
 public class LastStoneWeight {
-
+	public int lastStoneWeight(int[] A) {
+        PriorityQueue<Integer> pq = new PriorityQueue<>((a, b)-> b - a);
+        for (int a : A)
+            pq.offer(a);
+        while (pq.size() > 1)
+            pq.offer(pq.poll() - pq.poll());
+        return pq.poll();
+    }
 }

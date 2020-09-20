@@ -43,7 +43,8 @@ public class KnightProbabilityInChessboard {
 	        if(K == 0)  return 1;
 	        if(dp[r][c][K] != 0) return dp[r][c][K];
 	        double rate = 0;
-	        for(int i = 0;i < dir.length;i++)   rate += 0.125 * find(N,K - 1,r + dir[i][0],c + dir[i][1]);
+	        for(int i = 0;i < dir.length;i++)  
+	        	rate += 0.125 * find(N,K - 1,r + dir[i][0],c + dir[i][1]);
 	        dp[r][c][K] = rate;
 	        return rate;
 	    }

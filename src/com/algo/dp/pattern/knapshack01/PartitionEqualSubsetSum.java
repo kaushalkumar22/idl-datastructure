@@ -73,13 +73,14 @@ public class PartitionEqualSubsetSum {
 	    Arrays.fill(dp, false);
 	    dp[0] = true;
 	    
-	    for (int num : nums) {
-	        for (int i = sum; i > 0; i--) {
-	            if (i >= num) {
-	                dp[i] = dp[i] || dp[i-num];
-	            }
-	        }
-	    }
+
+		for(int i=0;i<n;i++) {
+			for(int j=sum;j>=0;j--) {
+				if(nums[i]<=j) {
+					dp[j]=dp[j-nums[i]]||dp[j];
+				}
+			}
+		}
 	    
 	    return dp[sum];
 	}

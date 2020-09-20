@@ -3,7 +3,7 @@ package com.algo.dp.pattern.mergingintervals;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.algo.binarytree.common.TreeNode;
+import com.algo.tree.common.TreeNode;
 
 public class UniqueBinarySearchTrees {
 

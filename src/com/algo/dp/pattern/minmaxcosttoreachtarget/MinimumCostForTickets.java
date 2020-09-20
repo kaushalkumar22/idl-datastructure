@@ -61,7 +61,8 @@ public class MinimumCostForTickets {
 				dp[i % 30] = dp[(i - 1) % 30]; // we don't have this day for travel, price as yesterday
 			else { // i == days[d]
 				dp[i % 30] = Math.min(dp[(i - 1) % 30] + costs[0],
-						Math.min(dp[Math.max(i - 7, 0) % 30] + costs[1], dp[Math.max(i - 30, 0) % 30] + costs[2]));
+						Math.min(dp[Math.max(i - 7, 0) % 30] + costs[1], 
+								dp[Math.max(i - 30, 0) % 30] + costs[2]));
 				d++;
 			}
 		}

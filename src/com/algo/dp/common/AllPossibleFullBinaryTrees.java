@@ -3,7 +3,7 @@ package com.algo.dp.common;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.algo.binarytree.common.TreeNode;
+import com.algo.tree.common.TreeNode;
 
 /**
  * A full binary tree is a binary tree where each node has exactly 0 or 2

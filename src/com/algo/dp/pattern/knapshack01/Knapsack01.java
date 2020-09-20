@@ -15,7 +15,7 @@ import java.util.Map;
 public class Knapsack01 {
 
 	public static void main(String args[]) {
-		int wt[] = { 3, 1, 5, 4 };
+		int wt[] =  { 3, 1, 5, 4 };
 		int val[] = { 4, 1, 7, 5 };
 		int w = 7;
 
@@ -46,7 +46,7 @@ public class Knapsack01 {
 			for (int j = 1; j <= w; j++) {
 
 				if (wt[i - 1] <= j) {
-					T[i][j] = Math.max(val[i - 1] + T[n - 1][j - wt[i - 1]], T[i - 1][j]);
+					T[i][j] = Math.max(val[i - 1] + T[i - 1][j - wt[i - 1]], T[i - 1][j]);
 				} else {
 					T[i][j] = T[i - 1][j];
 				}

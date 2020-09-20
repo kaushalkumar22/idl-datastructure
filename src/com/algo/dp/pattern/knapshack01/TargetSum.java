@@ -53,9 +53,12 @@ public class TargetSum {
 	public int subsetSum(int[] nums, int s) {
 		int[] dp = new int[s + 1]; 
 		dp[0] = 1;
-		for (int n : nums)
-			for (int i = s; i >= n; i--)
-				dp[i] += dp[i - n]; 
+		for (int i=0;i<nums.length;i++)
+			for (int j = s; j >=0; i--)
+				if(nums[i]<=j) {
+					dp[j] = dp[j]+dp[j - nums[i]]; 
+				}
+				
 		return dp[s];
 	}
 	

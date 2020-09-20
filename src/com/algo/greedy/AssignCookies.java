@@ -1,5 +1,7 @@
 package com.algo.greedy;
 
+import java.util.Arrays;
+
 /**
  * Assume you are an awesome parent and want to give your children some cookies.
  * But, you should give each child at most one cookie. Each child i has a greed
@@ -35,5 +37,13 @@ package com.algo.greedy;
  *
  */
 public class AssignCookies {
-
+	public int findContentChildren(int[] g, int[] s) {
+		Arrays.sort(g);
+		Arrays.sort(s);
+		int i = 0;
+		for(int j=0;i<g.length && j<s.length;j++) {
+			if(g[i]<=s[j]) i++;
+		}
+		return i;
+	}
 }
