@@ -1,5 +1,8 @@
 package com.algo.greedy;
 
+import java.util.Map;
+import java.util.TreeMap;
+
 /**
  * Given an array of integers nums and a positive integer k, find whether it's
  * possible to divide this array into sets of k consecutive numbers Return True
@@ -30,5 +33,20 @@ package com.algo.greedy;
  *
  */
 public class DivideArrayInSetsOfKConsecutiveNumbers {
-
+	public boolean isPossibleDivide(int[] nums, int k) {
+        TreeMap<Integer, Integer> m = new TreeMap<>();
+        for (int n : nums)
+            m.put(n, 1 + m.getOrDefault(n, 0));
+        while (!m.isEmpty()) {
+            Map.Entry<Integer, Integer> e = m.pollFirstEntry();
+            int key = e.getKey(), val = e.getValue();
+            for (int key1 = key + 1; key1 < key + k; ++key1) {
+                Integer oldVal = m.put(key1, m.getOrDefault(key1, 0) - val);
+                if (oldVal == null || oldVal < val)
+                    return false;
+                m.remove(key1, 0);
+            }
+        }
+        return true;
+    }
 }

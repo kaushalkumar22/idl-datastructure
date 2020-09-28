@@ -37,5 +37,25 @@ public class CheckIfAStringCanBreakAnotherString {
 		// TODO Auto-generated method stub
 
 	}
+	boolean checkIfCanBreak(String s1, String s2) {
+        if(s1.length()!=s2.length()) return false;
+        int A[]=new int[26],B[]=new int[26];
+        for(char c:s1.toCharArray()){
+            A[c-'a']++;
+        }
+        for(char c:s2.toCharArray()){
+            B[c-'a']++;
+        }
+        int a=0,b=0,k=0;
+        for(int i=0;i<26;i++){
+            a+=A[i];
+            b+=B[i];
+            if(k==1 && a<b) return false;
+            if(k==2 && a>b) return false;
+            if(a>b && k==0) k=1;
+            else if(a<b && k==0) k=2;
+        }
+        return true;
+    }
 
 }

@@ -1,5 +1,4 @@
 
-random			        https://leetcode.com/tag/random/
 binary-search			https://leetcode.com/tag/binary-search/
 sliding-window			https://leetcode.com/tag/sliding-window/
 two-pointers			https://leetcode.com/tag/two-pointers/
@@ -9,27 +8,21 @@ stack			        https://leetcode.com/tag/stack/
 queue			        https://leetcode.com/tag/queue/
 heap			        https://leetcode.com/tag/heap/
 backtracking			https://leetcode.com/tag/backtracking/
+tree			        https://leetcode.com/tag/tree/
+trie			        https://leetcode.com/tag/trie/
 string			        https://leetcode.com/tag/string/
+sort			        https://leetcode.com/tag/sort/
+linked-list			    https://leetcode.com/tag/linked-list/
+array			        https://leetcode.com/tag/array/
 depth-first-search		https://leetcode.com/tag/depth-first-search/
 breadth-first-search    https://leetcode.com/tag/breadth-first-search/
-tree			        https://leetcode.com/tag/tree/
 graph			        https://leetcode.com/tag/graph/
-trie			        https://leetcode.com/tag/trie/
-sort			        https://leetcode.com/tag/sort/
-recursion			    https://leetcode.com/tag/recursion/
-minimax			        https://leetcode.com/tag/minimax/
-rejection-sampling		https://leetcode.com/tag/rejection-sampling/
-brainteaser			    https://leetcode.com/tag/brainteaser/
 math			        https://leetcode.com/tag/math/
-linked-list			    https://leetcode.com/tag/linked-list/
-union-find			    https://leetcode.com/tag/union-find/
 geometry			    https://leetcode.com/tag/geometry/
-array			        https://leetcode.com/tag/array/
-divide-and-conquer		https://leetcode.com/tag/divide-and-conquer/
+bit-manipulation		https://leetcode.com/tag/bit-manipulation/
 design			        https://leetcode.com/tag/design/
 hash-table			    https://leetcode.com/tag/hash-table/
-bit-manipulation		https://leetcode.com/tag/bit-manipulation/
+
+union-find			    https://leetcode.com/tag/union-find/
 ordered-map			    https://leetcode.com/tag/ordered-map/
 segment-tree			https://leetcode.com/tag/segment-tree/
-binary-indexed-tree		https://leetcode.com/tag/binary-indexed-tree/
-line-sweep			    https://leetcode.com/tag/line-sweep/
