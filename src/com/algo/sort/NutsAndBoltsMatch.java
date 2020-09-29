@@ -1,4 +1,4 @@
-package com.algo.universal;
+package com.algo.sort;
 /*
  *Matching nuts and bolts problem can be stated as follows: â Given a collection of n nuts of distinct sizes and n bolts 
  *such that there is a one-to-one correspondence between the nuts and the bolts, find for each nut its corresponding bolt.

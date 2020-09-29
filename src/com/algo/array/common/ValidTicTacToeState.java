@@ -1,4 +1,4 @@
-package com.algo.universal;
+package com.algo.array.common;
 
 import java.math.BigDecimal;
 

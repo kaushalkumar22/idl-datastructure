@@ -1,4 +1,4 @@
-package com.algo.universal;
+package com.algo.array.common;
 
 import java.util.ArrayList;
 /*Given an array of size n, find the element which occurs more than n/2 times. 

@@ -1,4 +1,4 @@
-package com.algo.universal;
+package com.algo.dp.common;
 
 /**
  * Given an input string (s) and a pattern (p), implement regular expression
