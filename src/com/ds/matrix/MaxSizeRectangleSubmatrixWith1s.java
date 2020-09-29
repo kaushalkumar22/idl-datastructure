@@ -1,6 +1,6 @@
 package com.ds.matrix;
 
-import com.algo.stack.common.Histogram;
+import com.algo.stack.common.LargestRectangleInHistogram;
 
 public class MaxSizeRectangleSubmatrixWith1s {
 
@@ -20,7 +20,7 @@ public class MaxSizeRectangleSubmatrixWith1s {
 					temp[j] += matrix[i][j];
 				}
 			}
-			area = Histogram.getmaxArea(temp);
+			area = LargestRectangleInHistogram.getmaxArea(temp);
 
 			if(area > maxArea){
 				maxArea = area;
