@@ -63,15 +63,14 @@ public class BinaryTreeLeftSideView {
 
 			for(int i=0;i<size;i++) {
 				root = queue.poll();
-				if ( i== size-1)
+				if ( i== 0)
 					res.add(root.val);
-				
-				if (root.right != null)
-					queue.offer(root.right);
 				
 				if (root.left != null)
 					queue.offer(root.left);
 				
+				if (root.right != null)
+					queue.offer(root.right);		
 			}
 		}
 

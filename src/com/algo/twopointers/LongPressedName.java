@@ -14,12 +14,12 @@ package com.algo.twopointers;
  * Example 1:
  * 
  * Input: name = "alex", typed = "aaleex" Output: true Explanation: 'a' and 'e'
- * in 'alex' were long pressed. Example 2:
+ * in 'alex' were long pressed.
  * 
  * Input: name = "saeed", typed = "ssaaedd" Output: false Explanation: 'e' must
- * have been pressed twice, but it wasn't in the typed output. Example 3:
+ * have been pressed twice, but it wasn't in the typed output.
  * 
- * Input: name = "leelee", typed = "lleeelee" Output: true Example 4:
+ * Input: name = "leelee", typed = "lleeelee" Output: true
  * 
  * Input: name = "laiden", typed = "laiden" Output: true Explanation: It's not
  * necessary to long press any character.
@@ -28,18 +28,20 @@ package com.algo.twopointers;
 public class LongPressedName {
 
 	public static void main(String[] args) {
-		String name = "leelee", typed = "lleeelee";
+		String name = "alex", typed = "aaleex";
 		System.out.println(isLongPressedName( name, typed));
-
+//
 	}
-	 public static boolean isLongPressedName(String name, String typed) {
-	        int i = 0, m = name.length(), n = typed.length();
-	        for (int j = 0; j < n; ++j)
-	            if (i < m && name.charAt(i) == typed.charAt(j))
-	                ++i;
-	            else if (j == 0 || typed.charAt(j) != typed.charAt(j - 1))
-	                return false;
-	        return i == m;
-	    }
+	public static boolean isLongPressedName(String name, String typed) {
+		int i = 0, m = name.length(), n = typed.length();
+		for (int j = 0; j < n; ++j) {
+			if (i < m && name.charAt(i) == typed.charAt(j)) {
+				++i;
+			}else if (j==0||typed.charAt(j)!= typed.charAt(j - 1)) {
+				 return false;
+          }
+		}    
+		return i == m;
 	}
+}
 

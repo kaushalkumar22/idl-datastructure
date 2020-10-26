@@ -1,28 +1,25 @@
 package com.algo.twopointers;
 
+import java.util.Arrays;
+
 public class Sort0and1 {
 	public static void main(String[] args) {
 
 		int arr[] = {0,1,0,0,1,0,1,1,0};
+		sort01(arr);
+		System.out.println(Arrays.toString(arr));	
+	}
+	private static void sort01(int arr[]){
 		int j=0;
-		int k =  arr.length-1;
-
-		while(j<=k){
-			if(arr[j]==0){
+		int n =  arr.length;
+		for(int i=0;i<n;i++) {
+			if(arr[i]==0) {
+				int temp = arr[i];
+				arr[i] = arr[j];
+				arr[j] = temp;
 				j++;
-			}else if(arr[j]==1){
-				swap(arr,k,j);
-				k--;
 			}
 		}
-		for(int i=0;i<arr.length;i++){
-			System.out.print(arr[i]+" ");
-		}
-	}
-	private static void swap(int arr[],int i,int j){
-		int temp = arr[i];
-		arr[i] = arr[j];
-		arr[j] = temp;
 	}
 }
 

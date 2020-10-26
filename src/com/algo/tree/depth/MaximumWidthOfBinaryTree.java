@@ -70,22 +70,31 @@ public class MaximumWidthOfBinaryTree {
 		TreeNode root = TreeUtil.createTree(nums);
 		System.out.println("Height of tree is : " + tree.widthOfBinaryTree(root));
 	}
-
+	private int max = 1;
+	public int widthOfBinaryTree1(TreeNode root) {
+		if (root == null) return 0;
+		List<Integer> startOfLevel = new ArrayList<>();
+		helper(root, 0, 1, startOfLevel);
+		return max;
+	}
+	public void helper(TreeNode root, int level, int index, List<Integer> list) {
+		if (root == null) return;
+		if (level == list.size()) list.add(index);
+		max = Math.max(max, index + 1 - list.get(level));
+		helper(root.left, level + 1, index * 2, list);
+		helper(root.right, level + 1, index * 2 + 1, list);
+	}
 	public int widthOfBinaryTree(TreeNode root) {
-		return dfs(root, 0, 1, new ArrayList<Integer>(), new ArrayList<Integer>());
+		return dfs(root, 0, 1, new ArrayList<>());
 	}
 
-	public int dfs(TreeNode root, int level, int order, List<Integer> start, List<Integer> end) {
-		if (root == null)
-			return 0;
-		if (start.size() == level) {
-			start.add(order);
-			end.add(order);
-		} else
-			end.set(level, order);
-		int cur = end.get(level) - start.get(level) + 1;
-		int left = dfs(root.left, level + 1, 2 * order, start, end);
-		int right = dfs(root.right, level + 1, 2 * order + 1, start, end);
-		return Math.max(cur, Math.max(left, right));
+	private int dfs(TreeNode node, int level, int index, List<Integer> starts) {
+		if (node == null) return 0;
+		if (starts.size() == level) starts.add(index);
+
+		int cur = index - starts.get(level) + 1;
+		int leftResult = dfs(node.left, level + 1, index * 2 + 1, starts);
+		int rightResult = dfs(node.right, level + 1, index * 2 + 2, starts);
+		return Math.max(cur, Math.max(leftResult, rightResult));
 	}
 }

@@ -44,12 +44,12 @@ public class DeleteAndEarn {
 		for (int num : nums) {
 			values[num] += num;
 		}
-		int take = 0, skip = 0;
-		for (final int value : values) {
-			final int temp = Math.max(skip + value, take);
-			skip = take;
-			take = temp;
+		int avoid = 0, using = 0;
+		for (int value : values) {
+				int temp = Math.max(avoid + value, using);
+				avoid = using;
+				using = temp;
 		}
-		return take;
+		return using;
 	}
 }

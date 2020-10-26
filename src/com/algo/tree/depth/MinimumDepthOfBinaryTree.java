@@ -14,10 +14,8 @@ import com.algo.tree.common.TreeUtil;
  * 
  * Note: A leaf is a node with no children.
  * 
- * Example:
- * 
  * Given binary tree [3,9,20,null,null,15,7],
- *    3
+ *  3
    / \
   9  20
     /  \
@@ -40,6 +38,8 @@ public class MinimumDepthOfBinaryTree {
 
 		int left = minDepth(root.left);
         int right = minDepth(root.right);
-        return (left == 0 || right == 0) ? left + right + 1: Math.min(left,right) + 1;
+        
+        int res =(left == 0 || right == 0) ? left + right + 1: Math.min(left,right) + 1;
+        return res;
 	}
 }

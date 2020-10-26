@@ -22,49 +22,56 @@ import java.util.List;
  */
 public class FourSum {
 	public static void main(String[] args) {
-		int nums[] = {1, 0, -1, 0, -2, 2}, target = 0;
-		System.out.println( fourSum(nums,target));
+		int nums[] = {-2,0,0,2,2}, target = 0;
+		System.out.println( new FourSum().fourSum(nums,target));
 	}
-	public static List<List<Integer>> fourSum(int[] nums, int target) {
+	public List<List<Integer>> fourSum(int[] nums, int target) {
+		Arrays.sort(nums);
+		return kSum(nums, target, 0, 4);
+	}
+	public List<List<Integer>> kSum(int[] nums, int target, int start, int k) {
 		List<List<Integer>> res = new ArrayList<>();
-		if(nums == null || nums.length < 4){ 
+		//base case
+		if (start == nums.length || nums[start] * k > target || target > nums[nums.length - 1] * k) {
 			return res;
 		}
-		Arrays.sort(nums);
-		for(int i = 0; i < nums.length - 3; i++){
-			if(i > 0 && nums[i - 1] == nums[i]){   //avoid duplicated
-				continue;
+		//base case2 to break the recursion
+		if (k == 2) {
+			return twoSum(nums, target, start);
+		}
+			
+		for (int i = start; i < nums.length; ++i) {
+			if(i != start && nums[i] == nums[i-1]) {
+				continue;//skip the duplicate
 			}
-			for(int j = i + 1; j < nums.length - 2; j++){
-				if(j > i + 1 && nums[j] == nums[j - 1]){   //avoid duplicated
-					continue;
-				}
-				int left = j + 1, right = nums.length - 1;
-				while(left < right){
-					int curr = nums[i] + nums[j] + nums[left] + nums[right];
-					if(curr == target){
-						List<Integer> t = helper(nums, i, j, left, right);
-						res.add(new ArrayList<Integer>(t));
-						left++; right--;
-						while(left < right && nums[left] == nums[left - 1]){
-							left++;
-						}
-						while(left < right && nums[right] == nums[right + 1]){
-							right--;
-						}
-					}else if(curr > target){
-						right--;
-					}else{
-						left++;
-					}
-				}
+			List<List<Integer>> var = kSum(nums, target - nums[i], i + 1, k - 1);
+			for (List<Integer> list : var) {
+				res.add(new ArrayList<>(Arrays.asList(nums[i])));
+				res.get(res.size() - 1).addAll(list);
 			}
 		}
 		return res;
 	}
-	private static List<Integer> helper(int[] nums, int i, int j, int k, int l){
-		List<Integer> t = new ArrayList<>();
-		t.add(nums[i]); t.add(nums[j]); t.add(nums[k]); t.add(nums[l]);
-		return t;
+	public List<List<Integer>> twoSum(int[] nums, int target, int low) {
+		List<List<Integer>> res = new ArrayList<>();
+		int high=nums.length-1; 				
+		while(low<high){	
+           int sum = nums[low]+nums[high];
+			if(sum==target){
+				res.add(Arrays.asList(nums[low],nums[high]));			
+				////if there are duplicate need to skip and forward 
+				while(low<high&&nums[low]==nums[low+1]) low++;
+				//if there are duplicate need to skip and backward 
+				while(low<high&&nums[high]==nums[high-1]) high--;
+
+				low++;
+				high--;
+			}else if(sum<target) {
+				low++;
+			}else {
+				high--;
+			}				
+		}                    
+		return res;
 	}
 }

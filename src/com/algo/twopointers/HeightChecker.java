@@ -1,7 +1,7 @@
 package com.algo.twopointers;
 
 /**
- * tudents are asked to stand in non-decreasing order of heights for an annual
+ * Students are asked to stand in non-decreasing order of heights for an annual
  * photo.
  * 
  * Return the minimum number of students that must move in order for all
@@ -26,7 +26,8 @@ package com.algo.twopointers;
  */
 public class HeightChecker {
 
-	//Just count the frequency of each height (using HashMap or int[] as the height is promised to be within range[1, 100]) and use 2 pointers to make comparison:
+	//Just count the frequency of each height (using HashMap or int[] as the height is 
+	//promised to be within range[1, 100]) and use 2 pointers to make comparison:
 
 	public int heightChecker(int[] heights) {
 		int[] heightToFreq = new int[101];

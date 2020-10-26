@@ -24,8 +24,7 @@ public class ProductOfArrayExceptSelf {
 
 	public static void main(String[] args) {
 		int[] nums = { 1, 2, 3, 4 };
-		System.out.println(IntStream.of(nums).boxed().collect(Collectors.toList()));
-		System.out.println(Arrays.stream(productExceptSelf(nums)).boxed().collect(Collectors.toList()));
+		System.out.println(Arrays.toString(productExceptSelf(nums)));
 
 	}
 

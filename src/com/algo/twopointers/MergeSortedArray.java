@@ -22,7 +22,7 @@ public class MergeSortedArray {
 		int[] nums1 = { 1, 2, 3, 0, 0, 0 }, nums2 = { 2, 5, 6 };
 		int m = 3, n = 3;
 		merge(nums1, m, nums2, n);
-		System.out.println(Arrays.stream(nums1).boxed().collect(Collectors.toList()));
+		System.out.println(Arrays.toString(nums1));
 	}
 
 	/*
@@ -38,19 +38,13 @@ public class MergeSortedArray {
 		int k = m + n - 1;
 		while (i >= 0 && j >= 0) {
 			if (A[i] > B[j]) {
-				A[k] = A[i];
-				k--;
-				i--;
+				A[k--] = A[i--];
 			} else {
-				A[k] = B[j];
-				k--;
-				j--;
+				A[k--] = B[j--];
 			}
 		}
 		while (j >= 0) {
-			A[k] = B[j];
-			k--;
-			j--;
+			A[k--] = B[j--];
 		}
 	}
 }

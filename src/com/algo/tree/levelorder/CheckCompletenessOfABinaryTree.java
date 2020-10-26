@@ -1,9 +1,12 @@
 package com.algo.tree.levelorder;
 
+import java.util.Arrays;
 import java.util.LinkedList;
+import java.util.List;
 import java.util.Queue;
 
 import com.algo.tree.common.TreeNode;
+import com.algo.tree.common.TreeUtil;
 
 /**
  * 
@@ -35,15 +38,17 @@ import com.algo.tree.common.TreeNode;
 public class CheckCompletenessOfABinaryTree {
 
 	public static void main(String[] args) {
-		
+		List<Integer> nums = (List<Integer>) Arrays.asList(1,2,3,4,5,null,7);
+		TreeNode root = TreeUtil.createTree(nums);
+		System.out.println(isCompleteTree(root));
 	}
-	public boolean isCompleteTree(TreeNode root) {
-        Queue<TreeNode> queue = new LinkedList<>();
-        queue.offer(root);
+	public static boolean isCompleteTree(TreeNode root) {
+        Queue<TreeNode> que = new LinkedList<>();
+        que.offer(root);
         boolean seenEmpty = false;
         
-        while(!queue.isEmpty()) {
-            TreeNode curr = queue.poll();
+        while(!que.isEmpty()) {
+            TreeNode curr = que.poll();
             if (curr == null) {
                 seenEmpty = true;
                 continue;
@@ -51,10 +56,9 @@ public class CheckCompletenessOfABinaryTree {
                     return false;
             }
             
-            queue.offer(curr.left);
-            queue.offer(curr.right);
-        }
-        
+            que.offer(curr.left);
+            que.offer(curr.right);
+        }        
         return true;
     }
 }

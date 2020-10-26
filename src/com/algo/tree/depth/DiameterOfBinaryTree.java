@@ -19,21 +19,41 @@ import com.algo.tree.common.TreeUtil;
       4   5    
  * Return 3, which is the length of the path [4,2,1,3] or [5,2,1,3].
  * 
- * @author I339640
- *
  */
 public class DiameterOfBinaryTree {
 	public static void main(String args[]) {
 		DiameterOfBinaryTree tree = new DiameterOfBinaryTree();
-		List<Integer> nums = Arrays.asList(1, 2, 3, 4, 5, 6);
+		List<Integer> nums = Arrays.asList(1, 2, 3, 4, 5);
 		TreeNode root = TreeUtil.createTree(nums);
-		System.out.println(tree.getDiameterOptimized(root)[0]);
 		System.out.println(tree.diameterOfBinaryTree(root));
+		System.out.println(tree.diameterOfBinaryTree1(root));
+	}
+	public int diameterOfBinaryTree(TreeNode root) {
+		return dfs(root)[1];
+	}
+	public int[] dfs(TreeNode root) {
+
+		// 0th element is height and 1st element is diameter
+		int[] result = new int[2];
+
+		if (root == null) return result;
+
+		int[] left  = dfs(root.left);
+		int[] right = dfs(root.right);
+
+		result[0] =  1+ Math.max(left[0], right[0]);
+		// Diameter = Max ( leftHeight + rightHeight, Max (leftDiameter, rightDiameter) )
+		result[1] =  Math.max(left[0] + right[0], Math.max(left[1], right[1]));
+
+
+		return result;
 	}
 
 	int max = 0;
 
-	public int diameterOfBinaryTree(TreeNode root) {
+
+
+	public int diameterOfBinaryTree1(TreeNode root) {
 		maxDepth(root);
 		return max;
 	}
@@ -49,27 +69,4 @@ public class DiameterOfBinaryTree {
 
 		return Math.max(left, right) + 1;
 	}
-
-	public int[] getDiameterOptimized(TreeNode root) {
-
-		// 0th element is diameter and 1st element is height
-		int[] result = new int[] { 0, 0 };
-
-		if (root == null)
-			return result;
-
-		int[] leftResult = getDiameterOptimized(root.left);
-		int[] rightResult = getDiameterOptimized(root.right);
-		int height = Math.max(leftResult[1], rightResult[1]) + 1;
-
-		int rootDiameter = leftResult[1] + rightResult[1] + 1;
-		int leftDiameter = leftResult[0];
-		int rightDiameter = rightResult[0];
-
-		result[0] = Math.max(rootDiameter, Math.max(leftDiameter, rightDiameter));
-		result[1] = height;
-
-		return result;
-	}
-
 }

@@ -27,6 +27,7 @@ public class FindTheDuplicateNumber {
 	public static void main(String[] args) {
 		int[] nums = { 1, 3, 4, 2, 2 };
 		System.out.println(findDuplicate(nums));
+		System.out.println(findDuplicate2(nums));
 	}
 
 	public static int findDuplicate(int[] nums) {
@@ -46,10 +47,10 @@ public class FindTheDuplicateNumber {
 		}
 		return slow;
 	}
-	public int findDuplicate2(int[] nums) {//algo is slow
+	public static int findDuplicate2(int[] nums) {//algo is slow
 		int low = 1, high = nums.length - 1;
 	    while (low <= high) {
-	        int mid = (int) (low + (high - low) * 0.5);
+	        int mid = low + (high - low)/2;
 	        int cnt = 0;
 	        for (int a : nums) {
 	            if (a <= mid) ++cnt;

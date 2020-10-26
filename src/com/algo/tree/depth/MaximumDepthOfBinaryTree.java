@@ -14,11 +14,11 @@ import com.algo.tree.common.TreeUtil;
  * 
  * Given binary tree [3,9,20,null,null,15,7],
  * 
- *  3
-   / \
-  9  20
-    /  \
-   15   7
+ *     3
+ *    / \ 
+ *   9   20 
+ *      /  \ 
+ *     15   7
  * 
  * return its depth = 3.
  *
@@ -34,45 +34,58 @@ public class MaximumDepthOfBinaryTree {
 		System.out.println("Height of tree is : " + tree.maxDepthRec(root));
 		System.out.println("Height of tree is : " + tree.maxDepth(root));
 	}
+
 	/*
-	 * Compute the "maxDepth" of a tree -- the number of nodes along the longest
-	 * path from the root node down to the farthest leaf node.
+	 * 1. If tree is empty then return 0 
+	 * 
+	 * 2.
+	 *(a) Get the max depth of left subtree recursively i.e.,
+	 *    call maxDepth( tree.left-subtree)
+	 *(b) Get the max depth of right subtree recursively i.e., 
+	 *    call maxDepth( tree.right-subtree)
+	 *(c) Get the max of max depths of left and right subtrees and add 1 to it for
+	 *    the current node. 
+	 *    max_depth = max(max dept of left subtree, max depth of right subtree) + 1 
+	 *(d) Return max_depth
 	 */
 	private int maxDepthRec(TreeNode root) {
 
-		if (root == null) return 0;
+		if (root == null)
+			return 0;
 
-		return 1+Math.max(maxDepth(root.left),maxDepth(root.right));
+		int left  = maxDepth(root.left);
+		int right = maxDepth(root.right);
+
+		int maxDepth = 1 + Math.max(left, right);
+		return maxDepth;
 	}
+
 	public int maxDepth(TreeNode root) {
-        TreeNode node = root;
-        Stack<TreeNode> nodeStack = new Stack<TreeNode>();
-        Stack<Integer> depthStack = new Stack<Integer>();
-        
-        int max = 0;
-        int depth = 1;
-        while (node != null || !nodeStack.isEmpty())
-        {
-            if (node != null)
-            {
-                nodeStack.push(node);
-                depthStack.push(depth);
-                node = node.left;
-                depth++;
-            }
-            else
-            {
-                node = nodeStack.pop();
-                depth = depthStack.pop();
-                
-                if (depth > max) max = depth;
-                
-                node = node.right;
-                depth++;
-            }
-        }
-        
-        return max;
-    }
-	
+		TreeNode node = root;
+		Stack<TreeNode> nodeStack = new Stack<TreeNode>();
+		Stack<Integer> depthStack = new Stack<Integer>();
+
+		int max = 0;
+		int depth = 1;
+		while (node != null || !nodeStack.isEmpty()) {
+			if (node != null) {
+				nodeStack.push(node);
+				depthStack.push(depth);
+				node = node.left;
+				depth++;
+			} else {
+				node = nodeStack.pop();
+				depth = depthStack.pop();
+
+				if (depth > max)
+					max = depth;
+
+				node = node.right;
+				depth++;
+			}
+		}
+
+		return max;
+	}
+
 }

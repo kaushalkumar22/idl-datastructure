@@ -8,35 +8,22 @@ package com.algo.array.common;
  * 
  * Input: [-2,0,-1] Output: 0 Explanation: The result cannot be 2, because
  * [-2,-1] is not a subarray.
- *
+ 
  */
 public class MaximumProductSubarray {
 
-	int maxProduct(int A[], int n) {
-	    // store the result that is the max we have found so far
-	    int r = A[0];
-
-	    // imax/imin stores the max/min product of
-	    // subarray that ends with the current number A[i]
-	    for (int i = 1, imax = r, imin = r; i < n; i++) {
-	        // multiplied by a negative makes big number smaller, small number bigger
-	        // so we redefine the extremums by swapping them
-	        if (A[i] < 0)
-	            swap(imax, imin);
-
-	        // max/min product for the current number is either the current number itself
-	        // or the max/min by the previous number times the current one
-	        imax = Math.max(A[i], imax * A[i]);
-	        imin = Math.min(A[i], imin * A[i]);
-
-	        // the newly computed max value is a candidate for our global result
-	        r = Math.max(r, imax);
-	    }
-	    return r;
+	public static void main(String[] args) {
+		int[] nums = {2,3,-2,4};
+		System.out.println( maxProduct(nums));
 	}
 
-	private void swap(int imax, int imin) {
-		// TODO Auto-generated method stub
-		
-	}
+	public static int maxProduct(int[] A) {
+        int n = A.length, res = A[0], l = 0, r = 0;
+        for (int i = 0; i < n; i++) {
+            l =  (l == 0 ? 1 : l) * A[i];
+            r =  (r == 0 ? 1 : r) * A[n - 1 - i];
+            res = Math.max(res, Math.max(l, r));
+        }
+        return res;
+    }
 }

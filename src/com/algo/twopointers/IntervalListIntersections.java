@@ -1,5 +1,8 @@
 package com.algo.twopointers;
 
+import java.util.ArrayList;
+import java.util.List;
+
 /**
  * Given two lists of closed intervals, each list of intervals is pairwise
  * disjoint and in sorted order.
@@ -19,26 +22,33 @@ package com.algo.twopointers;
  */
 public class IntervalListIntersections {
 	public static void main(String[] args) {
-
+		int[][] A = {{0,2},{5,10},{13,23},{24,25}}, B = {{1,5},{8,12},{15,24},{25,26}};
+		int[][] res = intervalIntersection(A, B);
+		for (int[] is : res) {
+			System.out.print("["+is[0]+","+is[1]+"]");
+		}
 	}
-	public int[][] intervalIntersection(int[][] A, int[][] B) {
-		int m = A.length;
-		int n = B.length;
-		int t = Math.max(m, n)+1;
-		int[][] res = new int[m+n][2];
-		    for (int i = 0, j = 0; i < A.size() && j < B.size();i++,j++) {
-		    	if (A[i][1] < B[j][1]) {
-		    		++i;
-		    	}else if(A[i][1] > B[j][1]) {
-		    		++j;
-		    	}else {
-		    		 int start = Math.max(A[i][0], B[j][0]);
-				     int end = Math.min(A[i][1], B[j][1]);
-		    	}
-		       		        if (start <= end) 
-		            res.push_back({start, end});
-		    }
-		    return res;   
-		return res;
+	public static int[][] intervalIntersection(int[][] A, int[][] B) {
+		List<int[]> ans = new ArrayList<int[]>();
+		int i = 0, j = 0;
+
+		while (i < A.length && j < B.length) {
+			// Let's check if A[i] intersects B[j].
+			// lo - the startpoint of the intersection
+			// hi - the endpoint of the intersection
+			int lo = Math.max(A[i][0], B[j][0]);
+			int hi = Math.min(A[i][1], B[j][1]);
+			if (lo <= hi)
+				ans.add(new int[]{lo, hi});
+
+			// Remove the interval with the smallest endpoint
+			if (A[i][1] < B[j][1])
+				i++;
+			else
+				j++;
+		}
+
+		return ans.toArray(new int[ans.size()][]);
 	}
 }
+

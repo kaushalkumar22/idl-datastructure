@@ -33,22 +33,23 @@ public class BoatsToSavePeople {
 	}
 	public static int numRescueBoats(int[] people, int limit) {
 
-      Arrays.sort(people);
-      int i=0;
-      int j =people.length-1;
-     System.out.println(j);
-     int count =0;
-      while(i<=j) {
-    	  if (people[i] + people[j] > limit) {
-    		  count++;
-    		  j--;
-   
-    	  }else{
-    	   i++;
-    	   j--;
-    	   count++;
-    	   }
-      }      
-      return count;
+		Arrays.sort(people);
+		int low=0;
+		int high =people.length-1;
+		int count =0;
+		while(low<=high) {
+			int canCarry = people[low] + people[high];
+			if ( canCarry> limit) {
+				count++;
+				high--;
+			} else  if (canCarry > limit) {
+				low++;
+			}else{
+				low++;
+				high--;
+				count++;
+			}
+		}      
+		return count;
 	}
 }

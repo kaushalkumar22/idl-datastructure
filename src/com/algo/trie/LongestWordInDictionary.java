@@ -27,43 +27,53 @@ package com.algo.trie;
  */
 public class LongestWordInDictionary {
 
-	 public String longestWord(String[] words) {
-	        TrieNode root = new TrieNode ();
-	        root.word = "-";
-	        for (String word : words)
-	            root.insert (word);
-	        return dfs (root, "");
-	    }
+	public static void main(String[] args) {
+		String[] words = {"a", "banana", "app", "appl", "ap", "apply", "apple"};
+		LongestWordInDictionary dictionary = new LongestWordInDictionary();
+		System.out.println(dictionary.longestWord(words));
 
-	    String dfs (TrieNode node, String accum) {
-	        if (node == null || node.word.length () == 0)
-	            return accum;
-	        String res = "";
-	        if (!node.word.equals ("-"))
-	            accum = node.word;
-	        for (TrieNode child : node.links) {
-	            String curRes = dfs (child, accum);
-	            if (curRes.length () > res.length () || (curRes.length () == res.length () && curRes.compareTo (res) < 0))
-	                res = curRes;
-	        }
-	        return res;
-	    }
-
-	    /* Hand write this class every time you need to so you can remember well */
-	    static class TrieNode {
-	        String word = "";
-	        TrieNode[] links = new TrieNode[26];
-
-	        void insert (String s) {
-	            char[] chs = s.toCharArray ();
-	            TrieNode curNode = this;
-	            for (int i = 0; i < chs.length; i++) {
-	                int index = chs[i] - 'a';
-	                if (curNode.links[index] == null)
-	                    curNode.links[index] = new TrieNode ();
-	                curNode = curNode.links[index];
-	            }
-	            curNode.word = s;
-	        }
-	    }
 	}
+	public String longestWord(String[] words) {
+		TrieNode root = new TrieNode();
+		root.item = "-";
+		insert(root,words);
+		return search( root,"");
+
+	}
+	private String search(TrieNode node,String accum) {
+		if (node == null || node.item.length() == 0)
+			return accum;
+		String res = "";
+		if (!node.item.equals ("-"))
+			accum = node.item;
+		for (TrieNode child : node.children) {
+			String curRes = search (child, accum);
+			if (curRes.length () > res.length () 
+					|| (curRes.length () == res.length () 
+					&& curRes.compareTo (res) < 0))
+				res = curRes;
+		}
+		return res;
+
+	}
+	private void insert(TrieNode root,String[] words) {
+		for (String word : words) {
+			insert(root, word);
+		}
+	}
+	private void insert(TrieNode root,String word) {
+		TrieNode node = root;
+		for (char c : word.toCharArray()) {
+			if(node.children[c-'a']==null) {
+				node.children[c-'a']=new TrieNode();
+			}
+			node =node.children[c-'a'];
+		}    	
+		node.item=word;
+	}
+	private class TrieNode{
+		TrieNode[] children = new TrieNode[26];
+		String item="";
+	}
+
+}
