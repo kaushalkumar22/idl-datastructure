@@ -1,7 +1,10 @@
-package com.algo.lds.linkedlist;
+package com.algo.lds.linkedlist.reverse;
 
 import java.util.Arrays;
 import java.util.List;
+
+import com.algo.lds.linkedlist.ListNode;
+import com.algo.lds.linkedlist.ListUtil;
 
 /**
  * Given a linked list, reverse the At Kth ListNodes of a linked list and
@@ -28,20 +31,18 @@ public class RotateAtKNodes {
 		RotateAtKNodes list = new RotateAtKNodes();
 		List<Integer> nums = Arrays.asList(1,2,3,4,5,6);
 		ListNode head = ListUtil.createList(nums);
-		System.out.print("Original List :: ");
 		ListUtil.print(head);
 		ListNode node = list.reverseAtK(head,2);
-		System.out.print("Reverse List  :: ");
 		ListUtil.print(node);
 	}
 	private  ListNode reverseAtK(ListNode head, int k) {
 
-		ListNode curr=head,prev=null,cnext;
+		ListNode curr=head,prev=null;
 		while(k>0&&curr!=null) {
-			cnext= curr.next;
+			ListNode temp= curr.next;
 			curr.next= prev;
 			prev =curr;
-			curr=cnext;
+			curr=temp;
 			k--;
 		}
 		if(curr!=null) {

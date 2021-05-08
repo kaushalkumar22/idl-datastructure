@@ -21,50 +21,60 @@ import java.util.List;
 public class AddTwoNumbers {
 	private ListNode head;
 	int carry = 0;
+	public static void main(String[] args) {
 
-	private void doAddLinkedListsNodes(ListNode first, ListNode second, int size1, int size2) {
+		ListNode list1 = ListUtil.createList(Arrays.asList(7, 5, 9, 4, 6));
+		ListNode list2 = ListUtil.createList(Arrays.asList(8, 4, 8));
+		AddTwoNumbers list = new AddTwoNumbers();
+		list.addTwoNumbers(list1, list2);
+		ListUtil.print(list.head);
+	}
+	public ListNode addTwoNumbers(ListNode l1, ListNode l2) {
 
-		if (size1 > 1 && size2 > 1 && size1 == size2) {
-			doAddLinkedListsNodes(first.next, second.next, size1 - 1, size2 - 1);
-		} else if (size1 > size2) {
-			doAddLinkedListsNodes(first.next, second, size1 - 1, size2);
-		} else if (size2 > size1) {
-			doAddLinkedListsNodes(first, second.next, size1, size2 - 1);
-		}
-		doAddNodes(first, second, size1, size2);
+		int size1 = listSize(l1);
+		int size2 = listSize(l2);
+		doAddLinkedListsNodes (l1, l2,size1,size2);
+		return head;
 	}
 
-	private void doAddNodes(ListNode first, ListNode second, int size1, int size2) {
+	private	void doAddLinkedListsNodes (ListNode first, ListNode second,int size1,int size2){
 
-		int sum = carry + (size1 >= size2 ? first.val : 0) + (size2 >= size1 ? second.val : 0);
-		if (carry == 0) {
-			crearteNode(sum % 10);
-		} else {
-			head.val = sum % 10;
+		if(size1>1&&size2>1&&size1==size2){ 
+			doAddLinkedListsNodes (first.next,second.next,size1-1,size2-1);
+		}else if(size1>size2){   
+			doAddLinkedListsNodes (first.next,second,size1-1,size2);
+		}else if(size2>size1){		
+			doAddLinkedListsNodes (first,second.next,size1,size2-1);
 		}
-		carry = (sum > 9) ? 1 : 0;
+		doAddNodes( first, second,size1,size2);
+	}
+
+	private  void doAddNodes(ListNode first,ListNode second,int size1,int size2) {
+
+		int tempCarry = carry;
+		int sum = carry + (size1>=size2 ?first.val:0) + (size2>=size1 ?second.val:0) ;
+		carry = (sum >= 10) ? 1 : 0;
+		sum = sum % 10;
+		if(tempCarry==0){
+			crearteNode(sum);
+		}else{
+			head.val=sum;
+		}
 		if (carry > 0) {
 			crearteNode(carry);
 		}
 	}
-
-	private void crearteNode(int data) {
+	private static  int listSize(ListNode head) {
+		int count =0;
+		while (head != null) {
+			count++;
+			head = head.next;
+		}
+		return count;
+	}
+	private  void crearteNode(int data) {
 		ListNode node = new ListNode(data);
 		node.next = head;
-		head = node;
-	}
-
-	public static void main(String[] args) {
-
-		List<Integer> nums1 = Arrays.asList(7, 5, 9, 4, 6);
-		List<Integer> nums2 = Arrays.asList(8, 4, 8);
-		ListNode list1 = ListUtil.createList(nums1);
-		ListNode list2 = ListUtil.createList(nums2);
-		AddTwoNumbers list = new AddTwoNumbers();
-		int length1 = ListUtil.length(list1);
-		int length2 = ListUtil.length(list2);
-		list.doAddLinkedListsNodes(list1, list2, length1, length2);
-		System.out.print("Sum List :: ");
-		ListUtil.print(list.head);
+		head=node;
 	}
 }

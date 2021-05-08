@@ -5,41 +5,50 @@ import java.util.Arrays;
 import java.util.List;
 
 /**
- * Letter Combinations of a Phone Number
- *  
- * Given a string containing digits from 2-9 inclusive, return all possible
- * letter combinations that the number could represent.
+ * Given a digit string excluded 0 and 1, return all possible letter
+ * combinations that the number could represent.
  * 
  * A mapping of digit to letters (just like on the telephone buttons) is given
- * below. Note that 1 does not map to any letters.
+ * below. 
+ * 1 2 ABC 3 DEF 4 GHI 5 JKL 6 MNO 7 PQRS 8 TUV 9 WXYZ
  * 
- * Example:
+ * Although the answer above is in lexicographical order, your answer could be
+ * in any order you want. Example
  * 
- * Input: "23" Output: ["ad", "ae", "af", "bd", "be", "bf", "cd", "ce", "cf"].
+ * Example 1:
  * 
- * Note:
+ * Input: "23" Output: ["ad", "ae", "af", "bd", "be", "bf", "cd", "ce", "cf"]
+ * Explanation: '2' could be 'a', 'b' or 'c' '3' could be 'd', 'e' or 'f'
  * 
- * Although the above answer is in lexicographical order, your answer could be
- * in any order you want.
- * 
+ * Input: "5" Output: ["j", "k", "l"]
  *
+ * 
+ * 
  */
 public class LetterCombinationsOfAPhoneNumber {
 	public static void main(String[] args) {
 		System.out.println(new LetterCombinationsOfAPhoneNumber().letterCombinations("23").toString());
 	}
-	private static final String[] LETTERS = {" ", "", "abc", "def", "ghi", "jkl", "mno", "pqrs", "tuv", "wxyz"};
-	public List<String> letterCombinations(String digits) { 
-		return (digits.length() == 0) ? Arrays.asList()
-				: permute(digits, new StringBuilder(), new ArrayList<>(), 0); 
-	} 
-	private List<String> permute(String digits, StringBuilder result, List<String> results, int i) {
-		if (i == digits.length()) results.add(result.toString());
-		else for (char c : LETTERS[Character.digit(digits.charAt(i), 10)].toCharArray()) {
-			result.append(c);
-			permute(digits, result, results, i + 1);
-			result.deleteCharAt(result.length() - 1);
+
+	String[] KEYPAD = { " ", "", "abc", "def", "ghi", "jkl", "mno", "pqrs", "tuv", "wxyz" };
+
+	public List<String> letterCombinations(String digits) {
+		List<String> res = new ArrayList<>();
+		if (digits.length() == 0 || digits.equals(""))
+			return res;
+		permute(digits, new StringBuilder(), res, 0);
+		return res;
+	}
+
+	private void permute(String digits, StringBuilder res, List<String> results, int i) {
+		if (i == digits.length()) {
+			results.add(res.toString());
+			return;
 		}
-		return results;
+		for (char c : KEYPAD[Character.getNumericValue(digits.charAt(i))].toCharArray()) {
+			res.append(c);
+			permute(digits, res, results, i + 1);
+			res.deleteCharAt(res.length() - 1);
+		}
 	}
 }

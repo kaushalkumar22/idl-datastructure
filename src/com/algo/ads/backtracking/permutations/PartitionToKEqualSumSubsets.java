@@ -1,4 +1,4 @@
-package com.algo.ads.dp.knapshack01;
+package com.algo.ads.backtracking.permutations;
 
 import java.util.Arrays;
 
@@ -48,4 +48,3 @@ public class PartitionToKEqualSumSubsets {
 		        return false;
 		    }
 	}
-}

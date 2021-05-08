@@ -31,7 +31,7 @@ public class DeleteNNodesAfterMNodes {
 		ListUtil.print(node);
 		list.deleteListNodes(node, 2, 2);
 		System.out.print("New List   :: ");
-		list.printList(node);
+		ListUtil.print(node);
 	}
 
 	private void deleteListNodes(ListNode head, int m, int n) {
@@ -58,12 +58,5 @@ public class DeleteNNodesAfterMNodes {
 		deleteListNodes(curr, m, n);
 	}
 
-	private void printList(ListNode head) {
-		while (head != null) {
-			System.out.print(head.val + "->");
-			head = head.next;
-		}
-		System.out.println("");
-	}
 
 }

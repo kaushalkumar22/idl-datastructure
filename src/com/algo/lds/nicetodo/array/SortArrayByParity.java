@@ -1,4 +1,4 @@
-package com.algo.lds.mustdo.array;
+package com.algo.lds.nicetodo.array;
 
 /**
  * 

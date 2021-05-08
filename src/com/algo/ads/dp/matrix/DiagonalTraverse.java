@@ -6,14 +6,25 @@ package com.algo.ads.dp.matrix;
  * 
  * Example: Input: 
  * [ [ 1, 2, 3 ], 
- * [ 4, 5, 6 ], 
- * [ 7, 8, 9 ] ]
+ *   [ 4, 5, 6 ], 
+ *   [ 7, 8, 9 ] ]
  * 
  * Output: [1,2,4,7,5,3,6,8,9]
  * 
  */
 public class DiagonalTraverse {
 
+public static void main(String[] args) {
+		
+		int[][] matrix = {
+				{ 3, 2, 8 }, 
+				{ 1, 9, 7 }, 
+				{ 0, 5, 2 }, 
+				{ 6, 4, 3 } 
+		};
+		System.out.println("\nPrinting Matrix Diagonally");
+		printMatrixDiagonally(matrix);
+	}
 	public static void printMatrixDiagonally(int[][] matrix) {
 
 		int row, col;
@@ -35,17 +46,7 @@ public class DiagonalTraverse {
 		}
 	}
 
-	public static void main(String[] args) {
-		
-		int[][] matrix = {
-				{ 3, 2, 8 }, 
-				{ 1, 9, 7 }, 
-				{ 0, 5, 2 }, 
-				{ 6, 4, 3 } 
-		};
-		System.out.println("\nPrinting Matrix Diagonally");
-		printMatrixDiagonally(matrix);
-	}
+	
 
 	//method 2
 	public int[] findDiagonalOrder(int[][] matrix) {

@@ -37,13 +37,15 @@ public class JumpGame {
 		System.out.println(canJump(arr));
 	}
 
-	static boolean canJump(int A[]) {
-		int n = A.length;
-		int i = 0;
-		for (int reach = 0; i < n && i <= reach; ++i) {
-			reach = Math.max(i + A[i], reach);
+	public static boolean canJump(int[] nums) {
+		int n=nums.length-1;
+		int destination =n;
+		for(int i=n;i>=0;i--){
+			if(i+nums[i]>=destination){
+				destination=i;
+			}
 		}
-		return i == n ? true : false;
+		return destination==0;
 	}
-
 }
+

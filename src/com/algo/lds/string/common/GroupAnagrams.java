@@ -7,65 +7,81 @@ import java.util.List;
 import java.util.Map;
 
 /**
- * Given an array of strings, group anagrams together.
+ * Given an array of strings strs, group the anagrams together. You can return
+ * the answer in any order.
  * 
- * Example:
+ * An Anagram is a word or phrase formed by rearranging the letters of a
+ * different word or phrase, typically using all the original letters exactly
+ * once.
  * 
- * Input: ["eat", "tea", "tan", "ate", "nat", "bat"], Output: [
- * ["ate","eat","tea"], ["nat","tan"], ["bat"] ]
+ * Input: strs = ["eat","tea","tan","ate","nat","bat"]
+ * Output:[["bat"],["nat","tan"],["ate","eat","tea"]]
  * 
- * @author I339640
+ * Input: strs = [""] Output: [[""]]
+ * 
+ * Input: strs = ["aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+ * "aaaaaaaaaaaaaaaaaaaaaaa aaaaaaaaaaa"] Output:
+ * [[aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa],
+ * [aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa]]
+ * 
+ * Input: strs = ["a"] Output: [["a"]]
+ * 
+ * Constraints:
+ * 
+ * 1 <= strs.length <= 104 0 <= strs[i].length <= 100 strs[i] consists of
+ * lower-case English letters.
  *
+ * Complexity Analysis
+ * 
+ * Time Complexity: O(NK), where NNN is the length of strs, and K is
+ * the maximum length of a string in strs. Counting each string is linear in the
+ * size of the string, and we count every string.
+ * 
+ * Space Complexity: O(NK), the total information content stored in ans.
+ * 
  */
 public class GroupAnagrams {
 
 	public static void main(String[] args) {
-		String[] strs = { "eat", "tea", "tan", "ate", "nat", "bat" };
+		 String[] strs = { "eat", "tea", "tan", "ate", "nat", "bat" };
+		//String[] strs = { "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa", "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa" };
+
 		System.out.println(groupAnagrams(strs));
+		System.out.println(groupAnagrams2(strs));
+
 	}
 
 	public static List<List<String>> groupAnagrams(String[] strs) {
-		int[] prime = { 2, 3, 5, 7, 11, 13, 17, 19, 23, 29, 31, 41, 43, 47, 53, 59, 61, 67, 71, 73, 79, 83, 89, 97, 101,
-				103 };
+		int[] prime = { 2, 3, 5, 7, 11, 13, 17, 19, 23, 29, 31, 41, 43,
+				47, 53, 59, 61, 67, 71, 73, 79, 83, 89, 97, 101,103 };
 
-		List<List<String>> res = new ArrayList<>();
-		HashMap<Integer, Integer> map = new HashMap<>();
+		HashMap<Long, List<String>> map = new HashMap<>();
 		for (String s : strs) {
-			int key = 1;
-			for (char c : s.toCharArray()) {
+			long key = 1;
+			for (Character c : s.toCharArray()) {
 				key *= prime[c - 'a'];
 			}
-			List<String> t;
-			if (map.containsKey(key)) {
-				t = res.get(map.get(key));
-			} else {
-				t = new ArrayList<>();
-				res.add(t);
-				map.put(key, res.size() - 1);
+			if (!map.containsKey(key)) {
+				map.put(key, new ArrayList<>());
 			}
-			t.add(s);
+			map.get(key).add(s);
 		}
-		return res;
+		return new ArrayList<>(map.values());
 	}
 
 	public static List<List<String>> groupAnagrams2(String[] strs) {
-
-		Map<String, List<String>> map = new HashMap<String, List<String>>();
-
+		if (strs == null || strs.length == 0)
+			return new ArrayList<>();
+		Map<String, List<String>> map = new HashMap<>();
 		for (String s : strs) {
-			char[] ca = s.toCharArray();
-			Arrays.sort(ca);
+			char[] ca = new char[26];
+			for (char c : s.toCharArray())
+				ca[c - 'a']++;
 			String keyStr = String.valueOf(ca);
-			if (map.containsKey(keyStr)) {
-				List<String> list = map.get(keyStr);
-				list.add(keyStr);
-
-			} else {
-				List<String> list = new ArrayList<String>();
-				list.add(keyStr);
-				map.put(keyStr, list);
-			}
+			if (!map.containsKey(keyStr))
+				map.put(keyStr, new ArrayList<>());
+			map.get(keyStr).add(s);
 		}
-		return new ArrayList<List<String>>(map.values());
+		return new ArrayList<>(map.values());
 	}
 }

@@ -43,7 +43,7 @@ public class ProductOfArrayExceptSelf {
 		int right = 1;
 		for (int i = n - 2; i >= 0; i--) {
 			right *= nums[i + 1];
-			res[i] *= right;
+			res[i] = res[i]*right;
 
 		}
 		return res;

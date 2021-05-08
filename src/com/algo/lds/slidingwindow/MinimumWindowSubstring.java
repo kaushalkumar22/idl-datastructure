@@ -32,61 +32,39 @@ public class MinimumWindowSubstring {
 	
 	public static void main(String[] args) {
 		String S = "ADOBECODEBANC", T = "ABC";
-		System.out.println(minWindow1(S,T));
 		System.out.println(minWindow(S,T));
 	}
-    public static String minWindow1(String s, String t) {
-            int[] map = new int[128];
-            for (char c : t.toCharArray()) {
-            	map[c]++;
-			}
-  
-            int counter=t.length(), left=0,  d=Integer.MAX_VALUE, head=0;
-            for(int right=0;right<s.length();right++) {
-                if(map[s.charAt(right)]-->0) counter--; //in t
-                while(counter==0){ //valid
-                    if(right-left<d)  d=right-(head=left)+1;
-                    if(map[s.charAt(left++)]++==0) counter++;  //make it invalid
-                }  
-            }
-            return d==Integer.MAX_VALUE? "":s.substring(head,head+d);
-        }
-    
-	public static String minWindow(String s, String t) {
-		HashMap<Character, Integer> map = new HashMap<Character, Integer>();
-		for (char c : s.toCharArray())
-			map.put(c, 0);
-		for (char c : t.toCharArray()) {
-			if (map.containsKey(c))
-				map.put(c, map.get(c) + 1);
-			else
-				return "";
+    public static String minWindow(String s, String t) {
+    	
+    	int[] map = new int[128];
+    	for (char c : t.toCharArray()) {
+			map[c]++;
 		}
-
-		int start = 0, end = 0, minStart = 0, minLen = Integer.MAX_VALUE, counter = t.length();
-		while (end < s.length()) {
-			char c1 = s.charAt(end);
-			if (map.get(c1) > 0)
-				counter--;
-			map.put(c1, map.get(c1) - 1);
-
-			end++;
-
-			while (counter == 0) {
-				if (minLen > end - start) {
-					minLen = end - start;
-					minStart = start;
-				}
-
-				char c2 = s.charAt(start);
-				map.put(c2, map.get(c2) + 1);
-
-				if (map.get(c2) > 0)
-					counter++;
-
-				start++;
-			}
-		}
-		return minLen == Integer.MAX_VALUE ? "" : s.substring(minStart, minStart + minLen);
-	}
+    	int left=0,right=0,counter =t.length(),minLen=Integer.MAX_VALUE,windStart=0;
+    	
+    	while(right<s.length()) {
+    		
+    		char c= s.charAt(right);
+    		if(map[c]>0) {
+    			counter--;
+    		}  
+    		map[c]--;
+    		right++;
+    		
+    		while(counter==0) {
+    			
+    			if(minLen>right-left) {
+    				minLen=right-left;
+    				windStart=left;
+    			}
+    			char c2 = s.charAt(left);
+    			map[c2]++;
+    			if(map[c2]>0) {
+    				counter++;
+    			}
+    			left++;
+    		}
+    	}
+		return minLen==Integer.MAX_VALUE? "":s.substring(windStart,windStart+minLen)  ;   
+     } 
 }

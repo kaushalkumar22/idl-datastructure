@@ -1,7 +1,10 @@
-package com.algo.lds.linkedlist;
+package com.algo.lds.linkedlist.reverse;
 
 import java.util.Arrays;
 import java.util.List;
+
+import com.algo.lds.linkedlist.ListNode;
+import com.algo.lds.linkedlist.ListUtil;
 
 /**
  * Reverse a linked list from position m to n. Do it in one-pass.

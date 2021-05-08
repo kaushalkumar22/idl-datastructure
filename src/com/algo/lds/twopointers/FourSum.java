@@ -27,7 +27,7 @@ public class FourSum {
 	}
 	public List<List<Integer>> fourSum(int[] nums, int target) {
 		Arrays.sort(nums);
-		return kSum(nums, target, 0, 4);
+		return kSum(nums, target, 0, 3);
 	}
 	public List<List<Integer>> kSum(int[] nums, int target, int start, int k) {
 		List<List<Integer>> res = new ArrayList<>();

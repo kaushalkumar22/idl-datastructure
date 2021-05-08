@@ -3,8 +3,9 @@ package com.algo.nlds.tree.validate;
 import java.util.Arrays;
 import java.util.List;
 
-import com.algo.tree.common.TreeNode;
-import com.algo.tree.common.TreeUtil;
+import com.algo.nlds.tree.common.TreeNode;
+import com.algo.nlds.tree.common.TreeUtil;
+
 
 /**
  * Check if a given Binary Tree is SumTree( Complexity O(n))
@@ -33,8 +34,7 @@ import com.algo.tree.common.TreeUtil;
 
 public class SumTree {
 
-	public static void 
-	]]main(String args[]) {
+	public static void main(String args[]) {
 
 		SumTree tree = new SumTree();
 		List<Integer> nums = Arrays.asList(26, 10, 3, 4, 6, null, 3);

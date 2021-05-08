@@ -1,46 +1,70 @@
 package com.algo.ads.backtracking.common;
 
-import java.util.Arrays;
+import java.util.ArrayList;
+import java.util.List;
 
+/**
+ * The n-queens puzzle is the problem of placing n queens on an n×n chessboard
+ * such that no two queens attack each other.
+ * 
+ * Given an integer n, return all distinct solutions to the n-queens puzzle.
+ * 
+ * Each solution contains a distinct board configuration of the n-queens'
+ * placement, where 'Q' and '.' both indicate a queen and an empty space
+ * respectively.
+ * 
+ * Example:
+ * 
+ * Input: 4 Output: [ [".Q..", // Solution 1 "...Q", "Q...", "..Q."],
+ * 
+ * ["..Q.", // Solution 2 "Q...", "...Q", ".Q.."] ] Explanation: There exist two
+ * distinct solutions to the 4-queens puzzle as shown above.
+ * 
+ *
+ */
 public class NQueensOptimized {
-
-	static int[] result; // this array will store the result
-
-	// result[i]=j; means queen at i-th row is placed at j-th column.
-	// Queens placed at (x1, y1) and (x2,y2)
-	// x1==x2 means same rows, y1==y2 means same columns, |x2-x1|==|y2-y1| means
-	// they are placed in diagonals.
-	public boolean canPlace(int x2, int y2) {
-		// This function will check if queen can be placed (x2,y2), or we can
-		// say that Can queen at x2 row is placed at y2 column.
-		// for finding the column for x2 row, we will check all the columns for
-		// all the rows till x2-1.
-		for (int i = 0; i < x2; i++) {
-			//result[i] == y2 => columns are same
-			//|i - x2| == |result[i] - y2| => in diagonals.
-			if ((result[i] == y2)
-					|| (Math.abs(i - x2) == Math.abs(result[i] - y2))) {
+	public static void main(String[] args) {
+		System.out.println(solveNQueens( 4));
+	}
+	public static int solveNQueens(int n) {
+		boolean[][] chess = new boolean[n][n];
+	    List<Integer> res =new ArrayList<>();
+		solve(res, chess, 0);
+		return res.size();
+	}
+	static int count=0;
+	private static void solve(List<Integer> res, boolean[][] chess, int row) {
+		if (row == chess.length) {			
+			res.add(1);
+			return;
+		}
+		for (int col = 0; col < chess.length; col++) {
+			if (valid(chess, row, col)) {
+				chess[row][col] = true;
+				solve(res, chess, row + 1);
+				chess[row][col] = false;
+			}
+		}
+	}
+	private static boolean valid(boolean[][] chess, int row, int col) {
+		// check all cols
+		for (int i = 0; i < row; i++) {
+			if (chess[i][col] == true) {
+				return false;
+			}
+		}
+		//check 45 degree
+		for (int i = row - 1, j = col + 1; i >= 0 && j < chess.length; i--, j++) {
+			if (chess[i][j] == true) {
+				return false;
+			}
+		}
+		//check 135
+		for (int i = row - 1, j = col - 1; i >= 0 && j >= 0; i--, j--) {
+			if (chess[i][j] == true) {
 				return false;
 			}
 		}
 		return true;
-	}
-	public void placeQueens(int x, int size) {
-		for (int i = 0; i < size; i++) {
-			//check if queen at xth row can be placed at i-th column.
-			if (canPlace(x, i)) {
-				result[x] = i; // place the queen at this position.
-				if (x == size - 1) {
-					System.out.println("Order of " + size + " queens"+ Arrays.toString(result));
-				}
-				placeQueens(x + 1, size);
-			}
-		}
-	}
-	public static void main(String[] args) {
-		int n = 6;
-		result = new int[n];
-		NQueensOptimized i = new NQueensOptimized();
-		i.placeQueens(0, n);
 	}
 }

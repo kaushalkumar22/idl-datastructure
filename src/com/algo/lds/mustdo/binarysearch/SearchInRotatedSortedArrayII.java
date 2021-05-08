@@ -23,36 +23,35 @@ package com.algo.lds.mustdo.binarysearch;
  */
 public class SearchInRotatedSortedArrayII {
 	public static void main(String[] args) {
-		// int array[] = {10,1,10,10,10};
-		int array[] = { 10, 1, 10, 10, 10 };
-
-		int target = 1;
-		System.out.println(findMin(array, target));
+		int array[] = {2,5,6,0,0,1,2 };
+		System.out.println(search(array, 1));
 	}
 
 	// O(log n) solution - Binary Search
-	public static boolean findMin(int[] nums, int target) {
+	public static boolean search(int[] nums, int target) {
 
-		int left = 0;
-		int right = nums.length - 1;
-		while (left <= right) {
-			int mid = (left + right) / 2;
+		int low = 0;
+		int high = nums.length - 1;
+		while (low <= high) {
+			int mid = (low + high) / 2;
 			if (target == nums[mid]) {
 				return true;
 			}
-			if (nums[left] < nums[mid]) {
-				if (target >= nums[left] && target < nums[mid]) {
-					right = mid - 1;
+			if (nums[low] == nums[mid]) {//low and mid are duplicate
+				low++;
+			} else if (nums[high] == nums[mid]) {//high and mid are duplicate
+				high--;
+			} else if (nums[low] < nums[mid]) {// nums[start.......mid] is sorted
+				if (target >= nums[low] && target < nums[mid]) {// need to check target lies between array[start...mid]
+					high = mid - 1;
 				} else {
-					left = mid + 1;
+					low = mid + 1;
 				}
-			} else if (nums[left] == nums[mid]) {
-				left++;
-			} else {
-				if (target > nums[mid] && target <= nums[right]) {
-					left = mid + 1;
+			} else {// nums[mid.......end] is sorted
+				if (target > nums[mid] && target <= nums[high]) {//need to check target lies between array[mid...end]
+					low = mid + 1;
 				} else {
-					right = mid - 1;
+					high = mid - 1;
 				}
 			}
 		}

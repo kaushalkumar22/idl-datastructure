@@ -1,7 +1,10 @@
-package com.algo.lds.linkedlist;
+package com.algo.lds.linkedlist.reverse;
 
 import java.util.Arrays;
 import java.util.List;
+
+import com.algo.lds.linkedlist.ListNode;
+import com.algo.lds.linkedlist.ListUtil;
 
 
 /**
@@ -27,41 +30,42 @@ public class ReorderList {
 	}
 
 	public void reorderList(ListNode head) {
-		 if (head == null || head.next == null)
-	          return;
+		if (head == null || head.next == null)
+			return;
 		ListNode slow = head,fast=head;
-        while(fast!=null&&fast.next!=null) {
-        	slow=slow.next;
-        	fast=fast.next.next;
-        }
-        ListNode rev = reverse( slow.next);
-        slow.next=null;
-        
-        merge(head,rev);
+		while(fast!=null&&fast.next!=null) {
+			slow=slow.next;
+			fast=fast.next.next;
+		}
+		ListNode rev = reverse( slow.next);
+		slow.next=null;
+
+		merge(head,rev);
 	}
 	public ListNode reverse(ListNode head) {		
 		ListNode curr = head;
-		ListNode prev = null, cnext;
+		ListNode prev = null;
 		while (curr != null) {
-			cnext = curr.next;
+			ListNode temp = curr.next;
 			curr.next = prev;
 			prev = curr;
-			curr = cnext;
+			curr = temp;
 		}
 		return prev;	
 	}
 	public void merge(ListNode curr,ListNode rev) {	
-		
+
 		while (rev != null) {
-	        ListNode n1 = curr.next, n2 = rev.next;
-	        curr.next = rev;
-	        
-	        if (n1 == null)
-	          break;
-	            
-	        rev.next = n1;
-	        curr = n1;
-	        rev = n2;
-	      }
-	    }
+			ListNode n1 = curr.next; 
+			ListNode n2 = rev.next;
+			curr.next = rev;
+
+			if (n1 == null)
+				break;
+
+			rev.next = n1;
+			curr = n1;
+			rev = n2;
+		}
 	}
+}

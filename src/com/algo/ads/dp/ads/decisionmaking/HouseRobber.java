@@ -30,7 +30,21 @@ public class HouseRobber {
 	public static void main(String[] args) {
 		int[] nums = {2,7,9,3,1};
 		System.out.println(rob(nums));
+		System.out.println(robOpt(nums));
 	}
+	 public static int robOpt(int[] nums) {
+	        int n = nums.length;
+			if(n==0) return 0;
+			int prev1=0;
+	        int prev=nums[0];
+	        int max=nums[0];
+			for(int i=2;i<=n;i++) {
+				max= Math.max(prev,prev1+nums[i-1]);
+	            prev1=prev;
+	            prev=max;
+			}
+			return max;
+	    }
 	public static int rob(int[] nums) {
 		int n = nums.length;
 		if(n==0) return 0;

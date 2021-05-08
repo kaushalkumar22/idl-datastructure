@@ -19,32 +19,29 @@ public class RemoveDuplicatesFromSortedListII {
 
 	public static void main(String[] args) {
 		RemoveDuplicatesFromSortedListII list = new RemoveDuplicatesFromSortedListII();
-		List<Integer> nums = Arrays.asList(1, 2,2);
+		List<Integer> nums = Arrays.asList(1, 2,3,3,4,4,5);
 		ListNode node = ListUtil.createList(nums);
-		System.out.print("Original List :: ");
-		ListUtil.print(node);
 		ListNode d =list.deleteDuplicates(node);
-		System.out.print("New List   :: ");
 		ListUtil.print(d);
 	}
 	public ListNode deleteDuplicates(ListNode head) {
 		if(head==null) return null;
-        ListNode FakeHead=new ListNode(0);
-        FakeHead.next=head;
-        ListNode pre=FakeHead;
-        ListNode cur=head;
-        while(cur!=null){
-            while(cur.next!=null&&cur.val==cur.next.val){
-                cur=cur.next;
-            }
-            if(pre.next==cur){
-                pre=pre.next;
-            }
-            else{
-                pre.next=cur.next;
-            }
-            cur=cur.next;
-        }
-        return FakeHead.next;
+		ListNode dummyHead=new ListNode(0);
+		dummyHead.next=head;
+		ListNode pre=dummyHead;
+		ListNode curr=head;
+		while(curr!=null){
+			while(curr.next!=null&&curr.val==curr.next.val){
+				curr=curr.next;
+			}
+			if(pre.next==curr){
+				pre=curr;
+			}
+			else{
+				pre.next=curr.next;
+			}
+			curr=curr.next;
+		}
+		return dummyHead.next;
 	}
 }

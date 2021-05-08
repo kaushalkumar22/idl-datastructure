@@ -1,7 +1,10 @@
-package com.algo.lds.linkedlist;
+package com.algo.lds.linkedlist.reverse;
 
 import java.util.Arrays;
 import java.util.List;
+
+import com.algo.lds.linkedlist.ListNode;
+import com.algo.lds.linkedlist.ListUtil;
 
 /**
  * Given a linked list, reverse the Alternate K ListNodes of a linked list and

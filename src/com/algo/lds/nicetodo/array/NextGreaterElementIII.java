@@ -1,4 +1,4 @@
-package com.algo.lds.mustdo.array;
+package com.algo.lds.nicetodo.array;
 
 /**
  * Given a positive 32-bit integer n, you need to find the smallest 32-bit

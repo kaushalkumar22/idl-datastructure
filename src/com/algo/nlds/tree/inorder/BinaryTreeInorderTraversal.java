@@ -31,8 +31,8 @@ public class BinaryTreeInorderTraversal {
 
 	public static void main(String args[]) {
 		BinaryTreeInorderTraversal tree = new BinaryTreeInorderTraversal();
-		List<Integer> nums = Arrays.asList(1,null,2,null,null,3);
-		TreeNode root = TreeUtil.createTree(nums);
+
+		TreeNode root = TreeUtil.createTree(Arrays.asList(1,null,2,null,null,3));
 		System.out.println( tree.inorderRecursion(root));
 		System.out.println(tree.inorderTraversal(root));
 	}
@@ -49,22 +49,23 @@ public class BinaryTreeInorderTraversal {
 		inorderRecursion( root.right,list);         
 	}
 
-	private List<Integer> inorderTraversal(TreeNode root) {
+	public List<Integer> inorderTraversal(TreeNode root) {
+
 		List<Integer> res = new ArrayList<Integer>();
-		if(root==null) return res;
 		Stack<TreeNode> st = new Stack<TreeNode>();
-		
-		while(root!=null||!st.isEmpty()) {
-			
-			while(root!=null){
-				st.push(root);
-				root=root.left;
+		TreeNode curr = root;
+		while(curr!=null||!st.isEmpty()){
+
+			if(curr!=null){
+				st.push(curr);
+				curr=curr.left;
+			}else{
+				curr = st.pop();
+				res.add(curr.val);
+				curr=curr.right;
 			}
-			root = st.pop();
-			res.add(root.val);
-			root=root.right;
 		}
 		return res;
 	}
-
 }
+

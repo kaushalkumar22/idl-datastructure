@@ -39,6 +39,21 @@ public class LRUCache {
 	private Map<Integer, ListNode> keyVal;
 	private Integer cap;
 
+	public static void main(String[] args) {
+		LRUCache lRUCache = new LRUCache(2);
+		lRUCache.put(1, 1); // cache is {1=1}
+		lRUCache.put(2, 2); // cache is {1=1, 2=2}
+		System.out.println(lRUCache.get(1));    // return 1
+		lRUCache.put(3, 3); // LRU key was 2, evicts key 2, cache is {1=1, 3=3}
+		System.out.println(lRUCache.get(2));// returns -1 (not found)
+		lRUCache.put(4, 4); // LRU key was 1, evicts key 1, cache is {4=4, 3=3}
+		System.out.println(lRUCache.get(1)); // return -1 (not found)
+		System.out.println(lRUCache.get(1)); // return -1 (not found)
+		System.out.println(lRUCache.get(3));// return 3
+		System.out.println(lRUCache.get(4));// return 4
+		
+		
+	}
 	public LRUCache(int capacity) {
 		createDummyList();
 		keyVal = new HashMap<Integer, ListNode>(capacity);
@@ -50,7 +65,8 @@ public class LRUCache {
 		tail = new ListNode(0,0);
 		head.next = tail;
 		tail.prev = head;
-	}
+	} 
+    
 	public int get(int key) {
 		ListNode node = keyVal.get(key);
 		if(node == null){
@@ -83,17 +99,16 @@ public class LRUCache {
 		addToHead(node);
 	}
 	private void addToHead(ListNode node){
-		ListNode tmp = head.next ;
-		head.next = node;
-		node.next = tmp;
-		node.prev = head;
-		tmp.prev = node;
+        
+        node.next=head.next;
+        node.prev =head;
+        head.next.prev=node;
+        head.next=node;
 	}
 
 	private void removeTail(){
-		ListNode newTail = tail.prev.prev;
-		newTail.next = tail;
-		tail.prev = newTail;
+	    tail.prev.prev.next=tail;
+        tail.prev=tail.prev.prev;
 	}
 
 	private ListNode getTail(){

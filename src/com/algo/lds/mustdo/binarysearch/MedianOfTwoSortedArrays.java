@@ -57,44 +57,42 @@ public class MedianOfTwoSortedArrays {
 
 	public static void main(String[] args) {
 		int[] x = {1, 3, 8, 9, 15};
-		int[] y = {7, 11, 19, 21, 18, 25};
+		int[] y = {7, 11, 19, 21, 23, 25};
 
 		MedianOfTwoSortedArrays mm = new MedianOfTwoSortedArrays();
-		System.out.println(mm.findMedian(x, y));
+		System.out.println(mm.findMedianSortedArrays(x, y));
 	}
-	public double findMedian(int x[], int y[]) {
+	public double findMedianSortedArrays(int A[], int B[]) {
 		
-		if (x.length > y.length) {
-			return findMedian(y, x);
+		if (A.length > B.length) {
+			return findMedianSortedArrays(B, A);
 		}
-		int m = x.length;
-		int n = y.length;
+		int m = A.length;
+		int n = B.length;
 
 		int low = 0;
 		int high = m;
 		while (low <= high) {
-			int pIndexX = (low + high)/2;
-			int pIndexY = (m + n + 1)/2 - pIndexX;
-			int maxLeftX = (pIndexX == 0) ? Integer.MIN_VALUE : x[pIndexX - 1];
-			int minRightX = (pIndexX == m) ? Integer.MAX_VALUE : x[pIndexX];
+			int pivotA = (low + high)/2;
+			int pivotB = (m + n + 1)/2 - pivotA;
+			int maxLeftA = (pivotA == 0) ? Integer.MIN_VALUE : A[pivotA - 1];
+			int minRightA = (pivotA == m) ? Integer.MAX_VALUE : A[pivotA];
 
-			int maxLeftY = (pIndexY == 0) ? Integer.MIN_VALUE : y[pIndexY - 1];
-			int minRightY = (pIndexY == n) ? Integer.MAX_VALUE : y[pIndexY];
+			int maxLeftB = (pivotB == 0) ? Integer.MIN_VALUE : B[pivotB - 1];
+			int minRightB = (pivotB == n) ? Integer.MAX_VALUE : B[pivotB];
 
-			if (maxLeftX <= minRightY && maxLeftY <= minRightX) {
+			if (maxLeftA <= minRightB && maxLeftB <= minRightA) {
 				if ((m + n) % 2 == 0) {
-					return ((double)Math.max(maxLeftX, maxLeftY) + Math.min(minRightX, minRightY))/2;
+					return ((double)Math.max(maxLeftA, maxLeftB) + Math.min(minRightA, minRightB))/2;
 				} else {
-					return (double)Math.max(maxLeftX, maxLeftY);
+					return (double)Math.max(maxLeftA, maxLeftB);
 				}
-			} else if (maxLeftX > minRightY) { 
-				high = pIndexX - 1;
+			} else if (maxLeftA > minRightB) { 
+				high = pivotA - 1;
 			} else { 
-				low = pIndexX + 1;
+				low = pivotA + 1;
 			}
 		}
 		throw new IllegalArgumentException();
 	}
-
-	
 }

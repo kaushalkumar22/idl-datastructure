@@ -31,10 +31,14 @@ public class TrappingRainWater {
 		while(left<=right){
 			leftmax  = Math.max(leftmax,nums[left]);
 			rightmax = Math.max(rightmax,nums[right]);
-			//rightmax  will make sure there is a boundary from right side which is having max height and there is a boundary from left side leftmax 
-			//so anything smaller fall between these means upto that height water can be trap.
-			if(leftmax<=rightmax){
-				trappedWater= trappedWater + (leftmax-nums[left]);  // leftmax is smaller than rightmax, so the (leftmax-A[a]) water can be stored
+			
+			/*
+			 * rightmax will make sure there is a boundary from right side which is having
+			 * max height and there is a boundary from left side leftmax so anything smaller
+			 * fall between these means upto that height water can be trap.
+			 */
+			if(leftmax<=rightmax){// leftmax is smaller than rightmax, so the (leftmax-A[a]) water can be stored
+				trappedWater= trappedWater + (leftmax-nums[left]);  
 				left++;
 			}else{
 				trappedWater= trappedWater+(rightmax-nums[right]);

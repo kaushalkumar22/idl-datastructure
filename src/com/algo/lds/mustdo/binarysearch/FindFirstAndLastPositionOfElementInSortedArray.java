@@ -19,49 +19,36 @@ import java.util.Arrays;
  */
 public class FindFirstAndLastPositionOfElementInSortedArray {
 	public static void main(String[] args) {
-         System.out.println(Arrays.toString(searchRange(new int[] {5,7,7,8,8,10}, 6)));
+		int[] nums = {1,2,5,5,5,9};
+		System.out.println(Arrays.toString(searchRange(nums,5)));
 	}
 	public static int[] searchRange(int[] nums, int target) {
 
-		if(nums.length==0) return new int[] {-1,-1};
-		return new int[] {firstIndex( nums,  target),lastIndex( nums,  target)};
-	}
-	private static int firstIndex(int[] nums, int target) {
-		int start =0;
-		int end = nums.length-1;
-		int fstIndex =Integer.MAX_VALUE;
-		while(start<=end) {
-			int mid =start+(end-start)/2;
-			if(nums[mid]==target) {
-				fstIndex=Math.min(fstIndex, mid);
-				end =mid-1;
-			}else if(nums[mid]<target) {
-				start=mid+1;
-			}else {
-				end =mid-1;
-			}
+		int leftIdx = search(nums, target,0, true);
 
+		// assert that `leftIdx` is within the array bounds and that `target`
+		// is actually in `nums`.
+		if (leftIdx == nums.length || nums[leftIdx] != target) {
+			return new int[] {-1,-1};
 		}
-		return fstIndex ==Integer.MAX_VALUE?-1:fstIndex;
+		int rightIdx = search(nums, target, leftIdx,false);
+
+		return new int[]{leftIdx,rightIdx-1};
 	}
-
-	private static int lastIndex(int[] nums, int target) {
-
-		int start =0;
-		int end = nums.length-1;
-		int lastIndex =Integer.MIN_VALUE;
-		while(start<=end) {
-			int mid =start+(end-start)/2;
-			if(nums[mid]==target) {
-				lastIndex=Math.max(lastIndex, mid);
-				start =mid+1;
-			}else if(nums[mid]<target) {
-				start=mid+1;
-			}else {
-				end =mid-1;
+	// returns leftmost (or rightmost) index at which `target` should be
+	// inserted in sorted array `nums` via binary search.
+	private static int search(int[] nums, int target, int low,boolean left) {
+		int high = nums.length;
+		while (low < high) {
+			int mid = (low + high) / 2;
+			if (nums[mid] > target || (left && target == nums[mid])) {
+				high = mid;
 			}
-
+			else {
+				low = mid+1;
+			}
 		}
-		return lastIndex ==Integer.MIN_VALUE?-1:lastIndex;
+
+		return low;
 	}
 }

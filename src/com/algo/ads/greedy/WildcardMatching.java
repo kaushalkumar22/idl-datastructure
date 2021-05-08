@@ -14,29 +14,18 @@ package com.algo.ads.greedy;
  * s could be empty and contains only lowercase letters a-z. p could be empty
  * and contains only lowercase letters a-z, and characters like ? or *.
  * 
- * Example 1:
- * 
  * Input: s = "aa" p = "a" Output: false Explanation: "a" does not match the
  * entire string "aa".
  * 
- * Example 2:
- * 
  * Input: s = "aa" p = "*" Output: true Explanation: '*' matches any sequence.
- * 
- * Example 3:
  * 
  * Input: s = "cb" p = "?a" Output: false Explanation: '?' matches 'c', but the
  * second letter is 'a', which does not match 'b'.
  * 
- * Example 4:
- * 
  * Input: s = "adceb" p = "*a*b" Output: true Explanation: The first '*' matches
  * the empty sequence, while the second '*' matches the substring "dce".
  * 
- * Example 5:
- * 
  * Input: s = "acdcb" p = "a*c?b" Output: false
- * 
  * 
  */
 public class WildcardMatching {
@@ -59,12 +48,10 @@ public class WildcardMatching {
 		// String p="a*c?b";
 		while (sIndex < str.length()) {
 			if (pIndex < pattern.length()
-					&& (pattern.charAt(pIndex) == '?' || str.charAt(sIndex) == pattern.charAt(pIndex))) {// advancing
-																											// both
-																											// pointers
-				sIndex++;
+					&& (pattern.charAt(pIndex) == '?' || str.charAt(sIndex) == pattern.charAt(pIndex))) {
+				sIndex++;// advancing both pointers
 				pIndex++;
-			} else if (pIndex < pattern.length() && pattern.charAt(pIndex) == '*') {// * found, only advancing pattern
+			} else if (pIndex < pattern.length() && pattern.charAt(pIndex) == '*') {//found, only advancing pattern
 																					// pointer
 				starIdx = pIndex;
 				match = sIndex;
@@ -84,25 +71,27 @@ public class WildcardMatching {
 		return pIndex == pattern.length();
 	}
 
-	private static boolean wildcardMatchingDynamicPrograming(String str, String pattern) {
-		boolean[][] match = new boolean[str.length() + 1][pattern.length() + 1];
-		match[str.length()][pattern.length()] = true;
-		for (int i = pattern.length() - 1; i >= 0; i--) {
-			if (pattern.charAt(i) != '*')
-				break;
-			else
-				match[str.length()][i] = true;
-		}
-		for (int i = str.length() - 1; i >= 0; i--) {
-			for (int j = pattern.length() - 1; j >= 0; j--) {
-				if (str.charAt(i) == pattern.charAt(j) || pattern.charAt(j) == '?')
-					match[i][j] = match[i + 1][j + 1];
-				else if (pattern.charAt(j) == '*')
-					match[i][j] = match[i + 1][j] || match[i][j + 1];
-				else
-					match[i][j] = false;
-			}
-		}
-		return match[0][0];
-	}
+	public boolean isMatch(String s, String p) {
+	      int m = s.length(), n = p.length();
+	     
+	      boolean[][] dp = new boolean[m + 1][n + 1];
+	      dp[0][0] = true;
+	       for(int j = 1; j < n + 1; j++){
+	        if(p.charAt(j - 1) == '*') 
+	            dp[0][j] = dp[0][j - 1]; 
+	      }   
+	      
+	      for(int i = 1; i <= m ; i++){
+	        for(int j = 1; j <= n; j++){
+	          if(p.charAt(j - 1) == s.charAt(i - 1) || p.charAt(j - 1) == '?'){
+	            dp[i][j] = dp[i - 1][j - 1];
+	          } else if(p.charAt(j - 1) == '*'){
+	            dp[i][j] = dp[i - 1][j] || dp[i][j - 1];
+	          } else {
+	            dp[i][j] = false;
+	          }
+	        }
+	      }
+	      return dp[m][n];
+	    }
 }

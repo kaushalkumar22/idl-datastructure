@@ -1,7 +1,10 @@
-package com.algo.lds.linkedlist;
+package com.algo.lds.linkedlist.mergesort;
 
 import java.util.Arrays;
 import java.util.List;
+
+import com.algo.lds.linkedlist.ListNode;
+import com.algo.lds.linkedlist.ListUtil;
 
 /**
  * Sort a linked list in O(n log n) time using constant space complexity.
@@ -10,14 +13,12 @@ import java.util.List;
  * 
  * Input: -1->5->3->4->0 Output: -1->0->3->4->5
  */
-public class SortList {
+public class SortLinkedList {
 
 	public static void main(String[] args) {
 		ListNode head = ListUtil.createList(Arrays.asList(1,4,3,2,5,2));
-		System.out.print("Original List :: ");
 		ListUtil.print(head);
-		ListNode res = new SortList().sortList(head);
-		System.out.print("Result List   :: ");
+		ListNode res = new SortLinkedList().sortList(head);
 		ListUtil.print(res);
 	}
 

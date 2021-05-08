@@ -10,6 +10,8 @@ import java.util.Arrays;
  * Given array nums = [-1, 2, 1, -4], and target = 1. The sum that is closest to
  * the target is 2. (-1 + 2 + 1 = 2).
  *
+ * Input:[2,7,11,15],3 Output:20 Explanation: 2+7+11=20
+ * 
  */
 public class ThreeSumClosest {
 
@@ -20,39 +22,28 @@ public class ThreeSumClosest {
 	}
 
 	public static int threeSumClosest(int[] nums, int target) {
+		if (nums == null || nums.length < 3)
+			return -1;
 		Arrays.sort(nums);
-		int sum = nums[0] + nums[1] + nums[2];
-		int closestSum = sum;
-
-		for (int i = 0; i < nums.length - 2; i++) {
-
-			if (i != 0 && nums[i] == nums[i - 1])
-				continue;
+		int closest = nums[0] + nums[1] + nums[2];
+		for (int i = 0; i < nums.length - 1; i++) {
 
 			int left = i + 1;
 			int right = nums.length - 1;
-
 			while (left < right) {
-				sum = nums[left] + nums[right] + nums[i];
-				if (sum < target) {
-					// move closer to target sum.
-					while (left < right && nums[left] == nums[left + 1])
-						left++;
-					left++;
-				} else if (sum > target) {
-					// move closer to target sum.
-					while (left < right && nums[right] == nums[right - 1])
-						right--;
+				int sum = nums[i] + nums[left] + nums[right];
+				if (sum == target)
+					return sum;
+				if (Math.abs(sum - target) < Math.abs(closest - target)) {
+					closest = sum;
+				}
+				if (sum > target) {
 					right--;
 				} else {
-					return sum;
-				}
-				// update the closest sum if needed.
-				if (Math.abs(target - sum) < Math.abs(target - closestSum)) {
-					closestSum = sum;
+					left++;
 				}
 			}
 		}
-		return closestSum;
+		return closest;
 	}
 }

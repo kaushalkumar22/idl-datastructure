@@ -1,4 +1,4 @@
-package com.algo.lds.linkedlist;
+package com.algo.lds.linkedlist.mergesort;
 /* Let us create the following linked list
 5 -> 10 -> 19 -> 28
 |    |     |     |

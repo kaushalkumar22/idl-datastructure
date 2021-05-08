@@ -1,59 +1,67 @@
 package com.algo.ads.backtracking.permutations;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 /**
- * Combination Sum Medium
+ * Given an array of distinct integers candidates and a target integer target,
+ * return a list of all unique combinations of candidates where the chosen
+ * numbers sum to target. You may return the combinations in any order.
  * 
- * Given a set of candidate numbers (candidates) (without duplicates) and a
- * target number (target), find all unique combinations in candidates where the
- * candidate numbers sums to target.
+ * The same number may be chosen from candidates an unlimited number of times.
+ * Two combinations are unique if the frequency of at least one of the chosen
+ * numbers is different.
  * 
- * The same repeated number may be chosen from candidates unlimited number of
- * times.
+ * It is guaranteed that the number of unique combinations that sum up to target
+ * is less than 150 combinations for the given input.
  * 
- * Note:
+ * Input: candidates = [2,3,6,7], target = 7 Output: [[2,2,3],[7]] Explanation:
+ * 2 and 3 are candidates, and 2 + 2 + 3 = 7. Note that 2 can be used multiple
+ * times. 7 is a candidate, and 7 = 7. These are the only two combinations.
  * 
- * All numbers (including target) will be positive integers. The solution set
- * must not contain duplicate combinations.
+ * Input: candidates = [2,3,5], target = 8 Output: [[2,2,2,2],[2,3,3],[3,5]]
  * 
- * Example 1:
+ * Input: candidates = [2], target = 1 Output: []
  * 
- * Input: candidates = [2,3,6,7], target = 7, A solution set is: [ [7], [2,2,3]
- * ]
- * 
- * Example 2:
- * 
- * Input: candidates = [2,3,5], target = 8, A solution set is: [ [2,2,2,2],
- * [2,3,3], [3,5] ]
- * 
- * 
+ * Input: candidates = [1], target = 1 Output: [[1]]
+ *  
+ * Input: candidates = [1], target = 2 Output: [[1,1]]
  * 
  * Constraints:
  * 
- * 1 <= candidates.length <= 30 1 <= candidates[i] <= 200 Each element of
- * candidate is unique. 1 <= target <= 500
+ * 1 <= candidates.length <= 30 
+ * 1 <= candidates[i] <= 200 
+ * All elements of candidates are distinct. 
+ * 1 <= target <= 500
  * 
  * 
  */
 public class CombinationSum {
-	public List<List<Integer>> combinationSum3(int k, int n) {
-		List<List<Integer>> ans = new ArrayList<>();
-		combination(ans, new ArrayList<Integer>(), k, 1, n);
-		return ans;
+
+	public static void main(String[] args) {
+		int[] candidates = {2,3,6,7}; int target=7;
+		System.out.println(combinationSum(candidates, target));
+	}
+	public static List<List<Integer>> combinationSum(int[] candidates, int target) {
+		Arrays.sort(candidates);
+		List<List<Integer>> res = new ArrayList<List<Integer>>();
+		dfs(res, new ArrayList<Integer>(), candidates, target, 0);   
+		return res;
 	}
 
-	private void combination(List<List<Integer>> ans, List<Integer> comb, int k, int start, int n) {
-		if (comb.size() == k && n == 0) {
-			List<Integer> li = new ArrayList<Integer>(comb);
-			ans.add(li);
+	static void dfs(List<List<Integer>> res, List<Integer> temp, int A[], int target, int start){
+		if(target == 0 ){
+			res.add(new ArrayList<Integer>(temp));
 			return;
 		}
-		for (int i = start; i <= 9; i++) {
-			comb.add(i);
-			combination(ans, comb, k, i + 1, n - i);
-			comb.remove(comb.size() - 1);
+		for(int i = start; i < A.length; i++){
+			if(target >= A[i]) {
+				temp.add(A[i]);
+				dfs(res, temp, A, target - A[i], i);
+				temp.remove(temp.size() - 1);
+			}
 		}
-	}
+	} 	 
 }
+
