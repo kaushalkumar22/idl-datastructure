@@ -1,4 +1,4 @@
-package com.algo.ads.backtracking.common;
+package com.algo.nlds.graph.bfs;
 
 import java.util.LinkedList;
 import java.util.Queue;

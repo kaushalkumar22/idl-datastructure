@@ -1,4 +1,4 @@
-package com.algo.ads.backtracking.common;
+package com.algo.ads.backtracking.permutations;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -36,19 +36,19 @@ public class LetterCombinationsOfAPhoneNumber {
 		List<String> res = new ArrayList<>();
 		if (digits.length() == 0 || digits.equals(""))
 			return res;
-		permute(digits, new StringBuilder(), res, 0);
+		permute(digits, res,new StringBuilder(),  0);
 		return res;
 	}
 
-	private void permute(String digits, StringBuilder res, List<String> results, int i) {
+	private void permute(String digits,List<String> res, StringBuilder subRes,  int i) {
 		if (i == digits.length()) {
-			results.add(res.toString());
+			res.add(subRes.toString());
 			return;
 		}
 		for (char c : KEYPAD[Character.getNumericValue(digits.charAt(i))].toCharArray()) {
-			res.append(c);
-			permute(digits, res, results, i + 1);
-			res.deleteCharAt(res.length() - 1);
+			subRes.append(c);
+			permute(digits,res, subRes,  i + 1);
+			subRes.deleteCharAt(subRes.length() - 1);
 		}
 	}
 }

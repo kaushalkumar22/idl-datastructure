@@ -8,8 +8,6 @@ import java.util.List;
  * 
  * Given a collection of distinct integers, return all possible permutations.
  * 
- * Example:
- * 
  * Input: [1,2,3] Output: [ [1,2,3], [1,3,2], [2,1,3], [2,3,1], [3,1,2], [3,2,1]
  * ]
  * 
@@ -20,23 +18,24 @@ public class Permutations {
 		System.out.println(permute(new int[] {1,2,3}));
 	}
 	public static List<List<Integer>> permute(int[] nums) {
-		   List<List<Integer>> list = new ArrayList<>();
-		   // Arrays.sort(nums); // not necessary
-		   backtrack(list, new ArrayList<>(), nums);
-		   return list;
-		}
+		List<List<Integer>> res = new ArrayList<>();
+		// Arrays.sort(nums); // not necessary
+		backtrack(nums ,res, new ArrayList<>());
+		return res;
+	}
 
-		private static void backtrack(List<List<Integer>> list, List<Integer> tempList, int [] nums){
-		   if(tempList.size() == nums.length){
-		      list.add(new ArrayList<>(tempList));
-		      return;
-		   } else{
-		      for(int i = 0; i < nums.length; i++){ 
-		         if(tempList.contains(nums[i])) continue; // element already exists, skip
-		         tempList.add(nums[i]);
-		         backtrack(list, tempList, nums);
-		         tempList.remove(tempList.size() - 1);
-		      }
-		   }
+	private static void backtrack(int [] nums,List<List<Integer>> res, List<Integer> subRes ){
+		
+		if(subRes.size() == nums.length){
+			res.add(new ArrayList<>(subRes));
+			return;
 		} 
+		for(int i = 0; i < nums.length; i++){ 
+			if(subRes.contains(nums[i])) continue; // element already exists, skip
+			subRes.add(nums[i]);
+			backtrack(nums,res, subRes);
+			subRes.remove(subRes.size() - 1);
+
+		}
+	} 
 }

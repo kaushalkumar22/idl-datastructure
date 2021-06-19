@@ -21,25 +21,25 @@ public class GenerateParentheses {
 
 	public List<String> generateParenthesis(int n) {
 		List<String> res = new ArrayList<>();
-		dfs(res, new StringBuilder(), 0, 0, n);
+		backtrack(n,res, new StringBuilder(), 0, 0);
 		return res;
 	}
 
-	private void dfs(List<String> res, StringBuilder sb, int open, int close, int n) {
+	private void backtrack(int n,List<String> res, StringBuilder subRes, int open, int close) {
 		if (open == n && close == n) {
-			res.add(sb.toString());
+			res.add(subRes.toString());
 			return;
 		}
 
 		if (open < n) {
-			sb.append("(");
-			dfs(res, sb, open + 1, close, n);
-			sb.deleteCharAt(sb.length() - 1);
+			subRes.append("(");
+			backtrack(n,res, subRes, open + 1, close);
+			subRes.deleteCharAt(subRes.length() - 1);
 		}
 		if (close < open) {
-			sb.append(")");
-			dfs(res, sb, open, close + 1, n);
-			sb.deleteCharAt(sb.length() - 1);
+			subRes.append(")");
+			backtrack(n,res, subRes, open, close + 1);
+			subRes.deleteCharAt(subRes.length() - 1);
 		}
 	}
 }

@@ -40,28 +40,29 @@ import java.util.List;
 public class CombinationSum {
 
 	public static void main(String[] args) {
-		int[] candidates = {2,3,6,7}; int target=7;
+		int[] candidates = {2,3,6,7};
+		int target=7;
 		System.out.println(combinationSum(candidates, target));
 	}
 	public static List<List<Integer>> combinationSum(int[] candidates, int target) {
 		Arrays.sort(candidates);
 		List<List<Integer>> res = new ArrayList<List<Integer>>();
-		dfs(res, new ArrayList<Integer>(), candidates, target, 0);   
+		backtrack(candidates,res, new ArrayList<Integer>(),  target, 0);   
 		return res;
 	}
 
-	static void dfs(List<List<Integer>> res, List<Integer> temp, int A[], int target, int start){
+	static void backtrack( int A[],List<List<Integer>> res, List<Integer> subRes, int target, int start){
 		if(target == 0 ){
-			res.add(new ArrayList<Integer>(temp));
+			res.add(new ArrayList<Integer>(subRes));
 			return;
 		}
 		for(int i = start; i < A.length; i++){
-			if(target >= A[i]) {
-				temp.add(A[i]);
-				dfs(res, temp, A, target - A[i], i);
-				temp.remove(temp.size() - 1);
-			}
+			if(target < A[i]) continue;
+			subRes.add(A[i]);
+			backtrack(A,res, subRes,  target - A[i], i);
+			subRes.remove(subRes.size() - 1);
 		}
-	} 	 
-}
+	}
+} 	 
+
 

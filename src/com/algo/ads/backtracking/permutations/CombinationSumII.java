@@ -64,25 +64,24 @@ public class CombinationSumII {
 	}
 
 	public static List<List<Integer>> combinationSum(int[] candidates, int target) {
-		List<List<Integer>> list = new LinkedList<List<Integer>>();
+		List<List<Integer>> res = new LinkedList<List<Integer>>();
 		Arrays.sort(candidates);
-		dfs(list, new ArrayList<Integer>(), candidates, target, 0);
-		return list;
+		backtrack(candidates,res, new ArrayList<Integer>(),  target, 0);
+		return res;
 	}
 
-	static void dfs(List<List<Integer>> res, List<Integer> temp, int[] A, int target, int start) {
+	static void backtrack(int[] A,List<List<Integer>> res, List<Integer> subRes,  int target, int start) {
 
 		if (target == 0) {
-			res.add(new ArrayList<>(temp));
-		} else {
-			for (int i = start; i < A.length ; i++) {
-				if (i > start && A[i] == A[i - 1]) continue; /** skip duplicates */
-				if(target >= A[i]) {
-					temp.add(A[i]);
-					dfs(res, temp, A, target - A[i], i + 1);
-					temp.remove(temp.size() - 1);
-				}
-			}
+			res.add(new ArrayList<>(subRes));
+			return;
+		} 
+		for (int i = start; i < A.length ; i++) {
+			if (target < A[i]||i > start && A[i] == A[i - 1]) continue; /** skip duplicates */
+			subRes.add(A[i]);
+			backtrack(A,res, subRes,  target - A[i], i + 1);
+			subRes.remove(subRes.size() - 1);
+
 		}
 	}
 }

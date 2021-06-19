@@ -4,44 +4,46 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * Palindrome Partitioning Medium
+ * Palindrome Partitioning
  * 
  * Given a string s, partition s such that every substring of the partition is a
  * palindrome.
  * 
  * Return all possible palindrome partitioning of s.
  * 
- * Example:
- * 
  * Input: "aab" Output: [ ["aa","b"], ["a","a","b"] ]
  *
- * 
- * 
  */
 public class PalindromePartitioning {
 
+	public static void main(String[] args) {
+		System.out.println(new PalindromePartitioning().partition("aab").toString());
+	}
+	
 	public List<List<String>> partition(String s) {
-		List<List<String>> list = new ArrayList<>();
-		backtrack(list, new ArrayList<>(), s, 0);
-		return list;
+		List<List<String>> res = new ArrayList<>();
+		backtrack(s,res, new ArrayList<>(), 0);
+		return res;
 	}
 
-	public void backtrack(List<List<String>> list, List<String> tempList, String s, int start) {
-		if (start == s.length())
-			list.add(new ArrayList<>(tempList));
-		else {
-			for (int i = start; i < s.length(); i++) {
-				if (isPalindrome(s, start, i)) {
-					tempList.add(s.substring(start, i + 1));
-					backtrack(list, tempList, s, i + 1);
-					tempList.remove(tempList.size() - 1);
-				}
-			}
+	public void backtrack(String str,List<List<String>> res, List<String> subRes,  int start) {
+
+		if (start == str.length()) {
+			res.add(new ArrayList<>(subRes));
+			return;
+		}
+		for (int i = start; i < str.length(); i++) {
+			if (!isPalindrome(str, start, i)) continue;
+			subRes.add(str.substring(start, i + 1));
+			backtrack(str,res, subRes, i + 1);
+			subRes.remove(subRes.size() - 1);
 		}
 	}
-	public boolean isPalindrome(String s, int low, int high){
-		   while(low < high)
-		      if(s.charAt(low++) != s.charAt(high--)) return false;
-		   return true;
-		} 
+
+
+	public boolean isPalindrome(String str, int low, int high){
+		while(low < high)
+			if(str.charAt(low++) != str.charAt(high--)) return false;
+		return true;
+	} 
 }

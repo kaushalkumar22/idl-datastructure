@@ -1,4 +1,4 @@
-package com.algo.ads.backtracking.common;
+package com.algo.lds.nicetodo.array;
 
 import java.util.ArrayList;
 

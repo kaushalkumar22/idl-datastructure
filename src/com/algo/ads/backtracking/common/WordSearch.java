@@ -38,12 +38,12 @@ public class WordSearch {
 		if (i == word.length) return true;
 		if (y<0 || x<0 || y == board.length || x == board[y].length) return false;
 		if (board[y][x] != word[i]) return false;
-		board[y][x] ^= 256;
+		board[y][x] = '*';
 		boolean exist = exist(board, y, x+1, word, i+1)
 				|| exist(board, y, x-1, word, i+1)
 				|| exist(board, y+1, x, word, i+1)
 				|| exist(board, y-1, x, word, i+1);
-		board[y][x] ^= 256;
+		board[y][x] = word[i];
 		return exist;
 	}
 }

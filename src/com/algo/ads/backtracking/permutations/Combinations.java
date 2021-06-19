@@ -22,23 +22,23 @@ import java.util.List;
  */
 public class Combinations {
 	public static void main(String[] args) {
-     System.out.println(combine(4,2));
+		System.out.println(combine(4,2));
 	}
-	
+
 	public static List<List<Integer>> combine(int n, int k) {
-		List<List<Integer>> combs = new ArrayList<List<Integer>>();
-		combine(combs, new ArrayList<Integer>(), 1, n, k);
-		return combs;
+		List<List<Integer>> res = new ArrayList<List<Integer>>();
+		combine(res, new ArrayList<Integer>(), 1, n, k);
+		return res;
 	}
-	public static void combine(List<List<Integer>> combs, List<Integer> comb, int start, int n, int k) {
+	public static void combine(List<List<Integer>> res, List<Integer> subRes, int start, int n, int k) {
 		if(k==0) {
-			combs.add(new ArrayList<Integer>(comb));
+			res.add(new ArrayList<Integer>(subRes));
 			return;
 		}
 		for(int i=start;i<=n;i++) {
-			comb.add(i);
-			combine(combs, comb, i+1, n, k-1);
-			comb.remove(comb.size()-1);
+			subRes.add(i);
+			combine(res, subRes, i+1, n, k-1);
+			subRes.remove(subRes.size()-1);
 		}
 	}
 }
