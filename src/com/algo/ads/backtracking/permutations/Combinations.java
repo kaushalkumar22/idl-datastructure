@@ -22,11 +22,11 @@ import java.util.List;
  */
 public class Combinations {
 	public static void main(String[] args) {
-		System.out.println(combine(4,2));
+		System.out.println(combine(7,2));
 	}
 
 	public static List<List<Integer>> combine(int n, int k) {
-		List<List<Integer>> res = new ArrayList<List<Integer>>();
+		List<List<Integer>> res = new ArrayList<>();
 		combine(res, new ArrayList<Integer>(), 1, n, k);
 		return res;
 	}
