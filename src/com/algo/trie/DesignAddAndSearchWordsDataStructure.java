@@ -53,10 +53,10 @@ public class DesignAddAndSearchWordsDataStructure {
 	public void addWord(String word) {
 		TrieNode node = root;
 		for (char c : word.toCharArray()) {
-			if (node.children[c - 'a'] == null) {
-				node.children[c - 'a'] = new TrieNode();
+			if (node.next[c - 'a'] == null) {
+				node.next[c - 'a'] = new TrieNode();
 			}
-			node = node.children[c - 'a'];
+			node = node.next[c - 'a'];
 		}
 		node.item = word;
 	}
@@ -65,24 +65,25 @@ public class DesignAddAndSearchWordsDataStructure {
 		return match(word.toCharArray(), 0, root);
 	}
 
-	private boolean match(char[] chars, int j, TrieNode node) {
-		if (j == chars.length)
+	private boolean match(char[] chars, int index, TrieNode node) {
+		if (index == chars.length)
 			return !(node.item==null);
 
-		if(chars[j] == '.') {
-			for (int i = 0; i < node.children.length; i++) {
-				if (node.children[i] != null && match(chars, j + 1, node.children[i])) {
+		if(chars[index] == '.') {
+			for (int i = 0; i < node.next.length; i++) {
+				if (node.next[i] != null && match(chars, index + 1, node.next[i])) {
                     return true;
                 }
 			}
 		}else {
-			return node.children[chars[j] - 'a'] != null && match(chars, j + 1, node.children[chars[j] - 'a']);
+			return node.next[chars[index] - 'a'] != null 
+					&& match(chars, index + 1, node.next[chars[index] - 'a']);
 		}
 		return false;
 	}
 
 	private class TrieNode {
-		public TrieNode[] children = new TrieNode[26];
+		public TrieNode[] next = new TrieNode[26];
 		public String item;
 	}
 

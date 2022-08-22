@@ -23,21 +23,18 @@ public class NextGreaterElement {
 
 	public static void main(String[] args) {
 		int[] input = { 98, 23, 54, 12, 20, 7, 27 };
-		printNextGreaterElement(input);
+		nextGreaterElement(input);
 	}
-	public static void printNextGreaterElement(int[] input) {
-		Stack<Integer> stack = new Stack<Integer>();
-		int inputSize = input.length;
-		
-		for (int i = 0; i < inputSize; i++) {
-			while (!stack.isEmpty() && stack.peek() < input[i]) {
-				System.out.println("Next greater element for " + stack.pop() + "\t = " + input[i]);
-			}
-			stack.push(input[i]);
-		}
-		while (!stack.isEmpty()) {
-			int top = (int) stack.pop();
-			System.out.println("Next greater element for " + top + "\t = " + null);
-		}
+	public int[] nextGreaterElement(int[] findNums, int[] nums) {
+		Map<Integer, Integer> map = new HashMap<>(); // map from x to next greater element of x
+		Stack<Integer> stack = new Stack<>();
+		for (int num : nums) {
+			while (!stack.isEmpty() && stack.peek() < num)
+				map.put(stack.pop(), num);
+			stack.push(num);
+		}   
+		for (int i = 0; i < findNums.length; i++)
+			findNums[i] = map.getOrDefault(findNums[i], -1);
+		return findNums;
 	}
 }

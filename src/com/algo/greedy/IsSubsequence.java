@@ -32,13 +32,13 @@ import java.util.List;
  */
 public class IsSubsequence {
 	public boolean isSubsequence1(String s, String t) {
-        int index = -1;
-        for (char c : s.toCharArray()) {
-            index = t.indexOf(c, index + 1);
-            if (index == -1) return false;
-        }
-        return true;
-    }
+		int index = -1;
+		for (char c : s.toCharArray()) {
+			index = t.indexOf(c, index + 1);
+			if (index == -1) return false;
+		}
+		return true;
+	}
 	// Follow-up: O(N) time for pre-processing, O(Mlog?) for each S.
 	// Eg-1. s="abc", t="bahbgdca"
 	// idx=[a={1,7}, b={0,3}, c={6}]

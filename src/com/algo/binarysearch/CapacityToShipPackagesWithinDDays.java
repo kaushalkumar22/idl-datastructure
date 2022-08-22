@@ -39,28 +39,19 @@ public class CapacityToShipPackagesWithinDDays {
 		System.out.println(shipWithinDays(weights, D));
 	}
 
-	/*
-	 * [1,2,3,4,5,6,7,8,9,10], D = 5
-	 * 
-	 * [1, 2, 3], [4, 5], [6, 7], [8] ,[9,10]
-	 * 
-	 * capacity : 19 but its not maximum capacity: [1, 2, 3, 4, 5], [6, 7], [8] ,[9], [10] 
-	 * Ans 14
-	 * 
-	 * min =10(max no) max=55(sum)
-	 * 
-	 * capacity =10 [1, 2, 3, 4], [5], [6], [7], [8] ,[9], [10] so D =7
-	 * 
-	 * capacity =11 [1, 2, 3, 4], [5,6], [7], [8] ,[9], [10] so D =6
-	 * 
-	 * ...............
-	 * 
-	 * capacity:14 [1, 2, 3, 4, 5], [6, 7], [8] ,[9], [10] =5
-	 * 
-	 * so time complexity is O(n)*O(max-min) i.e O(n2)
-	 * so can we do better, yes if we do the binary search on min and max 
-	 * 
-	 * time complexity will be O(nlogn)
+	/**
+  [1,2,3,4,5,6,7,8,9,10], D = 5  
+  [1, 2, 3], [4, 5], [6, 7], [8] ,[9,10]  
+  capacity : 19 but its not maximum capacity: [1, 2, 3, 4, 5], [6, 7], [8] ,[9], [10] 
+  Ans 14 
+  min =10(max no) max=55(sum)
+  capacity =10 [1, 2, 3, 4], [5], [6], [7], [8] ,[9], [10] so D =7 
+  capacity =11 [1, 2, 3, 4], [5,6], [7], [8] ,[9], [10] so D =6
+  capacity:14 [1, 2, 3, 4, 5], [6, 7], [8] ,[9], [10] =5 
+  so time complexity is O(n)*O(max-min) i.e O(n2)
+  so can we do better, yes if we do the binary search on min and max  
+  time complexity will be O(nlogn)
+
 	 */
 	public static int shipWithinDays(int[] weights, int D) {
 		int min = 0, max = 0;

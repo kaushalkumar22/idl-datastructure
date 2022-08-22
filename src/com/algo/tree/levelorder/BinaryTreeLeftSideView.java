@@ -50,7 +50,7 @@ public class BinaryTreeLeftSideView {
 		}
 		leftView(root.left, list,level + 1);
 		leftView(root.right, list,level + 1);
-		
+
 	}
 
 	public List<Integer> leftSideView(TreeNode root) {
@@ -65,10 +65,10 @@ public class BinaryTreeLeftSideView {
 				root = queue.poll();
 				if ( i== 0)
 					res.add(root.val);
-				
+
 				if (root.left != null)
 					queue.offer(root.left);
-				
+
 				if (root.right != null)
 					queue.offer(root.right);		
 			}

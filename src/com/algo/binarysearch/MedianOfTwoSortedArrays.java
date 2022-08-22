@@ -1,8 +1,9 @@
 package com.algo.binarysearch;
 
-/**There are two sorted arrays nums1 and nums2 of size m and n respectively.
+/**
+There are two sorted arrays nums1 and nums2 of size m and n respectively.
 
- *Find the median of the two sorted arrays. The overall run time complexity should be O(log min(m,n)).
+Find the median of the two sorted arrays. The overall run time complexity should be O(log min(m,n)).
 
 You may assume nums1 and nums2 cannot be both empty.
 To solve this problem, we need to understand "What is the use of median". In statistics, the median is used for 
@@ -63,7 +64,7 @@ public class MedianOfTwoSortedArrays {
 		System.out.println(mm.findMedianSortedArrays(x, y));
 	}
 	public double findMedianSortedArrays(int A[], int B[]) {
-		
+
 		if (A.length > B.length) {
 			return findMedianSortedArrays(B, A);
 		}

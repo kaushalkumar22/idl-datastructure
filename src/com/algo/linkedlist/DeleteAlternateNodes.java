@@ -4,29 +4,9 @@ import java.util.Arrays;
 import java.util.List;
 
 public class DeleteAlternateNodes {
-	
-	private void deleteAlternateListNode(ListNode curr){
-			
-		if(curr==null||curr.next==null) return;
-		curr.next=curr.next.next;
-		deleteAlternateListNode(curr.next);
-
-		//ListNode curr = head;
-				/*if(curr!=null&&curr.next!=null){
-					curr.next=  curr.next.next;
-					deleteAlternateListNode(curr.next);
-				}*/
-		
-	/*	while(curr!=null&&curr.next!=null){
-			curr.next=  curr.next.next;
-			curr = curr.next;
-		}*/
-	}
-
-	
 	public static void main(String[] args) {
 
-		List<Integer> nums =Arrays.asList(7,5,9,4,6,10);
+		List<Integer> nums =Arrays.asList(1,2,3,4,5,6,7,8,9,10,11,12,13);
 		ListNode listNode = ListUtil.createList(nums);	
 		System.out.print("Original List :: ");
 		ListUtil.print(listNode);
@@ -35,6 +15,22 @@ public class DeleteAlternateNodes {
 		System.out.print("After delete List :: ");
 		ListUtil.print(listNode);
 	}
-	
 
+
+	private void deleteAlternateListNode1(ListNode head){
+
+		while(head!=null&&head.next!=null) {
+			head.next=head.next.next;
+			head=head.next;
+		}
+	}
+
+	private void deleteAlternateListNode(ListNode head){
+
+		if(head==null||head.next==null) {
+			return;
+		}
+		head.next=head.next.next;
+		deleteAlternateListNode(head.next);
+	}
 }

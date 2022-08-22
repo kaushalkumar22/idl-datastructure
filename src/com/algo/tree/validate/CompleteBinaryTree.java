@@ -1,7 +1,9 @@
 package com.algo.tree.validate;
 
 import java.util.Arrays;
+import java.util.LinkedList;
 import java.util.List;
+import java.util.Queue;
 
 import com.algo.tree.common.TreeNode;
 import com.algo.tree.common.TreeUtil;
@@ -51,6 +53,25 @@ public class CompleteBinaryTree {
 		return (isComplete(node.left, 2 * i + 1, number_nodes)
 				&& isComplete(node.right, 2 * i + 2, number_nodes));
 	}
+	 public boolean isCompleteTree(TreeNode root) {
+	        Queue<TreeNode> queue = new LinkedList<>();
+	        queue.offer(root);
+	        boolean seenEmpty = false;
+	        
+	        while(!queue.isEmpty()) {
+	            TreeNode curr = queue.poll();
+	            if (curr == null) {
+	                seenEmpty = true;
+	                continue;
+	            } else if (seenEmpty) {
+	                    return false;
+	            }      
+	            queue.offer(curr.left);
+	            queue.offer(curr.right);
+	        }   
+	        return true;
+	    }
+
 	
 
 }

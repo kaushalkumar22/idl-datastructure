@@ -36,20 +36,21 @@ public class InvertBinaryTree {
 		List<Integer> nums = Arrays.asList(4, 2, 7, 1,3,6,9);
 		TreeNode root = TreeUtil.createTree(nums);
 		InvertBinaryTree tree = new InvertBinaryTree();
-		tree .invertTree( root);
+		tree .invertTreeRec( root);
 		TreeUtil.inorder(root);
 	}
 	public TreeNode invertTreeRec(TreeNode root) {
 		if(root==null) return null;
 
 		TreeNode left = root.left;
-		TreeNode right = root.right;
+		root.left = root.right;
+		root.right=left;
 
-		root.left=invertTree(right);
-		root.right=invertTree(left);
+		invertTree(root.left);
+		invertTree(root.right);
 		return root;
 	}
-	//level order
+	//level order 9 7 6 4 3 2 1 
 	public TreeNode invertTree(TreeNode root) {
 
 		if (root == null) {

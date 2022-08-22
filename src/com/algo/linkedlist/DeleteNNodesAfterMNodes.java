@@ -39,24 +39,21 @@ public class DeleteNNodesAfterMNodes {
 		if (head == null)
 			return;
 
-		ListNode curr = head, temp = null;
+		ListNode curr = head, prev = null;
 		// it will traverse up to m ListNode and holds previous ListNode in temp
-		for (int i = 0; curr != null && i < m; i++) {
-			temp = curr;
+		for (int i = 0; i < m&&curr!= null; i++) {
+			prev = curr;
 			curr = curr.next;
 		}
-
 		if (curr == null)
 			return;
 		// it will traverse up to n ListNode
-		for (int i = 0; curr != null && i < n; i++) {
+		for (int i = 0; i < n&&curr!= null; i++) {
 			curr = curr.next;
 		}
-		// it will add mth ListNode next as nth+1 ListNodes i.e here doing dereferencing
-		// n ListNodes
-		temp.next = curr;
-		deleteListNodes(curr, m, n);
+		// it will add mth ListNode next as nth+1 ListNodes i.e here doing dereferencing n ListNodes
+		prev.next = curr;
+		if(curr!=null)
+			deleteListNodes(curr, m, n);
 	}
-
-
 }

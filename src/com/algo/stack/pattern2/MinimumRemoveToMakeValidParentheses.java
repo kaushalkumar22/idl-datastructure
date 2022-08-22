@@ -38,7 +38,7 @@ import java.util.Stack;
 public class MinimumRemoveToMakeValidParentheses {
 	public static void main(String[] args) {
 		String S="(a(b(c)d)";
-		System.out.println(minRemoveToMakeValid( S));
+		System.out.println(minRemoveToMakeValid1( S));
 	}
 	public static String minRemoveToMakeValid(String s) {
 
@@ -58,4 +58,22 @@ public class MinimumRemoveToMakeValidParentheses {
 		return sb.toString();
 
 	}
+	public static String minRemoveToMakeValid1(String s) {
+		StringBuilder sb = new StringBuilder(s);
+		Stack<Integer> st = new Stack<>();
+		for (int i = 0; i < sb.length(); ++i) {
+			if (sb.charAt(i) == '(') 
+				st.add(i);
+			if (sb.charAt(i) == ')') {
+				if (!st.empty())
+					st.pop();
+				else 
+					sb.setCharAt(i, '*');
+			}
+		}
+		while (!st.empty())
+			sb.setCharAt(st.pop(), '*');
+		return sb.toString().replaceAll("\\*", "");
+	}
+
 }

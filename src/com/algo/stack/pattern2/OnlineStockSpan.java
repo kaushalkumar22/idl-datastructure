@@ -36,14 +36,27 @@ public class OnlineStockSpan {
 
 	public static void main(String[] args) {
 		int price[] = {100,80,60,70,60,75,85};
-		
+
 		System.out.println(Arrays.stream(next2(price)).boxed().collect(Collectors.toList()));
 	}
 
+
+	Stack<int[]> stack;
+	public StockSpanner() {
+		stack = new Stack<>();
+	}     
+	public int next(int price) {
+		int res = 1;
+		while (!stack.isEmpty() && stack.peek()[0] <= price)
+			res += stack.pop()[1];
+		stack.push(new int[]{price, res});
+		return res;
+	}
+	
 	public static int[] next2(int[] price) {
 		Stack<Integer> st = new Stack<>();
 		int[] res = new int[price.length];
-		
+
 		for(int i=0;i<price.length;i++) {
 			while (!st.isEmpty() && price[st.peek()] < price[i]) {
 				res[st.peek()]=st.pop()-st.peek();

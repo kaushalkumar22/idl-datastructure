@@ -20,7 +20,7 @@ public class ReorderList {
 
 	public static void main(String[] args) {
 
-		List<Integer> nums = Arrays.asList(1, 2, 3, 4, 5);
+		List<Integer> nums = Arrays.asList(1, 2, 3, 4,5);
 		ListNode node = ListUtil.createList(nums);
 		System.out.print("Original List :: ");
 		ListUtil.print(node);
@@ -53,7 +53,8 @@ public class ReorderList {
 		}
 		return prev;	
 	}
-	public void merge(ListNode curr,ListNode rev) {	
+
+	public void merge2(ListNode curr,ListNode rev) {	
 
 		while (rev != null) {
 			ListNode n1 = curr.next; 
@@ -67,5 +68,24 @@ public class ReorderList {
 			curr = n1;
 			rev = n2;
 		}
+	}
+	
+	//this method is common template of merge
+	public void merge(ListNode head,ListNode rev) {	
+		ListNode dummy = new  ListNode(0);
+		ListNode res = dummy;
+		while (rev != null) {
+			dummy.next=head;
+			head= head.next;
+			dummy=dummy.next;
+
+			dummy.next=rev;
+			dummy=dummy.next;
+			rev= rev.next;
+		}
+		if(rev==null) {
+			dummy.next=head;
+		}
+		head= res.next;
 	}
 }

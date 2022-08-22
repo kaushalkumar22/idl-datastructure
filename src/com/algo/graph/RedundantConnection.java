@@ -1,5 +1,8 @@
 package com.algo.graph;
 
+import java.util.Arrays;
+import java.util.Iterator;
+
 /**
  * 
  * In this problem, a tree is an undirected graph that is connected and has no
@@ -39,4 +42,58 @@ package com.algo.graph;
  */
 public class RedundantConnection {
 
+	public static void main(String[] args) {
+		int[][] edges =  {{1,2},{2,3},{3,4},{1,4},{1,5}};
+		System.out.println(Arrays.toString(new RedundantConnection()
+				.findRedundantConnection(edges))); 
+
+	}
+
+	public int[] findRedundantConnection(int[][] edges) {
+		int n = edges.length+1;
+		UnionFind uf = new UnionFind(n);
+
+		for (int[] edge : edges) {
+			if(uf.find(edge[0])==uf.find(edge[1])) {
+				return edge;
+			}else {
+				uf.union(edge[0],edge[1]);
+			}
+		}
+
+		return edges[0];
+	}
+	class UnionFind{
+
+		private int[] parent ;
+		private int[] rank ;
+
+		public UnionFind(int n) {
+			parent = new int[n+1];
+			rank =  new int[n+1];
+			for(int i=0;i<=n;i++) {
+				parent[i]=i;
+				rank[i]=1;
+			}
+		}
+		public int find(int x) {
+			if(x != parent[x]) {
+				parent[x] = find(parent[x]);    // path compression by halving
+			}
+			return parent[x];
+		}
+
+		public void union(int a, int b) {
+			int par1 = find(a);
+			int par2 = find(b);
+			if (rank[par1] > rank[par2]) {
+				parent[par2] = par1;
+				rank[par1]+=rank[par2];
+			}else {
+				parent[par1] = par2;
+				rank[par2]+=rank[par1];
+			}
+		}
+	}
 }
+

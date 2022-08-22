@@ -34,8 +34,7 @@ public class SortStackRecursion
 		System.out.println(s1.pop());
 
 	}
-	public static void sortStack(Stack<Integer> s)
-	{
+	public static void sortStack(Stack<Integer> s){
 		if (s.isEmpty()) {
 			return;
 		} else {
@@ -44,8 +43,7 @@ public class SortStackRecursion
 			sortedInsert(s, a);
 		}
 	}
-	public static void sortedInsert(Stack<Integer> s, Integer a) 
-	{
+	public static void sortedInsert(Stack<Integer> s, Integer a) {
 		if (s.isEmpty() || a > s.peek()) {
 			s.push(a);
 			return;

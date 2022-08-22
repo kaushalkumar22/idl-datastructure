@@ -50,7 +50,7 @@ public class BinaryTreeVerticalOrderTraversal {
 	private void traverse(TreeNode node, int distace, Map<Integer, List<Integer>> hzOrderList) {
 
 		if (node == null) return;
-		
+
 		if (hzOrderList.containsKey(distace)) {
 			List<Integer> nList = hzOrderList.get(distace);
 			nList.add(node.val);
@@ -64,6 +64,6 @@ public class BinaryTreeVerticalOrderTraversal {
 
 	}
 
-	
+
 
 }

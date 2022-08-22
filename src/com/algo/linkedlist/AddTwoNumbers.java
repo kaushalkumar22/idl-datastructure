@@ -19,8 +19,9 @@ import java.util.List;
  * 
  */
 public class AddTwoNumbers {
-	private ListNode head;
-	int carry = 0;
+
+
+
 	public static void main(String[] args) {
 
 		ListNode list1 = ListUtil.createList(Arrays.asList(7, 5, 9, 4, 6));
@@ -29,6 +30,8 @@ public class AddTwoNumbers {
 		list.addTwoNumbers(list1, list2);
 		ListUtil.print(list.head);
 	}
+	private ListNode head;
+	int carry = 0;
 	public ListNode addTwoNumbers(ListNode l1, ListNode l2) {
 
 		int size1 = listSize(l1);
@@ -77,4 +80,5 @@ public class AddTwoNumbers {
 		node.next = head;
 		head=node;
 	}
+	
 }

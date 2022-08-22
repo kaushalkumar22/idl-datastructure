@@ -46,8 +46,9 @@ public class CloneBTWithRandomPointers {
 		inorderTraverse(root.left);
 		inorderTraverse(root.right);
 	}
+
 	public static void main(String args[]) {
-		
+
 		CloneBTWithRandomPointers tree = new CloneBTWithRandomPointers();
 
 		tree.root = new Node(1);

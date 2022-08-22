@@ -30,20 +30,20 @@ public class SearchInASortedArrayOfUnknownSize {
 		System.out.println(search(nums,target));
 	}
 
-	private static int search(int[] nums, int target) {
-		
+	private static int search(int[] A, int target) {
+
 		int start =0;
 		int end=1;
-		while(target>nums[end]) {
+		while(target>A[end]) {
 			start =end;
 			end=2*end;
 		}
-		
+
 		while(start<=end) {
 			int mid = start+(end-start)/2;
-			if(nums[mid]==target) {
+			if(A[mid]==target) {
 				return mid;
-			}else if(nums[mid]>target) {
+			}else if(A[mid]>target) {
 				end =mid-1;
 			}else {
 				start=mid+1;
@@ -51,4 +51,6 @@ public class SearchInASortedArrayOfUnknownSize {
 		}
 		return -1;
 	}
+
 }
+

@@ -4,17 +4,13 @@ import java.util.Arrays;
 import java.util.List;
 
 /**
- * Given a sorted linked list, delete all nodes that have duplicate numbers,
- * leaving only distinct numbers from the original list.
- * 
- * Return the linked list sorted as well.
- * 
- * Example 1:
- * 
- * Input: 1->2->3->3->4->4->5 Output: 1->2->5
- * 
- * Input: 1->1->1->2->3 Output: 2->3
- * 
+ Given the head of a sorted linked list, delete all duplicates such that each element appears only once. 
+ Return the linked list sorted as well.
+ Input: head = [1,1,2]
+ Output: [1,2]
+
+ Input: head = [1,1,2,3,3]
+ Output: [1,2,3]
  *
  */
 public class RemoveDuplicatesFromSortedList {

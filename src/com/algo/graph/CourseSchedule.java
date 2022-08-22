@@ -1,33 +1,89 @@
 package com.algo.graph;
 
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Map;
+import java.util.Set;
+
 /**
- * There are a total of n courses you have to take, labeled from 0 to n-1.
  * 
- * Some courses may have prerequisites, for example to take course 0 you have to
- * first take course 1, which is expressed as a pair: [0,1]
- * 
- * Given the total number of courses and a list of prerequisite pairs, return
- * the ordering of courses you should take to finish all courses.
- * 
- * There may be multiple correct orders, you just need to return one of them. If
- * it is impossible to finish all courses, return an empty array.
- * 
- * Example 1:
- * 
- * Input: 2, [[1,0]] Output: [0,1] Explanation: There are a total of 2 courses
- * to take. To take course 1 you should have finished course 0. So the correct
- * course order is [0,1] .
- * 
- * Example 2:
- * 
- * Input: 4, [[1,0],[2,0],[3,1],[3,2]] Output: [0,1,2,3] or [0,2,1,3]
- * Explanation: There are a total of 4 courses to take. To take course 3 you
- * should have finished both courses 1 and 2. Both courses 1 and 2 should be
- * taken after you finished course 0. So one correct course order is [0,1,2,3].
- * Another correct ordering is [0,2,1,3]
- * 
- *
+There are a total of numCourses courses you have to take, labeled from 0 to numCourses - 1. 
+You are given an array prerequisites where prerequisites[i] = [ai, bi] indicates that you must take course bi 
+first if you want to take course ai.
+
+For example, the pair [0, 1], indicates that to take course 0 you have to first take course 1.
+
+Return true if you can finish all courses. Otherwise, return false.
+
+Input: numCourses = 2, prerequisites = [[1,0]]
+Output: true
+Explanation: There are a total of 2 courses to take. 
+To take course 1 you should have finished course 0. So it is possible.
+
+Input: numCourses = 2, prerequisites = [[1,0],[0,1]]
+Output: false
+Explanation: There are a total of 2 courses to take. 
+To take course 1 you should have finished course 0, and to take course 0 you should also have 
+finished course 1. So it is impossible.
  */
 public class CourseSchedule {
 
+	public static void main(String[] args) {
+		int[][] prerequisites= {{0,1},{0,2},{1,3},{1,4},{3,4}};
+		//int[][] prerequisites= {{1,0}};
+		System.out.println(canFinishDFS(5,prerequisites));
+	}
+	
+	public static boolean canFinishDFS(int numCourses, int[][] prerequisites) {
+		if(prerequisites.length==0) return true;
+		Map<Integer,List<Integer>> adjMap = new HashMap<>();
+
+		for (int i=0;i<numCourses;i++) {
+			adjMap.put(i, new ArrayList<Integer>());					
+		}
+		for (int[] pre : prerequisites) {		
+			adjMap.get(pre[0]).add(pre[1]);			
+		}
+		//System.out.println(adjMap);
+		 Set<Integer> visited = new HashSet<>();
+
+		for (int i = 0 ; i < numCourses; i++) {
+			if (!dfs(i, adjMap,visited)) {
+				return false;
+			}
+		}
+		return true;
+	}
+
+	private static boolean dfs(int course, Map<Integer, List<Integer>> adjMap,Set<Integer> visited) {
+
+		if(visited.contains(course)) return false;
+
+		if (adjMap.get(course).isEmpty()) return true;	
+
+		visited.add(course);
+		for (Integer pre : adjMap.get(course)) {	
+			if (!dfs(pre, adjMap,visited)) return false;
+		}
+		visited.remove(course);
+		adjMap.put(course,new ArrayList<>());
+		return true;
+	}
+	public static boolean canFinish(int n, int[][] prerequisites) {
+        ArrayList<Integer>[] G = new ArrayList[n];
+        int[] degree = new int[n];
+        ArrayList<Integer> bfs = new ArrayList();
+        for (int i = 0; i < n; ++i) G[i] = new ArrayList<Integer>();
+        for (int[] e : prerequisites) {
+            G[e[1]].add(e[0]);
+            degree[e[0]]++;
+        }
+        for (int i = 0; i < n; ++i) if (degree[i] == 0) bfs.add(i);
+        for (int i = 0; i < bfs.size(); ++i)
+            for (int j: G[bfs.get(i)])
+                if (--degree[j] == 0) bfs.add(j);
+        return bfs.size() == n;
+    }
 }

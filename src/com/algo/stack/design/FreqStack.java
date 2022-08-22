@@ -64,8 +64,30 @@ public class FreqStack {
 		System.out.println(stack.pop());
 		System.out.println(stack.pop());
 		System.out.println(stack.pop());
-		
+
 	}
+  //  Approach 1: Stack of Stacks
+	HashMap<Integer, Integer> freq = new HashMap<>();
+	HashMap<Integer, Stack<Integer>> m = new HashMap<>();
+	int maxfreq = 0;
+
+	public void push(int x) {
+		int f = freq.getOrDefault(x, 0) + 1;
+		freq.put(x, f);
+		maxfreq = Math.max(maxfreq, f);
+		if (!m.containsKey(f)) m.put(f, new Stack<Integer>());
+		m.get(f).add(x);
+	}
+
+	public int pop() {
+		int x = m.get(maxfreq).pop();
+		freq.put(x, maxfreq - 1);
+		if (m.get(maxfreq).size() == 0) maxfreq--;
+		return x;
+	}
+
+ //   Approach 2: Stack of Stacks
+
 	/*
 	 * create a frequency map that will contains frequency of each no.
 	 * create a list that will hold a stack at each index and stack will hold the 
@@ -78,7 +100,7 @@ public class FreqStack {
 		bucket = new ArrayList<Stack<Integer>>();
 	}
 
-	public void push(int x) {
+	public void push1(int x) {
 
 		keyVsFreq.put(x, keyVsFreq.getOrDefault(x, 0)+1);
 		int freq = keyVsFreq.get(x);
@@ -88,7 +110,7 @@ public class FreqStack {
 		bucket.get(freq-1).push(x);
 	}
 
-	public int pop() {
+	public int pop1() {
 		int freq = bucket.size();
 		int x = bucket.get(freq-1).pop();
 		if(bucket.get(freq-1).isEmpty()) {

@@ -21,35 +21,38 @@ public class PalindromLinkedList {
 		System.out.println(list.isPalindrome(head));
 	}
 	public boolean isPalindrome(ListNode head) {
-	    ListNode fast = head, slow = head;
-	    while (fast != null && fast.next != null) {
-	        fast = fast.next.next;
-	        slow = slow.next;
-	    }
-	    if (fast != null) { // odd nodes: let right half smaller
-	        slow = slow.next;
-	    }
-	    slow = reverse(slow);
-	    fast = head;
-	    
-	    while (slow != null) {
-	        if (fast.val != slow.val) {
-	            return false;
-	        }
-	        fast = fast.next;
-	        slow = slow.next;
-	    }
-	    return true;
+		ListNode fast = head, slow = head;
+		//get the middle of list
+		while (fast != null && fast.next != null) {
+			fast = fast.next.next;
+			slow = slow.next;
+		}
+		// odd nodes: let right half smaller
+		if (fast != null) { 
+			slow = slow.next;
+		}
+		// reverse the second half of list
+		slow = reverse(slow);
+		fast = head;
+		// compare first half with second half
+		while (slow != null) {
+			if (fast.val != slow.val) {
+				return false;
+			}
+			fast = fast.next;
+			slow = slow.next;
+		}
+		return true;
 	}
 
 	public ListNode reverse(ListNode head) {
-	    ListNode prev = null;
-	    while (head != null) {
-	        ListNode next = head.next;
-	        head.next = prev;
-	        prev = head;
-	        head = next;
-	    }
-	    return prev;
+		ListNode prev = null;
+		while (head != null) {
+			ListNode next = head.next;
+			head.next = prev;
+			prev = head;
+			head = next;
+		}
+		return prev;
 	}
 }

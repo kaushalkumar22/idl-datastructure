@@ -33,15 +33,15 @@ public class SymmetricTree {
 		// List<Integer> nums = Arrays.asList(1,2,2,3,4,4,3);
 		List<Integer> nums = Arrays.asList(1, 2, 2, null, 3, null, 3);
 		TreeNode root = TreeUtil.createTree(nums);
-		System.out.println(tree.isSymentric(root, root));
+		System.out.println(tree.isSymentric(root));
 
 	}
-	public boolean isSymmetric(TreeNode root) {
+	public boolean isSymentric(TreeNode root) {
 		if(root==null)return true;
-		return isSymentric( root.left, root.right);
+		return isSame( root.left, root.right);
 
 	}
-	private boolean isSymentric(TreeNode p, TreeNode q) {
+	private boolean isSame(TreeNode p, TreeNode q) {
 
 		if (p == null && q == null)
 			return true;
@@ -50,7 +50,7 @@ public class SymmetricTree {
 			return false;
 
 		if(p.val == q.val)
-			return isSymentric(p.left, q.right) && isSymentric(p.right, q.left);
+			return isSame(p.left, q.right) && isSame(p.right, q.left);
 		
 		return false;
 	}

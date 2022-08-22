@@ -46,44 +46,39 @@ public class FindLargestValueInEachTreeRow {
 		//System.out.println(tree.largestValues( root));
 		System.out.println(tree.largestValuesRec( root));
 	}
-	
+
 	public List<Integer> largestValuesRec(TreeNode root) {
-        List<Integer> res = new ArrayList<Integer>();
-        helper(root, res, 0);
-        return res;
-    }
-    private void helper(TreeNode root, List<Integer> res, int d){
-        if(root == null){
-            return;
-        }
-       //expand list size
-        if(d == res.size()){
-            res.add(root.val);
-        }
-        else{
-        //or set value
-            res.set(d, Math.max(res.get(d), root.val));
-        }
-        helper(root.left, res, d+1);
-        helper(root.right, res, d+1);
-    }
-    public List<Integer> largestValues(TreeNode root) {
-        Queue<TreeNode> q = new LinkedList<TreeNode>();
-        List<Integer> values = new ArrayList<Integer>();
-        
-        if(root != null) q.offer(root);
-        
-        while(!q.isEmpty()) {
-            int max = Integer.MIN_VALUE, n = q.size();
-            for(int i = 0; i < n; i++) {
-            	root = q.poll();
-                max = Math.max(max, root.val);
-                if(root.left != null) q.offer(root.left);
-                if(root.right != null) q.offer(root.right);
-            }
-            values.add(max);
-        }
-        
-        return values;
-    }
+		List<Integer> res = new ArrayList<Integer>();
+		helper(root, res, 0);
+		return res;
+	}
+	private void helper(TreeNode root, List<Integer> res, int d){
+		if(root == null) return;
+
+		//expand list size
+		if(d == res.size()){
+			res.add(root.val);
+		} else{
+			//or set value
+			res.set(d, Math.max(res.get(d), root.val));
+		}
+		helper(root.left, res, d+1);
+		helper(root.right, res, d+1);
+	}
+	public List<Integer> largestValues(TreeNode root) {
+		Queue<TreeNode> q = new LinkedList<TreeNode>();
+		List<Integer> values = new ArrayList<Integer>();    
+		if(root != null) q.offer(root);      
+		while(!q.isEmpty()) {
+			int max = Integer.MIN_VALUE, n = q.size();
+			for(int i = 0; i < n; i++) {
+				root = q.poll();
+				max = Math.max(max, root.val);
+				if(root.left != null) q.offer(root.left);
+				if(root.right != null) q.offer(root.right);
+			}
+			values.add(max);
+		}    
+		return values;
+	}
 }

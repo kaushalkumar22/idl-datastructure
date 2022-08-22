@@ -26,7 +26,7 @@ public class KthLargestElementInAnArray {
 	 */
 	private static int findKthLargestElement(int[] nums, int k) {
 
-		k = nums.length - k;
+		//k = nums.length - k;
 		int start = 0;
 		int end = nums.length - 1;
 		while (start < end) {

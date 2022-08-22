@@ -26,7 +26,7 @@ Explanation: At least two cameras are needed to monitor all nodes of the tree. T
  */
 public class BinaryTreeCameras {
 
-	/*Consider a node in the tree.
+/*Consider a node in the tree.
 It can be covered by its parent, itself, its two children.
 Four options.
 

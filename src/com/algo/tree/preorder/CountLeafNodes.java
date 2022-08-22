@@ -10,13 +10,6 @@ getLeafCount(node)
 public class CountLeafNodes {
 
 	//Root of the Binary Tree
-	Node root;
-
-	/* Function to get the count of leaf nodes in a binary tree*/
-	int getLeafCount() 
-	{
-		return getLeafCount(root);
-	}
 
 	int getLeafCount(Node node) 
 	{
@@ -33,15 +26,15 @@ public class CountLeafNodes {
 	{
 		/* create a tree */
 		CountLeafNodes tree = new CountLeafNodes();
-		tree.root = new Node(1);
-		tree.root.left = new Node(2);
-		tree.root.right = new Node(3);
-		tree.root.left.left = new Node(4);
-		tree.root.left.right = new Node(5);
+		Node root = new Node(1);
+		root.left = new Node(2);
+		root.right = new Node(3);
+		root.left.left = new Node(4);
+		root.left.right = new Node(5);
 
 		/* get leaf count of the abve tree */
 		System.out.println("The leaf count of binary tree is : "
-				+ tree.getLeafCount());
+				+ tree.getLeafCount(root));
 	}
 	static class Node 
 	{

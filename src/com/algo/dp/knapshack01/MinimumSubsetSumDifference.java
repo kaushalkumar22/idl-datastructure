@@ -16,12 +16,24 @@ import java.util.Arrays;
  */
 public class MinimumSubsetSumDifference {
 	public static void main(String[] args) {
-		int nums[] = { 1,2,7 };
+		int nums[] = { 1,6,11,5 };
 		System.out.println(minSubsetSumDifference(nums));
+		System.out.println(lastStoneWeightII(nums));
 	}
 
-	
-	static int minSubsetSumDifference(int[] nums) {
+	public static int lastStoneWeightII(int[] stones) {
+		int n = stones.length;
+		int sum = Arrays.stream(stones).sum();
+		int s = sum/2;
+		int[] dp = new int[s+1];
+		for(int i=1;i<=n;i++){
+			for(int j=s;j>=stones[i-1];j--){
+				dp[j]= Math.max(stones[i-1]+dp[j-stones[i-1]],dp[j]);
+			}
+		}
+		return sum- 2*dp[s];
+	}
+	public static int minSubsetSumDifference(int[] nums) {
 
 		int n= nums.length;
 		int sum = Arrays.stream(nums).sum();

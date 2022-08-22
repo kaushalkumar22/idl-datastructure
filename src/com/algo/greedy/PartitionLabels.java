@@ -23,22 +23,23 @@ import java.util.List;
 public class PartitionLabels {
 
 	public List<Integer> partitionLabels(String S) {
-        List<Integer> res = new ArrayList<Integer>();
-	
-	int[] lastIndexMap = new int[26];
-    //record the last index of each char in lastIndexMap
-	for(int i=0;i<S.length();i++) {
-		lastIndexMap[S.charAt(i)-'a']=i;
-	}
-	int start =0;
-	int last=0;
-	for(int i=0;i<S.length();i++) {
-		last=Math.max(last, lastIndexMap[S.charAt(i)-'a']);
-		if(last==i) {
-			res.add(last-start+1);
-			start =last+1;
+		List<Integer> res = new ArrayList<Integer>();
+
+		int[] lastIndexMap = new int[26];
+		//record the last index of each char in lastIndexMap
+		for(int i=0;i<S.length();i++) {
+			lastIndexMap[S.charAt(i)-'a']=i;
 		}
+		 // record the end index of the current sub stringintlast = 0;
+		int start =0;
+		int last=0;
+		for(int i=0;i<S.length();i++) {
+			last=Math.max(last, lastIndexMap[S.charAt(i)-'a']);
+			if(last==i) {
+				res.add(last-start+1);
+				start =last+1;
+			}
+		}
+		return res;
 	}
-	return res;
-    }
 }

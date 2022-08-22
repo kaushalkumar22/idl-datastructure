@@ -45,11 +45,11 @@ public class BestTimeToBuyAndSellStockII {
 	}
 	public static int maxProfit2(int[] prices) {
 
+		int buy =Integer.MAX_VALUE;
 		int sell = 0;
-		int buy =Integer.MIN_VALUE;
 		for (int i =0; i<prices.length; i++) {
-			buy = Math.max(buy, sell - prices[i]); // keep the same as day i-1, or buy from sell status at day i-1
-			sell = Math.max(sell, buy + prices[i]); // keep the same as day i-1, or sell from buy status at day i-1
+			buy  = Math.min(buy,  prices[i]-sell); 
+			sell = Math.max(sell, prices[i]-buy);
 		}
 		return sell;
 	}

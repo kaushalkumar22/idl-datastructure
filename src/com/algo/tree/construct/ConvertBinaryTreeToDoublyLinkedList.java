@@ -1,5 +1,7 @@
 package com.algo.tree.construct;
 
+import java.util.Stack;
+
 import com.algo.tree.common.TreeNode;
 
 /*
@@ -12,71 +14,41 @@ Given a binary tree, convert it into a doubly linked list as described:
  */
 public class ConvertBinaryTreeToDoublyLinkedList {
 
-	private TreeNode root;
-	private TreeNode head;
-	private TreeNode curr;
-
-	private void convertBST2DLL(TreeNode root) {
-
-		if(root==null)
-			return;
-		if(root.left==null && root.right==null) {
-			if(head==null) {
-				head=root;
-				curr=head;
-				return;
-			}else {
-				curr.right=root;
-				root.left=curr;
-				curr=curr.right;
-				return;
-			}
-		}
-
-		convertBST2DLL(root.left);
-
-		if(head==null) {
-			head = root;
-			curr = root;
-		}else {
-			curr.right=root;
-			root.left=curr;
-			curr=curr.right;
-		}	
-		convertBST2DLL(root.right);
-	}
-
-	private void printList(TreeNode node) {
-		while (node != null) {
-			System.out.print(node.val + " ");
-			node = node.right;
-		}
-	}
-	private TreeNode prev = null;
-	public void flatten(TreeNode root) {
+	public TreeNode treeToDoublyList(TreeNode root) {
 		if (root == null)
-			return;
-		flatten(root.right);
-		flatten(root.left);
-		root.right = prev;
-		root.left = null;
-		prev = root;
+			return root;
+		if (root.left == null && root.right == null) {
+			root.left = root;
+			root.right = root;
+			return root;
+		}
+		TreeNode head = root, tail = root;
+		while (head.left != null)
+			head = head.left;
+		while (tail.right != null)
+			tail = tail.right;
+		inorderTraversal(root);
+		head.left = tail;
+		tail.right = head;
+		return head;
 	}
-	public static void main(String[] args) {
 
-		ConvertBinaryTreeToDoublyLinkedList tree = new ConvertBinaryTreeToDoublyLinkedList();
-		tree.root = new TreeNode(10);
-		tree.root.left = new TreeNode(12);
-		tree.root.right = new TreeNode(15);
-		tree.root.left.left = new TreeNode(25);
-		tree.root.left.right = new TreeNode(30);
-		tree.root.right.left = new TreeNode(36);
-		tree.root.right.right = new TreeNode(40);
-
-		tree.convertBST2DLL(tree.root);
-		tree.printList(tree.head);//25 12 30 10 36 15 40
-		tree.flatten(tree.root);
-		tree.printList(tree.prev);//10 12 25 30 15 36 40 
+	public void inorderTraversal(TreeNode root) {
+		Stack<TreeNode> stack = new Stack<TreeNode>();
+		TreeNode node = root;
+		TreeNode prevNode = null;
+		while (!stack.isEmpty() || node != null) {
+			while (node != null) {
+				stack.push(node);
+				node = node.left;
+			}
+			TreeNode visitNode = stack.pop();
+			visitNode.left = prevNode;
+			if (prevNode != null)
+				prevNode.right = visitNode;
+			node = visitNode.right;
+			prevNode = visitNode;
+		}
 	}
-	
+
 }

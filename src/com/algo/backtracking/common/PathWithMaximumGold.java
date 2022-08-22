@@ -35,6 +35,7 @@ package com.algo.backtracking.common;
  * 
  */
 public class PathWithMaximumGold {
+	
 	 public int getMaximumGold(int[][] grid) {
 	        int maxGold = 0;
 	        for (int i = 0; i < grid.length; i++) {

@@ -32,27 +32,21 @@ public class RotateAtKNodes {
 		List<Integer> nums = Arrays.asList(1,2,3,4,5,6);
 		ListNode head = ListUtil.createList(nums);
 		ListUtil.print(head);
-		ListNode node = list.reverseAtK(head,2);
+		ListNode node = list.rotateAtK(head,3);
 		ListUtil.print(node);
 	}
-	private  ListNode reverseAtK(ListNode head, int k) {
+	private  ListNode rotateAtK(ListNode head, int k) {
 
 		ListNode curr=head,prev=null;
-		while(k>0&&curr!=null) {
-			ListNode temp= curr.next;
+		for(int i=0;i<k&&curr!=null;i++) {
+			ListNode cnext= curr.next;
 			curr.next= prev;
 			prev =curr;
-			curr=temp;
-			k--;
+			curr=cnext;
 		}
 		if(curr!=null) {
-			head.next=reverseAtK( curr, Integer.MAX_VALUE-1);
+			head.next=rotateAtK( curr, Integer.MAX_VALUE);
 		}
-		/*
-		 * iterative code
-		 * ListNode temp=prev; prev=null; cnext=null; while(curr!=null) { cnext=
-		 * curr.next; curr.next= prev; prev =curr; curr=cnext; } head.next=prev;
-		 */
 		return prev;
 	}
 }

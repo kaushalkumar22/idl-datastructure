@@ -61,14 +61,14 @@ public class BinaryTreePostorderTraversal {
 		while (!st.isEmpty()) {
 			TreeNode node = st.pop();
 			postOrder.add(0,node.val);
-			
+
 			if (node.left != null) {
 				st.push(node.left);
 			}
 			if (node.right != null) {
 				st.push(node.right);
 			}
-			
+
 		}
 		return postOrder;
 

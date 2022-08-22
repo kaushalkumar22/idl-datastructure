@@ -22,17 +22,13 @@ public class DeepestLeavesSum {
 	private int sum = 0;
 
 	public int deepestLeavesSumRec(TreeNode root) {
-		if (root == null)
-			return 0;
+		if (root == null) return 0;
 		calculateSumAtLevel(root, 0);
 		return sum;
-
 	}
-
 	private void calculateSumAtLevel(TreeNode root, int level) {
 
-		if (root == null)
-			return;
+		if (root == null) return;
 		if (level > maxLevel) {
 			sum = 0;
 			maxLevel = level;

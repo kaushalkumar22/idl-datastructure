@@ -2,108 +2,57 @@ package com.algo.linkedlist;
 
 
 
+import java.util.Arrays;
+import java.util.HashMap;
 import java.util.Hashtable;
+import java.util.List;
+import java.util.Map;
 public class RemoveDuplicateFromList {
-	
-	private static Node head;
-	private Node last;
+
+
 	public static void main(String[] args) {
 		RemoveDuplicateFromList list = new RemoveDuplicateFromList();
-		list.createList(5);
-		list.createList(3);
-		list.createList(6);
-		list.createList(6);
-		list.createList(7);
-		list.createList(13);
-		list.createList(11);		
-		list.createList(11);
-		list.createList(8);
-		list.createList(9);
-		System.out.print("Actual Linked  ");
-		list.displayForward();	
-		list.deleteDuplicates( head);
-		list.removeDuplicateWithBuffer();
-		System.out.print("With Buffer    ");
-		list.displayForward();
-		list.removeDuplicateWithoutBuffer();
-		System.out.print("Without Buffer ");
-		list.displayForward();
-
+		List<Integer> nums = Arrays.asList(3,2,2,1,3,2,4);
+		ListNode node = ListUtil.createList(nums);
+		System.out.print("Original List :: ");
+		ListUtil.print(node);
+		list.deleteDuplicatesUnsorted(node);
+		System.out.print("New List   :: ");
+		ListUtil.print(node);
 	}
-	void removeDuplicateWithBuffer() {
-		Node current = head;
-		Node temp = null;
+	public void removeDuplicates(ListNode head) {
+		ListNode curr = head;
+		ListNode temp = null;
 		Hashtable<Integer,Boolean> table = new Hashtable<Integer,Boolean>();
-		while (current != null) {			
-			if (table.containsKey(current.data)) 
-				temp.next = current.next;
+		while (curr != null) {			
+			if (table.containsKey(curr.val)) 
+				temp.next = curr.next;
 			else {
-				table.put(current.data, true);
-				temp =current;
+				table.put(curr.val, true);
+				temp =curr;
 			}			
-			current = current.next;
+			curr = curr.next;
 		}
 	}
-	public Node deleteDuplicates(Node head) {
-        Node curr=head;
-        while(curr != null&&curr.next != null){
-            if( curr.data == curr.next.data){
-                curr.next= curr.next.next;
-            }{
-                curr=curr.next;
-            }
-        }
-       
-        return head;
-}
-	void removeDuplicateWithoutBuffer() {
-		if(head == null){ 
-			return;
+	public ListNode deleteDuplicatesUnsorted(ListNode head) {
+		Map<Integer, Integer> map = new HashMap<Integer, Integer>();
+		ListNode temp = head;
+		while (temp != null) {
+			int val = temp.val;
+			map.put(val, map.getOrDefault(val, 0) + 1);
+			temp = temp.next;
 		}
-		Node previous = head;
-		Node current = previous.next;
-		while (current != null) {
-			Node temp = head;
-			while (temp != current) { 
-				if (temp.data == current.data) {
-					Node tmp = current.next; 
-					previous.next = tmp; 
-					current = tmp; 
-					break; 
-				}
+		ListNode dummyHead = new ListNode(0);
+		dummyHead.next = head;
+		temp = dummyHead;
+		while (temp.next != null) {
+			ListNode next = temp.next;
+			int nextVal = next.val;
+			if (map.get(nextVal) > 1)
+				temp.next = next.next;
+			else
 				temp = temp.next;
-			}
-			if (temp == current) {
-				previous = current;
-				current = current.next;
-			}
 		}
-	}
-	void createList(int e) {
-		Node current = last;
-		Node newNode = new Node(e, null);
-		last = newNode;
-		if (current == null)
-			head = newNode;
-		else
-			current.next = newNode;
-	}
-	public void displayForward() {
-		System.out.print("List: ");
-		Node current = head;
-		while (current != null){
-			System.out.print(current.data+"-->");
-			current = current.next;
-		}
-		System.out.println("");
-	}
-	private static class Node{
-		int data;
-		Node next;
-
-		private Node(int ele,Node n){
-			data = ele;
-			next = n;
-		}
+		return dummyHead.next;
 	}
 }

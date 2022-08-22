@@ -44,10 +44,18 @@ public class RangeSumOfBST {
 		int sum = 0;
 		while (!stk.isEmpty()) {
 			TreeNode n = stk.pop();
-			if (n == null) { continue; }
-			if (n.val > L) { stk.push(n.left); } // left child is a possible candidate.
-			if (n.val < R) { stk.push(n.right); } // right child is a possible candidate.
-			if (L <= n.val && n.val <= R) { sum += n.val; }
+			if (n == null) { 
+				continue; 
+			}
+			if (n.val > L) {// left child is a possible candidate.
+				stk.push(n.left);
+			} 
+			if (n.val < R) { // right child is a possible candidate.
+				stk.push(n.right); 
+			} 
+			if (L <= n.val && n.val <= R) { 
+				sum += n.val; 
+			}
 		}
 		return sum;
 	}

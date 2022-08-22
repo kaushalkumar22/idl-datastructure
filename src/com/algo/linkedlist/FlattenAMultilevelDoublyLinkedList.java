@@ -61,11 +61,34 @@ package com.algo.linkedlist;
  *
  */
 public class FlattenAMultilevelDoublyLinkedList {
-		
+	public Node flatten1(Node head) {
+
+		if(head==null) return head;
+		Node curr= head;
+		while(curr!=null) {
+			if(curr.child==null) {
+				curr=curr.next;
+			}else {
+				Node currChild = curr.child;
+				while(currChild.next!=null) {
+					currChild=currChild.next;
+				}
+				currChild.next=curr.next;
+				curr.next.prev=currChild;
+				curr.child.prev=curr;  			
+				curr.next=curr.child;
+				curr.child=null;
+				curr=curr.next;
+			}
+
+		}
+		return head;
+
+	}
 	public Node flatten(Node head) {
 		if(head==null) return head;
 		Node curr =head;
-		
+
 		while(curr!=null) {
 			/* CASE 1: if no child, proceed */
 			if(curr.child==null) {

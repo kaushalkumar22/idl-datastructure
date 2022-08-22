@@ -28,22 +28,19 @@ public class MiddleOfLinkedList {
 	public static void main(String[] args) {
 
 		MiddleOfLinkedList list = new MiddleOfLinkedList();
-		List<Integer> nums = Arrays.asList(1, 2, 2, 4, 7, 8, 10, 15, 20);
+		List<Integer> nums = Arrays.asList(1, 2, 2, 4, 7, 8, 10, 15);
 		ListNode node = ListUtil.createList(nums);
 		System.out.print("Original List :: ");
 		ListUtil.print(node);
-		ListNode k1 = list.linkLastMidlle(node);
+		ListNode k1 = list.middleNode(node);
 		System.out.println("Middle " + k1.val);
 	}
-
-	private ListNode linkLastMidlle(ListNode head) {
-		ListNode p1 = head;
-		ListNode p2 = head;
-		while (p2 != null && p2.next != null) {
-			p1 = p1.next;
-			p2 = p2.next.next;
-
+	public ListNode middleNode(ListNode head) {
+		ListNode slow=head,fast=head;
+		while(fast!=null&&fast.next!=null){
+			slow=slow.next;
+			fast=fast.next.next;
 		}
-		return p1;
+		return slow;
 	}
 }

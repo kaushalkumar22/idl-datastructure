@@ -39,26 +39,29 @@ public class ReversNodesInKGroup {
 	}
 	public static ListNode reverseKGroup(ListNode head, int k) {
 
-		ListNode cnext,prev = null,curr = head,temp = head;
+		ListNode curr = head;
 		int count=0;
-		for(int i=0;i<k&&temp!=null;i++) {
-			temp=temp.next;
+		for(int i=0;i<k&&curr!=null;i++) {
+			curr=curr.next;
 			count++;
 		}
-		if(count==k) {	
-			for(int i=0;i<k&&curr!=null;i++){
-				cnext = curr.next;
-				curr.next = prev;
-				prev = curr;
-				curr = cnext;
-			} 
-		}else {
-			return curr; 
+		if(count<k) {
+			return head;
 		}
+		curr=head;
+		ListNode prev=null;
+		for(int i=0;i<k&&curr!=null;i++){
+			ListNode cnext = curr.next;
+			curr.next = prev;
+			prev = curr;
+			curr = cnext;
+		} 
+
 		/* next is now a pointer to (k+1)th node  
 		 * Recursively call for the list starting from current. And make rest of the list as next of first node */
 		if (curr != null) 
 			head.next = reverseKGroup(curr, k);
+
 		return prev;
 	}                      
 }

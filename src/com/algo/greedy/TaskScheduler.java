@@ -1,5 +1,10 @@
 package com.algo.greedy;
 
+import java.util.Arrays;
+import java.util.PriorityQueue;
+
+import sun.jvm.hotspot.utilities.Interval;
+
 /**
  * You are given a char array representing tasks CPU need to do. It contains
  * capital letters A to Z where each letter represents a different task. Tasks
@@ -125,4 +130,46 @@ public class TaskScheduler {
 
 		return tasks.length + idles;
 	}
+	
+	public boolean canAttendMeetings(Interval[] intervals) {
+		Arrays.sort(intervals, (a, b) -> a.start - b.start);
+		for(int i = 0; i + 1 < intervals.length; i++){
+			if(intervals[i].end > intervals[i + 1].start){
+				return false;
+			}
+		}
+		return true;
+	}
+
+	public int minMeetingRooms(Interval[] intervals) {
+
+		if(intervals == null || intervals.length == 0) {
+			return 0;
+		}
+
+		// Sort the intervals by start time
+		Arrays.sort(intervals, (i1, i2) -> i1.start - i2.start);
+
+		// to store end time of each meeting, smaller value will be at the peek()
+		PriorityQueue<Integer> heap = new PriorityQueue<Integer>();
+
+		// start with the first meeting, put it to a meeting room
+		int count = 1;
+		heap.offer(intervals[0].end);
+
+		for(int i = 1; i < intervals.length; i++){
+
+			if(intervals[i].start < heap.peek()) {
+				count++; // conflict, need 1 more room
+				heap.offer(intervals[i].end); // poll then offer, conceptually merging 2 intervals
+			} else {
+				// if the current meeting starts right after
+				// there's no need for a new room, merge the interval
+				heap.offer(Math.max(intervals[i].end, heap.poll())); // poll then offer, conceptually merging 2 intervals
+			}
+		}
+
+		return count;
+	}
+
 }

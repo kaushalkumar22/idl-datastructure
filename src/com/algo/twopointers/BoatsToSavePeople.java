@@ -42,8 +42,8 @@ public class BoatsToSavePeople {
 			if ( canCarry> limit) {
 				count++;
 				high--;
-			} else  if (canCarry > limit) {
-				low++;
+			//} //else  if (canCarry > limit) {
+				//low++;
 			}else{
 				low++;
 				high--;

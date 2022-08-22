@@ -33,10 +33,21 @@ package com.algo.greedy;
 public class JumpGame {
 
 	public static void main(String[] args) {
-		int arr[] = { 2, 3, 4, 2, 1, 1, 4 };
-		System.out.println(canJump(arr));
-	}
+		//int arr[] = { 3,2,1,0,4 };
+		int arr[] = { 2,3,1,1,4 };
 
+		System.out.println(canJump(arr));
+		System.out.println(canJump2(arr));
+	}
+	static boolean canJump2(int A[]) {
+		int n = A.length;
+		int reach=0;
+		for(int i=0;i<n;i++) {
+			reach = Math.max(i + A[i], reach);
+			if(reach!=n-1&&reach==i) return false;
+		}
+		return true;
+	}
 	public static boolean canJump(int[] nums) {
 		int n=nums.length-1;
 		int destination =n;

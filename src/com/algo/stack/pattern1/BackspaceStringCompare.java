@@ -20,49 +20,45 @@ import java.util.Stack;
 public class BackspaceStringCompare {
 
 	public static void main(String[] args) {
-		System.out.println(backspaceCompare("ab##", "c#d#"));
+		System.out.println(backspaceCompare2("ab##", "c#d#"));
 	}
 	public static boolean backspaceCompare(String S, String T) {
-		Stack<Character> ss = new Stack<Character>();
-		Stack<Character> ts = new Stack<Character>();
-		for (Character cs : S.toCharArray()) {
-			if(cs!='#') {
-				ss.push(cs);
-			}else if(!ss.isEmpty()) {
-				ss.pop();
-			}
-		}
-		for (Character ct : T.toCharArray()) {
-			if(ct!='#') {
-				ts.push(ct);
-			}else if(!ts.isEmpty()) {
-				ts.pop();
-			}
-		}
-
-		return ts.equals(ss)?true:false;
-
+		return build(S).equals(build(T));
 	}
-	public boolean backspaceCompare1(String S, String T) {
-		int i = S.length() - 1, j = T.length() - 1, back;
-		while (true) {
-			back = 0;
-			while (i >= 0 && (back > 0 || S.charAt(i) == '#')) {
-				back += S.charAt(i) == '#' ? 1 : -1;
-				i--;
-			}
-			back = 0;
-			while (j >= 0 && (back > 0 || T.charAt(j) == '#')) {
-				back += T.charAt(j) == '#' ? 1 : -1;
-				j--;
-			}
-			if (i >= 0 && j >= 0 && S.charAt(i) == T.charAt(j)) {
-				i--;
-				j--;
-			} else {
-				break;
-			}
+
+	public static String build(String S) {
+		Stack<Character> ans = new Stack<>();
+		for (char c: S.toCharArray()) {
+			if (c != '#')
+				ans.push(c);
+			else if (!ans.empty())
+				ans.pop();
 		}
-		return i == -1 && j == -1;
+		return String.valueOf(ans);
+	}
+	public static boolean backspaceCompare2(String S, String T) {
+		int i = S.length() - 1, j = T.length() - 1;
+		int skipS = 0, skipT = 0;
+
+		while (i >= 0 || j >= 0) { // While there may be chars in build(S) or build (T)
+			while (i >= 0) { // Find position of next possible char in build(S)
+				if (S.charAt(i) == '#') {skipS++; i--;}
+				else if (skipS > 0) {skipS--; i--;}
+				else break;
+			}
+			while (j >= 0) { // Find position of next possible char in build(T)
+				if (T.charAt(j) == '#') {skipT++; j--;}
+				else if (skipT > 0) {skipT--; j--;}
+				else break;
+			}
+			// If two actual characters are different
+			if (i >= 0 && j >= 0 && S.charAt(i) != T.charAt(j))
+				return false;
+			// If expecting to compare char vs nothing
+			if ((i >= 0) != (j >= 0))
+				return false;
+			i--; j--;
+		}
+		return true;
 	}
 }

@@ -30,30 +30,27 @@ public class ReverseLinkedList {
 		ListUtil.print(head);
 		ListNode node = list.reverseList( head);
 		ListUtil.print(node);
-		node = list.reverseListInt(head,null);
+		node = list.reverseListRec(node,null);
 		ListUtil.print(node);
 	}
 
-	private ListNode reverseListInt(ListNode head, ListNode newHead) {
+	
+	public ListNode reverseList(ListNode head) {
+		ListNode curr=head,prev=null;
+		while(curr!=null){
+			ListNode temp=curr.next;
+			curr.next =prev;
+			prev=curr;
+			curr=temp;
+		}
+		return prev;
+	}
+	public ListNode reverseListRec(ListNode head, ListNode newHead) {
 		if (head == null)
 			return newHead;
 		ListNode next = head.next;
 		head.next = newHead;
-		return reverseListInt(next, head);
+		return reverseListRec(next, head);
 	}
-
-	public ListNode reverseList(ListNode head) { 
-
-		ListNode curr = head;
-		ListNode prev = null, cnext;
-		while (curr != null) {
-			cnext = curr.next;
-			curr.next = prev;
-			prev = curr;
-			curr = cnext;
-		}
-		return prev;
-	}
-
 
 }

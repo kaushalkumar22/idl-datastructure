@@ -24,6 +24,21 @@ public class MoveZeroes {
 		moveZeroesEnd(nums);
 		System.out.println(Arrays.toString(nums));
 	}
+	public void moveZeroes(int[] nums) {
+		int i=0,j=0;
+		int n =nums.length;
+		while(i<n&&j<n){
+			if(nums[i]!=0){
+				int temp=nums[i];
+				nums[i]=nums[j];
+				nums[j]=temp;
+				i++;
+				j++;
+			}else{
+				i++;
+			}
+		}
+	}
 	public static void moveZeroesBigning(int[] nums) {
 		int j=0;
 		for(int i = 0; i < nums.length; i++) {

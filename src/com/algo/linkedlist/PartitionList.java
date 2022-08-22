@@ -28,22 +28,23 @@ public class PartitionList {
 	}
 
 	public ListNode partition(ListNode head, int x) {
-		ListNode smallerThan = new ListNode(0);
-		ListNode greaterThanEqual = new ListNode(0);
-		ListNode smaller = smallerThan;	
-		ListNode greater = greaterThanEqual;	
-	
-		while(head!=null) {		
-			if(head.val<x) {
-				smallerThan.next=head;
-				smallerThan=smallerThan.next;
-			}else {
-				greaterThanEqual=greaterThanEqual.next=head;
+
+		ListNode lessThanX = new ListNode(0); 
+		ListNode greaterThanX = new ListNode(0); 
+		ListNode lessHead=lessThanX,greaterHead=greaterThanX;
+
+		while(head!=null){
+			if(head.val<x){
+				lessThanX.next=head;
+				lessThanX=lessThanX.next;
+			} else{
+				greaterThanX.next=head;
+				greaterThanX=greaterThanX.next;
 			}
 			head=head.next;
 		}
-		smallerThan.next=greater.next;
-		greaterThanEqual.next = null;
-		return smaller.next;
+		greaterThanX.next=null;
+		lessThanX.next=greaterHead.next;
+		return lessHead.next;
 	}
 }

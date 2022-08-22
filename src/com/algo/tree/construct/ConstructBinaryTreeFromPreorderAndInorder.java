@@ -46,9 +46,9 @@ class ConstructBinaryTreeFromPreorderAndInorder {
 	}
 
 	public TreeNode build(int[] preorder,int[] inorder, int pStart, int pEnd,  int iStart, int iEnd,Map<Integer, Integer> indexMap) {
-		
+
 		if(pStart>pEnd||iStart>iEnd) return null;
-		
+
 		TreeNode root = new TreeNode(preorder[pStart]);
 		int iRoot = indexMap.get(root.val);
 		int numsLeft = iRoot - iStart;
@@ -56,6 +56,6 @@ class ConstructBinaryTreeFromPreorderAndInorder {
 		root.right= build(preorder,inorder,pStart + numsLeft + 1,pEnd, iRoot+1,iEnd,indexMap);
 		return root;
 	}
-	
-	
+
+
 }

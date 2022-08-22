@@ -42,20 +42,17 @@ public class LinkedListCycleII {
 	}
 
 	public ListNode detectCycle(ListNode head) {
-		if (head == null || head.next == null)
-			return null;
+		ListNode slow =head;
+		ListNode fast =head;
 
-		ListNode slow = head;
-		ListNode fast = head;
-
-		while (fast.next != null && fast.next.next != null) {
-			slow = slow.next;
-			fast = fast.next.next;
-			if (slow == fast) { // there is a cycle
-				slow = head;
-				while (slow != fast) { // found the entry location
-					slow = slow.next;
-					fast = fast.next;
+		while(fast!=null&&fast.next!=null){
+			slow =slow.next;
+			fast =fast.next.next;
+			if(slow==fast){
+				fast=head;
+				while(slow!=fast){
+					slow=slow.next;
+					fast=fast.next;
 				}
 				return slow;
 			}

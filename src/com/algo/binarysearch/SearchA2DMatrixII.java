@@ -12,7 +12,7 @@ package com.algo.binarysearch;
  * {2, 5,  8, 12, 19}, 
  * {3, 6,  9, 16, 22}, 
  * {10,13, 14,17, 24},
- * {18,21, 23, 26,30} 
+ * {18,21, 23,26, 30} 
  * }
  * 
  * Given target = 5, return true.
@@ -34,7 +34,7 @@ public class SearchA2DMatrixII {
 		System.out.println(searchMatrix(matrix,  target));
 	}
 
-	private static boolean searchMatrix(int[][] matrix, int target) {
+	public static boolean searchMatrix(int[][] matrix, int target) {
 		int row=matrix.length;
 		if(row==0) return false;
 		int col= matrix[0].length;

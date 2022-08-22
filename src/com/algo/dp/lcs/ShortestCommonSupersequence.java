@@ -42,37 +42,49 @@ public class ShortestCommonSupersequence {
 		return m+n-T[m][n];
 
 	}
+	//public static String shortestCommonSupersequence(String s1, String s2) {
 	public static String shortestCommonSupersequence(String s1, String s2) {
-		int i = 0, j = 0;
-		String res = "";
-		for (char c : LCS(s1, s2).toCharArray()) {
-			while (s1.charAt(i) != c)
-				res += s1.charAt(i++);
-			while (s2.charAt(j) != c)
-				res += s2.charAt(j++);
-			res += c; 
-			i++;
-			j++;
-		}
-		return res + s1.substring(i) + s2.substring(j);
-
-	}
-	public static String LCS(String s1, String s2) {
-		int m =s1.length();
-		int n =s2.length();
-
-		String[][] T= new String[m+1][n+1];
-		for (int i = 0; i < T.length; i++) 
-		      Arrays.fill(T[i], "");
-		for(int i=1;i<m+1;i++) {
-			for(int j=1;j<n+1;j++) {
-				if(s1.charAt(i-1)==s2.charAt(j-1)) {
-					T[i][j]=T[i-1][j-1]+s1.charAt(i-1);
+		//Part1 fill the longest common sequence table
+		int[][] dp = new int[s1.length()+1][s2.length()+1];
+		for(int i = 0;i<s1.length();i++){
+			for(int j = 0;j<s2.length();j++){
+				if(s1.charAt(i) == s2.charAt(j)){
+					dp[i+1][j+1] = dp[i][j] + 1;
 				}else {
-					T[i][j]=T[i-1][j].length()>T[i][j-1].length()?T[i-1][j]:T[i][j-1];
+					dp[i+1][j+1] = Math.max(dp[i][j+1],dp[i+1][j]);
 				}
 			}
 		}
-		return T[m][n];
+		//Part2: use the table to get the ans
+		StringBuilder sb = new StringBuilder();
+		for(int i = s1.length()-1,j = s2.length()-1;i>=0 || j>=0;){
+			//Case 1: either there is no char in str1 or str2, append char directly
+			if(i < 0){
+				sb.append(s2.charAt(j));
+				j--;
+				continue;
+			}else if(j < 0){
+				sb.append(s1.charAt(i));
+				i--;
+				continue;
+			}
+			//Case 2: if the value is the same compared with left or uppper cell, append corresponding char in str1 or str2
+			// in longest common sequence, this means the char should be deleted, but in this problem, we need to append
+			int val = dp[i+1][j+1];
+			if(val == dp[i][j+1]){
+				sb.append(s1.charAt(i));
+				i--;
+			}else if(val == dp[i+1][j]){
+				sb.append(s2.charAt(j));
+				j--;
+				//Case 3 if the value is not the same compared with left or upper cell, append char and i--,j--
+				//in longest common sequence, this means we find the common char
+			}else {
+				sb.append(s1.charAt(i));
+				i--;
+				j--;
+			}
+		}
+		return sb.reverse().toString();
 	}
 }

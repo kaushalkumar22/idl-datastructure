@@ -2,7 +2,10 @@ package com.algo.backtracking.permutations;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.HashMap;
+import java.util.LinkedList;
 import java.util.List;
+import java.util.Map;
 
 /**
  * Permutations II 
@@ -22,12 +25,40 @@ import java.util.List;
  */
 public class PermutationsII {
 	public static void main(String[] args) {
-		System.out.println(permuteUnique(new int[] { 1, 1, 2 }));
+		System.out.println(new PermutationsII().permuteUnique1(new int[] { 1, 1, 2 }));
+	}
+	public List<List<Integer>> permuteUnique1(int[] nums) {
+		List<List<Integer>> results = new ArrayList<>();
+
+		// count the occurrence of each number
+		HashMap<Integer, Integer> count = new HashMap<>();
+		for (int num : nums) {
+			count.put(num, count.getOrDefault(num, 0)+1);
+		}
+		this.backtrack2(count,nums.length,new ArrayList<>(), results);
+		return results;
 	}
 
+	private void backtrack2(HashMap<Integer, Integer> map, int n, List<Integer> subRes,
+			List<List<Integer>> res) {
+		if(subRes.size()==n) {
+			res.add(new ArrayList<>(subRes));
+			return;
+		}
+		for (Integer num : map.keySet()) {			
+			if ( map.get(num) == 0) continue;
+			subRes.add(num);
+			map.put(num,map.get(num)-1);
+			backtrack2(map, n,  subRes, res) ;
+			map.put(num,map.get(num)+1);
+			subRes.remove(num);
+		}
+
+	}
 	public static List<List<Integer>> permuteUnique(int[] nums) {
 		List<List<Integer>> res = new ArrayList<>();
 		Arrays.sort(nums);
+
 		backtrack(res, new ArrayList<>(), nums, new boolean[nums.length]);
 		return res;
 	}

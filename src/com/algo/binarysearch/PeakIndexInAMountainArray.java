@@ -37,18 +37,18 @@ package com.algo.binarysearch;
  */
 public class PeakIndexInAMountainArray {
 	public static void main(String[] args) {
-		
+		System.out.println(peakIndexInMountainArray(new int[] {24,69,100,99,79,78,67,36,26,19}));
 	}
-	 public int peakIndexInMountainArray(int[] A) {
-	        int l = 0, r = A.length - 1, m;
-	        while (l < r) {
-	            m = (l + r) / 2;
-	            if (A[m] < A[m + 1])
-	                l = m + 1;
-	            else
-	                r = m;
-	        }
-	        return l;
-	    }
-	 
+	public static int peakIndexInMountainArray(int[] A) {
+		int low = 0, high= A.length - 1;
+		while (low < high) {
+			int mid = (low + high) / 2;
+			if (A[mid] < A[mid + 1])
+				low = mid + 1;
+			else
+				high = mid;
+		}
+		return low;
+	}
+
 }

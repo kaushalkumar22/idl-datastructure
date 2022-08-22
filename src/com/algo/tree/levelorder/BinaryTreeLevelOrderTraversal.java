@@ -37,7 +37,7 @@ public class BinaryTreeLevelOrderTraversal {
 		System.out.println(tree.levelOrder(root));
 		System.out.println(tree.levelOrderRec(root));
 	}
-	
+
 	public List<List<Integer>> levelOrder(TreeNode root) {
 		List<List<Integer>> levelOrder = new ArrayList<List<Integer>>();
 		if(root==null) {
@@ -63,7 +63,7 @@ public class BinaryTreeLevelOrderTraversal {
 		return levelOrder;
 
 	}
-	
+
 	public List<List<Integer>> levelOrderRec(TreeNode root) {
 		List<List<Integer>> res = new ArrayList<List<Integer>>();
 		travel(root,0,res);
@@ -72,7 +72,7 @@ public class BinaryTreeLevelOrderTraversal {
 	}
 	public void travel(TreeNode root,int level,List<List<Integer>> res){
 		if(root==null) return;
-		
+
 		if(res.size()==level){
 			List<Integer> temp  = new ArrayList<Integer>();
 			temp.add(root.val);

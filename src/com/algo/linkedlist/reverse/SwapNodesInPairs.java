@@ -27,10 +27,10 @@ public class SwapNodesInPairs {
 
 		ListNode curr= head,prev=null;
 		for(int i=0;i<2&&curr!=null;i++) {
-			ListNode temp=curr.next;
+			ListNode cnext=curr.next;
 			curr.next=prev;
 			prev=curr;
-			curr=temp;
+			curr=cnext;
 		}
 		if(curr!=null) {
 			head.next= swapPairs( curr);

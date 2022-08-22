@@ -1,5 +1,13 @@
 package com.algo.graph;
 
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.LinkedList;
+import java.util.List;
+import java.util.Map;
+import java.util.PriorityQueue;
+import java.util.Stack;
+
 /**
  * Given a list of airline tickets represented by pairs of departure and arrival
  * airports [from, to], reconstruct the itinerary in order. All of the tickets
@@ -32,5 +40,50 @@ package com.algo.graph;
  * 
  */
 public class ReconstructItinerary {
+
+	public static void main(String[] args) {
+		//String[][] tickets ={{"JFK","SFO"},{"JFK","ATL"},{"SFO","ATL"},{"ATL","JFK"},{"ATL","SFO"}};
+		String[][] tickets = {{"JFK","KUL"},{"JFK","NRT"},{"NRT","JFK"}};
+
+		ReconstructItinerary ri = new ReconstructItinerary();
+		System.out.println(ri.findItinerary(tickets));
+	}
+	public List<String> findItinerary1(List<List<String>> tickets) {
+		Map<String, PriorityQueue<String>> adjMap = new HashMap<>();
+		LinkedList<String> res = new LinkedList<String>();
+		buildGraph(tickets,adjMap);
+		dfs("JFK",adjMap,res);
+		return res;		
+	}
+	private void buildGraph(List<List<String>> tickets, Map<String, PriorityQueue<String>> adjMap) {
+
+		for (List<String> tc : tickets) {
+			adjMap.putIfAbsent(tc.get(0), new PriorityQueue<>());
+			adjMap.get(tc.get(0)).add(tc.get(1));	
+		}
+	}
+	
+	private void dfs(String departure, Map<String, PriorityQueue<String>> adjMap, LinkedList<String> res) {
+		//res.add(departure);
+		PriorityQueue<String> arrivals = adjMap.get(departure);
+		while (arrivals != null && !arrivals.isEmpty())
+			dfs(arrivals.poll(),adjMap,res);
+		res.addFirst(departure);
+	}
+
+	public  List<String> findItinerary(String[][] tickets) {
+		Map<String, PriorityQueue<String>> adjMap = new HashMap<>();
+		LinkedList<String> res = new LinkedList<String>();
+		buildGraph1(tickets,adjMap);
+		dfs("JFK",adjMap,res);
+		return res;			
+	}
+	private void buildGraph1(String[][] tickets, Map<String, PriorityQueue<String>> adjMap) {
+
+		for (String[] tc : tickets) {
+			adjMap.putIfAbsent(tc[0], new PriorityQueue<>());
+			adjMap.get(tc[0]).add(tc[1]);	
+		}
+	}
 
 }

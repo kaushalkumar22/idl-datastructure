@@ -14,8 +14,8 @@ import com.algo.tree.common.TreeUtil;
  *  2
    / \
   1   3
-* Output:1
-* Input:
+ * Output:1
+ * Input:
         1
        / \
       2   3

@@ -36,31 +36,31 @@ public class MinimumWindowSubstring {
 	}
     public static String minWindow(String s, String t) {
     	
-    	int[] map = new int[128];
+    	int[] seen = new int[128];
     	for (char c : t.toCharArray()) {
-			map[c]++;
+			seen[c]++;
 		}
-    	int left=0,right=0,counter =t.length(),minLen=Integer.MAX_VALUE,windStart=0;
+    	int left=0,right=0,count =t.length(),minLen=Integer.MAX_VALUE,windStart=0;
     	
     	while(right<s.length()) {
     		
     		char c= s.charAt(right);
-    		if(map[c]>0) {
-    			counter--;
+    		if(seen[c]>0) {
+    			count--;
     		}  
-    		map[c]--;
+    		seen[c]--;
     		right++;
     		
-    		while(counter==0) {
+    		while(count==0) {
     			
     			if(minLen>right-left) {
     				minLen=right-left;
     				windStart=left;
     			}
     			char c2 = s.charAt(left);
-    			map[c2]++;
-    			if(map[c2]>0) {
-    				counter++;
+    			seen[c2]++;
+    			if(seen[c2]>0) {
+    				count++;
     			}
     			left++;
     		}

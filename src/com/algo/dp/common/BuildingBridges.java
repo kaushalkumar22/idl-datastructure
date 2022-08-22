@@ -19,7 +19,7 @@ public class BuildingBridges  {
 
 	};
 
-	static int bulidingBridges(Bridge a[], int n){
+	public static int bulidingBridges(Bridge a[], int n){
 
 		Arrays.sort(a,SORT_NORTH); 
 

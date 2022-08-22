@@ -29,30 +29,23 @@ public class DiameterOfBinaryTree {
 		System.out.println(tree.diameterOfBinaryTree1(root));
 	}
 	public int diameterOfBinaryTree(TreeNode root) {
-		return dfs(root)[1];
-	}
-	public int[] dfs(TreeNode root) {
-
-		// 0th element is height and 1st element is diameter
-		int[] result = new int[2];
-
-		if (root == null) return result;
-
-		int[] left  = dfs(root.left);
-		int[] right = dfs(root.right);
-
-		result[0] =  1+ Math.max(left[0], right[0]);
-		// Diameter = Max ( leftHeight + rightHeight, Max (leftDiameter, rightDiameter) )
-		result[1] =  Math.max(left[0] + right[0], Math.max(left[1], right[1]));
-
-
-		return result;
+		if (root == null) return 0;
+		int[] max = {0};
+		maxDepth2(root,max);
+		return max[0];
 	}
 
+	private int maxDepth2(TreeNode root,int[] max) {
+		if (root == null) return 0;
+        
+		int left = maxDepth2(root.left,max);
+		int right = maxDepth2(root.right,max);
+
+		max[0] = Math.max(max[0], left + right);
+
+		return Math.max(left, right) + 1;
+	}
 	int max = 0;
-
-
-
 	public int diameterOfBinaryTree1(TreeNode root) {
 		maxDepth(root);
 		return max;

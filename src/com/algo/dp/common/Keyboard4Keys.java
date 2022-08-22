@@ -24,43 +24,57 @@ A, A, A, Ctrl A, Ctrl C, Ctrl V, Ctrl V, Ctrl A,
 Ctrl C, Ctrl V, Ctrl V
  */
 public class Keyboard4Keys {
-	public int countAsRec(int n){
-	    
-        if(n < 7){
-            return n;
-        }
-        int max = Integer.MIN_VALUE;
-        int result = 0;
-        for(int b=n-3; b > 0; b--){
-            result = (n-b-1)*countAs(b);
-            if(max < result){
-                max = result;
-            }
-        }
-        return max;
-    }
- 
-    public int countAs(int n){
-        if(n < 7){
-            return n;
-        }
-        
-        int T[] = new int[n+1];
-        for(int i=1; i < 7 ; i++){
-            T[i] = i;
-        }
-        for(int i=7; i <= n; i++){
-            for(int b = i-3; b > 0; b--){
-                T[i] = Math.max(T[i], T[b]*(i-b-1));
-            }
-        }
-        return T[n];
-    }
-    
-    public static void main(String args[]){
-    	Keyboard4Keys ca =new Keyboard4Keys();
-        System.out.println(ca.countAsRec(25));
-        System.out.println(ca.countAs(25));
-              
-    }
+
+	public static void main(String args[]){
+		Keyboard4Keys ca =new Keyboard4Keys();
+		System.out.println(ca.maxA(25));
+		System.out.println(ca.countAs(25));
+
+	}
+	public int maxA(int N) {
+		int res = N;
+		// number of printing A is between [1, N-3],
+		// the number of pasting is N-2-i,
+		// plus the printed part, it is N-1-i
+		for (int i = 1; i < N - 2; ++i) {
+			res = Math.max(res, maxA(i) * (N - 1 - i));
+		}
+		return res;
+
+	}
+	public int maxA(int N) {
+
+		//dp[i] represents the maximum number of A that can be printed when the total number of steps is i
+		int[] dp = new int[N + 1];
+		dp[1] = 1;
+
+		for (int i = 2; i <= N; i++) {
+			for (int j = 1; j < i - 2; j++) {
+				dp[i] = Math.max(dp[i], dp[j] * (i - j - 1));
+			}
+
+			dp[i] = Math.max(dp[i], dp[i - 1] + 1);
+		}
+
+		return dp[N];
+	}
+}
+public int countAs(int n){
+	if(n < 7){
+		return n;
+	}
+
+	int T[] = new int[n+1];
+	for(int i=1; i < 7 ; i++){
+		T[i] = i;
+	}
+	for(int i=7; i <= n; i++){
+		for(int b = i-3; b > 0; b--){
+			T[i] = Math.max(T[i], T[b]*(i-b-1));
+		}
+	}
+	return T[n];
+}
+
+
 }

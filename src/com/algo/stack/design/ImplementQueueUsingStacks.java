@@ -46,9 +46,9 @@ public class ImplementQueueUsingStacks {
 
 	/** Get the front element. */
 	public int peek() {
-		 if (st2.empty())
-	            while (!st1.empty())
-	                st2.push(st1.pop());
+		if (st2.empty())
+			while (!st1.empty())
+				st2.push(st1.pop());
 		return st2.peek();
 	}
 

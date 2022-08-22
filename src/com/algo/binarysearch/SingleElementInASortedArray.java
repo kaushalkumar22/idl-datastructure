@@ -32,6 +32,23 @@ public class SingleElementInASortedArray {
 	 * 'start' should always be at the beginning of a pair. 
 	 * When 'start > end', start must be the single element.
 	 */
+	/**
+
+	  If all elements in pair of left side of middle,then first element of the middle pair,
+	  which should be at an even index .
+
+	  If We didn't find mid and mid+1 as a pair,the single element must be on the left. 
+
+	  Index: 0 1 2 3 4 5 6
+	  Array: 1 1 3 3 4 8 8
+	             ^
+	 if We found mid and mid+1 as a pair,the single element must be on the right.
+	  0 1 1 3 3 6 6
+	      ^ ^
+	  'start' should always be at the beginning of a pair. 
+	  When 'start > end', start must be the single element.
+
+	 */
 	public static int singleNonDuplicate(int[] nums) {
 		int start = 0, end = nums.length - 1;
 

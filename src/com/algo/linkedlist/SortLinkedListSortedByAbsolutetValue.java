@@ -16,18 +16,18 @@ public class SortLinkedListSortedByAbsolutetValue {
 		ListNode head=list.sortAbstValueSortedList(node);	
 		ListUtil.print(head);
 	}
-	private ListNode sortAbstValueSortedList(ListNode head){
+
+	public ListNode sortAbstValueSortedList(ListNode head){
 		if(head==null) return head;
-		ListNode curr = head;
-		ListNode temp = null;
+		ListNode curr = head,prev = null;
 		while (curr != null) {
 			if(curr!=head&&curr.val<0){			
-				temp.next = curr.next;
+				prev.next = curr.next;
 				curr.next=head;
 				head=curr;
-				curr=temp;
-			}
-			temp=curr;
+				curr=prev;
+			}else
+			 prev=curr;
 			curr= curr.next;
 		}
 		return head;

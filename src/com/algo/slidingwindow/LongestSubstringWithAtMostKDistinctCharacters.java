@@ -18,37 +18,31 @@ package com.algo.slidingwindow;
 public class LongestSubstringWithAtMostKDistinctCharacters {
 
 	public static void main(String[] args) {
-		String s = "WORLD";
-		int k = 4;
-		System.out.println(lenOfLongestSubstring(s, k));
+		String s = "eceba";
+		int k = 3;
+		System.out.println(lengthOfLongestSubstringKDistinct(s, k));
 	}
-	
-	public static int lenOfLongestSubstring(String s, int k) {
+
+	public static int lengthOfLongestSubstringKDistinct(String s, int k) {
 		int[] map = new int[128];
-		
-	    int start = 0, end = 0, maxLen = Integer.MIN_VALUE, counter = 0;
 
-	    while (end < s.length()) {
-	      final char c1 = s.charAt(end);
-	      if (map[c1] == 0) {
-	    	  counter++;
-	      }
-	      map[c1]++;
-	      end++;
+		int start = 0, maxLen =0, counter = 0;
+		for (int end=0;end < s.length();end++) {
+			char c1 = s.charAt(end);
+			if (map[c1] == 0) counter++;
+			map[c1]++;
+			while (counter > k) {
+				char c2 = s.charAt(start);
+				if (map[c2] == 1) {
+					counter--;
+				}
+				map[c2]--;
+				start++;
+			}
+			maxLen = Math.max(maxLen, end - start+1);
+		}
 
-	      while (counter > k) {
-	        char c2 = s.charAt(start);
-	        if (map[c2] == 1) {
-	        	counter--;
-	        }
-	        map[c2]--;
-	        start++;
-	      }
-	      if(counter == k)
-	       maxLen = Math.max(maxLen, end - start);
-	    }
-
-	    return maxLen;
-	  }
+		return maxLen;
 	}
+}
 

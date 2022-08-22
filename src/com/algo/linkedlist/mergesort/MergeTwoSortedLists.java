@@ -26,26 +26,27 @@ public class MergeTwoSortedLists {
 		ListUtil.print(node1);
 	}
 	public ListNode mergeTwoLists(ListNode left, ListNode right) {
-		ListNode temp = new ListNode(0);
-		ListNode result=temp;
+		ListNode dummy = new ListNode(0);
+		ListNode result=dummy;
 		while (left != null && right != null) {
 			if (left.val < right.val) {
-				temp.next = left;     
+				dummy.next = left;     
 				left = left.next;
 			} else {
-				temp.next = right;
+				dummy.next = right;
 				right = right.next;
 			}
-			temp = temp.next;
+			dummy = dummy.next;
 		}
 		if(left==null){
-			temp.next=right;        
+			dummy.next=right;        
 		}
 		if(right==null){
-			temp.next=left;
+			dummy.next=left;
 		} 
 		return result.next;
 	}
+
 	private ListNode mergeSortedLists(ListNode a, ListNode b) {
 		ListNode result = null;
 		if (a == null)

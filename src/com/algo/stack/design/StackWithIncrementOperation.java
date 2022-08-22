@@ -50,11 +50,11 @@ public class StackWithIncrementOperation {
 		st.push(4);
 		st.increment(5, 100);                // stack becomes [101, 102, 103]
 		st.increment(2, 100);                // stack becomes [201, 202, 103]
-		System.out.println(st.pop());                           // return 103 --> Return top of the stack 103, stack becomes [201, 202]
-		System.out.println(st.pop());                            // return 202 --> Return top of the stack 102, stack becomes [201]
-		System.out.println(st.pop());                            // return 201 --> Return top of the stack 101, stack becomes []
-		System.out.println(st.pop());                           // return -1 --> Stack is empty return -1.
-		 
+		System.out.println(st.pop());       // return 103 --> Return top of the stack 103, stack becomes [201, 202]
+		System.out.println(st.pop());      // return 202 --> Return top of the stack 102, stack becomes [201]
+		System.out.println(st.pop());     // return 201 --> Return top of the stack 101, stack becomes []
+		System.out.println(st.pop());    // return -1 --> Stack is empty return -1.
+
 	}
 	int[] stack;
 	int count;
@@ -62,13 +62,13 @@ public class StackWithIncrementOperation {
 		stack = new int[maxSize];
 		count=-1;
 	}
-
+	/** Push element x onto stack. */
 	public void push(int x) {
 		if(count+1<stack.length) {
 			stack[++count]=x;
 		}
 	}
-
+	/** Removes the element on top of the stack and returns that element. */
 	public int pop() {
 		if(count==-1) return -1;
 		int x = stack[count];
@@ -76,9 +76,8 @@ public class StackWithIncrementOperation {
 		count--;
 		return x;
 	}
-
+	/** increment as of condition*/
 	public void increment(int k, int val) {
-		System.out.println("count"+count);
 		k=k<count+1?k:count+1;
 		for(int i=0;i<k;i++) {
 			stack[i]=stack[i]+val;

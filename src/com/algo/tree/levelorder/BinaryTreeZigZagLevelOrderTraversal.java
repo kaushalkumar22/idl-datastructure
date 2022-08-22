@@ -62,7 +62,7 @@ public class BinaryTreeZigZagLevelOrderTraversal {
 				if (root.left != null) {
 					queue.offer(root.left);
 				}
-				
+
 			}
 			res.add(level);
 			zigzag = !zigzag;

@@ -25,7 +25,6 @@ public class BestTimeToBuyAndSellStock {
 	public static void main(String[] args) {
 		int[] prices= {1, 3, 2, 8, 4, 9};
 		System.out.println(maxProfit(prices));
-		System.out.println(maxProfit1(prices));
 		System.out.println(maxProfit2(prices));
 
 	}
@@ -37,35 +36,20 @@ public class BestTimeToBuyAndSellStock {
 	 * 
 	 */
 	public static int maxProfit(int[] prices) {
-		int min = Integer.MAX_VALUE, maxProfit = 0;
+		int minPrice = Integer.MAX_VALUE, maxProfit = 0;
 		for (int i=0;i<prices.length;i++) {
-			min = Math.min(prices[i], min);
-			maxProfit = Math.max(maxProfit, prices[i] - min);
+			minPrice =  Math.min(prices[i], minPrice);
+			maxProfit = Math.max(maxProfit, prices[i] - minPrice);
 		}
 		return maxProfit;
 	}
-	public static int maxProfit1(int[] prices) {
 
-		int buy1 =Integer.MAX_VALUE;
-		int sell1=0;
-
-
-		for(int i=0;i<prices.length;i++) {
-			buy1= Math.min(buy1, prices[i]);
-			sell1 = Math.max(sell1, prices[i]-buy1);		
-		}
-		return sell1;
-
-	}
-	
-	public static int maxProfit2(int[] prices) {
-
+	public static int maxProfit2(int prices[]) {
+		int buy = Integer.MAX_VALUE;
 		int sell = 0;
-		int buy =Integer.MIN_VALUE;
-		for (int i =0; i<prices.length; i++) {
-			buy = Math.max(buy,  - prices[i]); 
-			sell = Math.max(sell, buy + prices[i]);
-
+		for (int i = 0; i < prices.length; i++) {         
+			buy  = Math.min(buy,prices[i]);
+			sell = Math.max(sell,prices[i]-buy);
 		}
 		return sell;
 	}

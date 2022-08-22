@@ -18,18 +18,18 @@ public class ReverseStack {
 		System.out.println(s1.pop());
 		System.out.println(s1.pop());
 		System.out.println(s1.pop());
-		
+
 
 		s1.push(10);
 		s1.push(20);
 		s1.push(30);
-		
+
 		revertStack(s1);
 		System.out.println("After reverce :");
 		System.out.println(s1.pop());
 		System.out.println(s1.pop());
 		System.out.println(s1.pop());
-		
+
 	}
 	public static void revertStack(Stack<Integer> s) {
 		if (s.isEmpty()) {

@@ -1,5 +1,7 @@
 package com.algo.stack.common;
 
+import java.util.Stack;
+
 /**
  * Given n non-negative integers representing an elevation map where the width
  * of each bar is 1, compute how much water it is able to trap after raining.
@@ -20,7 +22,25 @@ public class TrappingRainWater {
 
 	public static void main(String[] args) {
 		int[] nums= {0,1,0,2,1,0,1,3,2,1,2,1};
-		System.out.println(trap(nums));
+		System.out.println(trap1(nums));
+	}
+
+	public static int trap1(int[] height) {
+		int ans = 0, current = 0;
+		Stack<Integer> st = new Stack<>();
+		while (current < height.length) {
+			while (!st.empty() && height[current] > height[st.peek()]) {
+				int top = st.peek();
+				st.pop();
+				if (st.empty())
+					break;
+				int distance = current - st.peek() - 1;
+				int bounded_height = Math.min(height[current], height[st.peek()]) - height[top];
+				ans += distance * bounded_height;
+			}
+			st.push(current++);
+		}
+		return ans;
 	}
 	public static int trap(int[] nums) {
 		int left=0;
@@ -31,7 +51,7 @@ public class TrappingRainWater {
 		while(left<=right){
 			leftmax  = Math.max(leftmax,nums[left]);
 			rightmax = Math.max(rightmax,nums[right]);
-			
+
 			/*
 			 * rightmax will make sure there is a boundary from right side which is having
 			 * max height and there is a boundary from left side leftmax so anything smaller

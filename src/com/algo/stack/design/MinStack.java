@@ -34,16 +34,18 @@ public class MinStack {
 	public static void main(String[] args) {
 
 	}
+	//Approch 1: Using two stack
 	Stack<Integer> st= new Stack<Integer>();
 	Stack<Integer> minStack= new Stack<Integer>();
 
+	/** Push element x onto stack. */
 	public void push(int x) {
 		st.push(x);
 		if(minStack.empty()||minStack.peek()>=x) {
 			minStack.push(x);
 		}
 	}
-
+	/** Removes the element on top of the stack and returns that element. */
 	public void pop() {
 		int value =st.pop();
 		if(!minStack.empty()&&minStack.peek()==value) {
@@ -51,13 +53,48 @@ public class MinStack {
 		}
 	}
 
+	/** Get the top element. */
 	public int top() {
 		return st.peek();
 
 	}
-
+	/** Get the min element. */
 	public int getMin() {
 		return minStack.peek();
 
 	}
+
+	//Approch 2:Using Linked list
+	private Node head; 
+	/** Push element x onto stack. */
+	public void push1(int x) {
+		if (head == null) 
+			head = new Node(x, x, null);
+		else 
+			head = new Node(x, Math.min(x, head.min), head);
+	}
+	/** Removes the element on top of the stack and returns that element. */
+	public void pop1() {
+		head = head.next;
+	}
+	/** Get the top element. */
+	public int top1() {
+		return head.val;
+	}
+
+	/** Get the min element. */
+	public int getMin1() {
+		return head.min;
+	}  
+	private class Node {
+		int val;
+		int min;
+		Node next;  
+		private Node(int val, int min, Node next) {
+			this.val = val;
+			this.min = min;
+			this.next = next;
+		}
+	}
+
 }

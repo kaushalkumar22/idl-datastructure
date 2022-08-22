@@ -28,31 +28,19 @@ public class LongestRepeatingCharacterReplacement {
 		int k = 2;
 		System.out.println(characterReplacement( s,  k));
 	}
-	/*
-	 * Intuition
-	 * need to find longest window which hang max repeating chars and k number of 
-	 * non repeating chars i.e maxCount + k<right - left+1
-	 * 
-	 * left: left boundary of window
-	 * right: right boundary of window
-	 * maxCount: 'maxCount' to track max repeating chars in out window
-	 * cCount[]: to keep track how many times each chars appears in our window
-	 * 
-	 * need to find a window which greater than 'maxCount + k'
-	 * Complexity Analysis
-	 * 
-	 * Time Complexity: O(n) Space Complexity: O(n).
-	 * 
-	 */
 	public static int characterReplacement(String s, int k) {
-		int[] cCount = new int[26];
+		int[] seen = new int[26];
 		int left = 0; 
-		int maxCount = 0; 
+		int mostFreq = 0; 
 		int maxLength = 0;
-		for (int right = 0; right < s.length(); right++) {
-			maxCount = Math.max(maxCount, ++cCount[s.charAt(right) - 'A']);
-			if (maxCount + k<right - left+1) {
-				cCount[s.charAt(left++)-'A']--;
+		for(int right=0;right < s.length();right++) {
+			char c =s.charAt(right);
+			seen[c - 'A']++;
+			mostFreq = Math.max(mostFreq, seen[c - 'A']);
+			if ((right - left+1)-mostFreq>k) {
+				char c1 =s.charAt(left);              
+				seen[c1-'A']--;
+				left++;
 			}
 			maxLength = Math.max(maxLength, right - left + 1);
 		}

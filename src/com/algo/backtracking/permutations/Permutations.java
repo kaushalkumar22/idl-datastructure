@@ -24,7 +24,7 @@ public class Permutations {
 	}
 
 	private static void backtrack(List<List<Integer>> res, List<Integer> subRes ,int [] A){
-		
+
 		if(subRes.size() == A.length){
 			res.add(new ArrayList<>(subRes));
 			return;

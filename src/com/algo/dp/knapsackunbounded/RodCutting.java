@@ -58,4 +58,21 @@ public class RodCutting {
 		return T[n][K];
 
 	}
+	private static int knapsackDPOpt(int[] price, int[] length, int K) {
+		int n = price.length;
+		int[] T = new int[n + 1];
+
+		for (int i = 1; i <= n; i++) {
+			for (int j = 1; j <= K; j++) {
+
+				if (length[i - 1] <= j) {
+					T[i][j] = Math.max(price[i - 1] + T[i][j - length[i - 1]], T[i - 1][j]);
+				} else {
+					T[i][j] = T[i - 1][j];
+				}
+			}
+		}
+		return T[n][K];
+
+	}
 }

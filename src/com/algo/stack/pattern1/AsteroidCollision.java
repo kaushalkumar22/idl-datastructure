@@ -44,34 +44,28 @@ public class AsteroidCollision {
 		System.out.println(Arrays.toString(asteroidCollision2(a)));
 	}
 
-	public static int[] asteroidCollision(int[] asteroid) {
-		Stack<Integer> s = new Stack<>();
-		for (int i = 0; i < asteroid.length; i++) {
-			if (asteroid[i] > 0 || s.isEmpty()) {
-				s.push(asteroid[i]);
-			}else { 
-				while(!s.isEmpty()) {
-					int peek = s.peek();
-					if(peek<0) {
-						s.push(asteroid[i]);
-						break;
-					}else if(peek==-asteroid[i]) {
-						s.pop();
-						break;
-					}else if(peek>-asteroid[i]) {
-						break;
-					}else {
-						s.pop();
-						if(s.isEmpty()) {
-							s.push(asteroid[i]);
-							break;
-						}
+	public static int[] asteroidCollision(int[] asteroids) {
+		Stack<Integer> stack = new Stack<>();
+		for (int ast: asteroids) {
+			collision: {
+				while (!stack.isEmpty() && ast < 0 && 0 < stack.peek()) {
+					if (stack.peek() < -ast) {
+						stack.pop();
+						continue;
+					} else if (stack.peek() == -ast) {
+						stack.pop();
 					}
+					break collision;
 				}
+				stack.push(ast);
 			}
-
 		}
-		return s.stream().mapToInt(i -> i).toArray();
+
+		int[] ans = new int[stack.size()];
+		for (int t = ans.length - 1; t >= 0; --t) {
+			ans[t] = stack.pop();
+		}
+		return ans;
 	}
 	public static int[] asteroidCollision2(int[] a) {
 		LinkedList<Integer> s = new LinkedList<>(); 

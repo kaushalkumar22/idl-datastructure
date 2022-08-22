@@ -27,7 +27,10 @@ public class RegularExpressionMatching {
 	public static void main(String args[]){
 		RegularExpressionMatching rm = new RegularExpressionMatching();
 		System.out.println(rm.matchRegex("","a*b*"));
+		System.out.println(rm.isMatch("","a*b*"));
 		System.out.println(rm.matchRegex("aaa","ab*a*c*a"));
+		System.out.println(rm.isMatch("aaa","ab*a*c*a"));
+
 	}
 	public boolean matchRegex(String s, String p) {
 		boolean dp[][] = new boolean[s.length() + 1][p.length() + 1];
@@ -55,7 +58,33 @@ public class RegularExpressionMatching {
 		}
 		return dp[s.length()][p.length()];
 	}
+	
+	 //output incorrect logic need to verify
+	  public  boolean  isMatch(String s, String p) {
 
+          int i = 0, j = 0, iStar = -1, jStar = -1, m = s.length(), n = p.length();
+
+          while (i < m) {
+              if (j < n && (s.charAt(i) == p.charAt(j) || p.charAt(j) == '?')) {
+                  ++i;
+                  ++j;
+              } else if (j < n && p.charAt(j) == '*') {
+                  iStar = i;
+                  jStar = j++;
+              } else if (iStar >= 0) {
+                  i = ++iStar;
+                  j = jStar + 1;
+              } else {
+                  return false;
+              }
+          }
+
+          while (j < n && p.charAt(j) == '*') {
+              ++j;
+          }
+
+          return j == n;
+      }
 }
 
 

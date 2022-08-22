@@ -40,12 +40,11 @@ public class ReverseAlternateKNodes {
 	}
 	private  ListNode reverseAlternateK(ListNode head, int k) {
 
-		ListNode curr = head;
-		ListNode cnext = null, prev = null;
+		ListNode curr = head,prev = null;
 
 		// 1) reverse first k ListNodes of the linked list 
 		for(int i=0;i<k&&curr!=null;i++){
-			cnext = curr.next;
+			ListNode cnext = curr.next;
 			curr.next = prev;
 			prev = curr;
 			curr = cnext;

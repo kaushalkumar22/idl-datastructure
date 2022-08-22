@@ -1,5 +1,7 @@
 package com.algo.slidingwindow;
 
+import java.util.HashMap;
+
 /**
  * Given an array of n positive integers and a positive integer s, find the
  * minimal length of a contiguous subarray of which the sum >= s. If there isn't
@@ -13,6 +15,8 @@ public class MinimumSizeSubarraySum {
 	public static void main(String[] args) {
 		int[] nums = { 2, 3, 1, 2, 4, 3 };
 		System.out.println(minSubArrayLen(7, nums));
+		System.out.println(maxSubArrayLen(new int[] {1, -1, 5, -2, 3},3));
+
 	}
 
 	/*
@@ -33,21 +37,46 @@ public class MinimumSizeSubarraySum {
 	 * time complexity O(n)
 	 * space complexity O(1)
 	 */
-	public static int minSubArrayLen(int s, int[] a) {
-
-		int left = 0; 
-		int right; 
-		int sum = 0;
-		int min = Integer.MAX_VALUE;
-
-		for (right = 0; right < a.length; right++) {
-			sum += a[right];
-			while (sum >= s) {
-				min = Math.min(min, right - left + 1);
-				sum -= a[left++];
+	public static int minSubArrayLen(int target, int[] nums) {
+		int left = 0, right = 0, sum = 0,min=Integer.MAX_VALUE;
+		while (right < nums.length) {
+			sum+=nums[right];
+			while (sum >=target) {
+				min = Math.min(min, right-left+1);
+				sum-=nums[left];
+				left++;
 			}
+			right++;
 		}
-		return min == Integer.MAX_VALUE ? 0 : min;
+		return min==Integer.MAX_VALUE?0:min;
 	}
+	public int maxSubArrayLen(int[] nums, int k) {
 
+        // from sum[i] => i index i
+        HashMap<Integer, Integer> map = new HashMap<Integer, Integer>();
+
+        int max = 0;
+        int sum = 0;
+
+        for (int i = 0; i < nums.length; i++) {
+            sum += nums[i];
+
+            if (sum == k) {
+                max = Math.max(max, i + 1);
+            }
+
+            int diff = sum - k;
+
+            if (map.containsKey(diff)) {
+                max = Math.max(max, i - map.get(diff));
+            }
+
+            if (!map.containsKey(sum)) { // @note: only record the first appearance
+                map.put(sum, i);
+            }
+        }
+
+        return max;
+    }
+}
 }

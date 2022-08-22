@@ -22,7 +22,26 @@ public class ContainerWithMostWater {
 		int[] height= {1,8,6,2,5,4,8,3,7};
 		System.out.println(maxArea(height));
 	}
-	private static int maxArea(int[] arr) {
+	private static int maxArea(int[] A) {
+		int water = 0;
+		int left =0;
+		int right =A.length-1;
+		int ml=0,mr=0;
+		while(left<right) {
+			ml = Math.max(ml,A[left]);
+			mr = Math.max(mr,A[right]);
+            water = Math.max(Math.min(ml,mr)*(right-left),water );
+			
+			if(ml<mr) {
+				left++;
+			}else {
+				right--;
+			}		
+		}
+		return water;
+
+	}
+	private static int maxArea2(int[] arr) {
 		int water = 0;
 		int height =0;
 		int left =0;

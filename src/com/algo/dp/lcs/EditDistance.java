@@ -22,68 +22,60 @@ package com.algo.dp.lcs;
  *
  */
 public class EditDistance {
-	
+
 	public static void main(String args[]) {
 		String str1 = "azced";
 		String str2 = "abcdef";
-		int result = dynamicEditDistance(str1.toCharArray(), str2.toCharArray());
+		int result = minDistance1(str1, str2);
 		System.out.println("Minimum Edit Distance: " + result);
 		System.out.println(minDistance(str1, str2));
 	}
 	/**
 	 * Uses bottom up DP to find the edit distance
 	 */
-	public static int dynamicEditDistance(char[] str1, char[] str2) {
-		int temp[][] = new int[str1.length + 1][str2.length + 1];
+	public static int minDistance1(String str1, String str2) {
+		int dp[][] = new int[str1.length() + 1][str2.length() + 1];
 
-		for (int i = 0; i < temp[0].length; i++) {
-			temp[0][i] = i;
+		for (int i = 0; i < dp[0].length; i++) {
+			dp[0][i] = i;
 		}
-
-		for (int i = 0; i < temp.length; i++) {
-			temp[i][0] = i;
+		for (int i = 0; i < dp.length; i++) {
+			dp[i][0] = i;
 		}
-
-		for (int i = 1; i <= str1.length; i++) {
-			for (int j = 1; j <= str2.length; j++) {
-				if (str1[i - 1] == str2[j - 1]) {
-					temp[i][j] = temp[i - 1][j - 1];
+		for (int i = 1; i <= str1.length(); i++) {
+			for (int j = 1; j <= str2.length(); j++) {
+				if (str1.charAt(i - 1) == str2.charAt(j - 1)) {
+					dp[i][j] = dp[i - 1][j - 1];
 				} else {
-					temp[i][j] = 1 + min(temp[i - 1][j - 1], temp[i - 1][j], temp[i][j - 1]);
+					dp[i][j] = 1 + Math.min(Math.min(dp[i - 1][j - 1], dp[i - 1][j]), dp[i][j - 1]);
 				}
 			}
 		}
-		// printActualEdits(temp, str1, str2);
-		return temp[str1.length][str2.length];
+		return dp[str1.length()][str2.length()];
+	} 
 
+	public static int minDistance(String word1, String word2) {
+		int m = word1.length(), n = word2.length(), pre;
+		int[] dp= new int[n+1];
+		for (int j = 1; j <= n; j++) {
+			dp[j] = j;
+		}
+		for (int i = 1; i <= m; i++) {
+			pre = dp[0];
+			dp[0] = i;
+			for (int j = 1; j <= n; j++) {
+				int temp = dp[j];
+				if (word1.charAt(i - 1) == word2.charAt(j - 1)) {
+					dp[j] = pre;
+				} else {
+					dp[j] = Math.min(pre, Math.min(dp[j - 1], dp[j])) + 1;
+				}
+				pre = temp;
+			}
+		}
+		return dp[n];
 	}
 
-	static int minDistance(String word1, String word2) {
-        int m = word1.length(), n = word2.length(), pre;
-        int[] cur= new int[n+1];
-        for (int j = 1; j <= n; j++) {
-            cur[j] = j;
-        }
-        for (int i = 1; i <= m; i++) {
-            pre = cur[0];
-            cur[0] = i;
-            for (int j = 1; j <= n; j++) {
-                int temp = cur[j];
-                if (word1.charAt(i - 1) == word2.charAt(j - 1)) {
-                    cur[j] = pre;
-                } else {
-                    cur[j] = Math.min(pre, Math.min(cur[j - 1], cur[j])) + 1;
-                }
-                pre = temp;
-            }
-        }
-        return cur[n];
-    }
-	private static int min(int a, int b, int c) {
-		int l = Math.min(a, b);
-		return Math.min(l, c);
-	}
 
-	
 
 }

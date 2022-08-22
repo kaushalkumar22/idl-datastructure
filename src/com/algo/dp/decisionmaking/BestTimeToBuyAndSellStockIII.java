@@ -36,37 +36,35 @@ public class BestTimeToBuyAndSellStockIII {
 		System.out.println(maxProfit2(prices));
 	}
 	public static int maxProfit(int[] prices) {
-		
-	int buy1 =Integer.MAX_VALUE;
-	int sell1=0;
-	int buy2 =Integer.MAX_VALUE;
-	int sell2=0;
-	
-	for(int i=0;i<prices.length;i++) {
-		buy1= Math.min(buy1, prices[i]);
-		sell1 = Math.max(sell1, prices[i]-buy1);
-		buy2 = Math.min(buy2, prices[i]-sell1);
-		sell2 = Math.max(sell2, prices[i]-buy2);
-	}
-		return sell2;
+        int minPriceT1 = Integer.MAX_VALUE;
+        int maxProfitT1 = 0;
+        int minPriceT2 = Integer.MAX_VALUE;
+        int maxProfitT2 = 0;
+        for (int i = 0; i < prices.length; i++) {         
+            minPriceT1  =  Math.min(minPriceT1,prices[i]);
+            maxProfitT1 =  Math.max(maxProfitT1,prices[i]-minPriceT1);
+            minPriceT2  = Math.min(minPriceT2,prices[i]-maxProfitT1);
+            maxProfitT2 = Math.max(maxProfitT2,prices[i]-minPriceT2);
+        }
+        return maxProfitT2;
+    }
 
-	}
 	public static int maxProfit2(int[] prices) {
-		
+
 		int buy1 =Integer.MIN_VALUE;
 		int sell1=0;
 		int buy2 =Integer.MIN_VALUE;
 		int sell2=0;
-		
+
 		for(int i=0;i<prices.length;i++) {
 			buy1= Math.max(buy1, -prices[i]);
 			sell1 = Math.max(sell1, prices[i]+buy1);
 			buy2 = Math.max(buy2, sell1-prices[i]);
 			sell2 = Math.max(sell2, prices[i]+buy2);
 		}
-			return sell2;
+		return sell2;
 
-		}
+	}
 	//buy = Math.max(buy, sell - prices[i]); // keep the same as day i-1, or buy from sell status at day i-1
 	//sell = Math.max(sell, buy + prices[i]); // keep the same as day i-1, or sell from buy status at day i-1
 }

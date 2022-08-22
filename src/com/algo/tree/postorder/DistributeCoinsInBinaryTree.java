@@ -52,4 +52,7 @@ public class DistributeCoinsInBinaryTree {
 			p.val += r.val - 1;
 		return left+right + Math.abs(r.val - 1);
 	}
+
+	
+
 }

@@ -48,4 +48,16 @@ public class ScoreOfParentheses {
 		}
 		return cur;
 	}
+	Same as stack, I do it with an array.
+	We change a pointer instead of pushing/popping repeatedly.
+	Complexity: O(N) time and O(N) space
+
+	public int scoreOfParentheses(String S) {
+		int res[] = new int[30], i = 0;
+		for (char c : S.toCharArray())
+			if (c == '(') res[++i] = 0;
+			else res[i - 1] += Math.max(res[i--] * 2, 1);
+		return res[0];
+	}
+
 }

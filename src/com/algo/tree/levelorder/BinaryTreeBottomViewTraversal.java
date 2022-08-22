@@ -39,7 +39,7 @@ public class BinaryTreeBottomViewTraversal {
 		System.out.println(tree.bottomViewRec( root));
 		System.out.println(tree.bottomView( root));
 	}
-	
+
 	private	List<Integer> bottomViewRec(TreeNode root) {
 		Map<Integer, Integer> levelVal = new TreeMap<Integer,Integer>();
 		bottomViewRec( root, 0,levelVal);

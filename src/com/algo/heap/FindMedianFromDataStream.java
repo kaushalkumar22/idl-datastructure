@@ -1,5 +1,6 @@
 package com.algo.heap;
 
+import java.util.Comparator;
 import java.util.PriorityQueue;
 import java.util.Queue;
 
@@ -49,19 +50,33 @@ public class FindMedianFromDataStream {
 	 * ones.
 	 */
 
-	class MedianFinder {
+	public static void main(String[] args) {
+		FindMedianFromDataStream mediun = new FindMedianFromDataStream();
+		mediun.addNum(2);
+		mediun.addNum(3);
+		System.out.println(mediun.findMedian());
+		mediun.addNum(4);
+		System.out.println(mediun.findMedian());
 
-		private Queue<Long> small = new PriorityQueue(), large = new PriorityQueue();
 
-		public void addNum(int num) {
-			large.add((long) num);
-			small.add(-large.poll());
-			if (large.size() < small.size())
-				large.add(-small.poll());
-		}
+	}
+	private PriorityQueue<Integer> maxpq;
+	private PriorityQueue<Integer> minpq;
 
-		public double findMedian() {
-			return large.size() > small.size() ? large.peek() : (large.peek() - small.peek()) / 2.0;
-		}
-	};
+	public FindMedianFromDataStream() {
+          maxpq = new PriorityQueue<Integer>();
+          minpq = new PriorityQueue<Integer>(Comparator.reverseOrder());
+	}
+
+	public void addNum(int num) {
+            maxpq.offer(num);
+            minpq.offer(maxpq.poll());
+            if(maxpq.size()<minpq.size()) {
+            	maxpq.offer(minpq.poll());
+            }
+	}
+
+	public double findMedian() {	
+		return (maxpq.size()==minpq.size())?((maxpq.peek()+minpq.peek())/2.0): maxpq.peek();
+	}
 }

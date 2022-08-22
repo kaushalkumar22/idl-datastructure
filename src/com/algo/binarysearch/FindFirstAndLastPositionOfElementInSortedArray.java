@@ -17,10 +17,12 @@ import java.util.Arrays;
  * Input: nums = [], target = 0 Output: [-1,-1]
  * 
  */
+
+
 public class FindFirstAndLastPositionOfElementInSortedArray {
 	public static void main(String[] args) {
-		int[] nums = {1,2,5,5,5,9};
-		System.out.println(Arrays.toString(searchRange(nums,5)));
+		int[] nums = {5,7,7,8,8,10};
+		System.out.println(Arrays.toString(searchRange(nums,6)));
 	}
 	public static int[] searchRange(int[] nums, int target) {
 

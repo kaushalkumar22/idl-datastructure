@@ -46,19 +46,19 @@ public class DungeonGame {
 	}
 
 	public static int calculateMinimumHP(int[][] dung) {
-	        int row=dung.length;
-	        int col=dung[0].length;
-	        int[] dp = new int[col+1];
-	        Arrays.fill(dp, Integer.MAX_VALUE);
-	        dp[col-1]=1;
-	        for(int i=row-1;i>=0;i--){
-	            for(int j=col-1;j>=0;j--){
-	                dp[j]=Math.max(1,Math.min(dp[j],dp[j+1])-dung[i][j]);
-	            }
-	        }
-	        return dp[0];
-	    
-	    }
+		int row=dung.length;
+		int col=dung[0].length;
+		int[] dp = new int[col+1];
+		Arrays.fill(dp, Integer.MAX_VALUE);
+		dp[col-1]=1;
+		for(int i=row-1;i>=0;i--){
+			for(int j=col-1;j>=0;j--){
+				dp[j]=Math.max(1,Math.min(dp[j],dp[j+1])-dung[i][j]);
+			}
+		}
+		return dp[0];
+
+	}
 	private static int  getMinInitialPoints(int points[][]){
 
 		int col = points.length;

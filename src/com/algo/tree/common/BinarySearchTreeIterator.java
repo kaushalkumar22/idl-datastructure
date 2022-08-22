@@ -39,7 +39,7 @@ public class BinarySearchTreeIterator {
 		TreeNode root = TreeUtil.createTree(nums);
 		TreeUtil.inorder(root);
 		BinarySearchTreeIterator tree= new BinarySearchTreeIterator( root);
-		
+
 		System.out.println(tree.next());
 		System.out.println(tree.next());
 		System.out.println(tree.next());
@@ -51,7 +51,7 @@ public class BinarySearchTreeIterator {
 	}
 
 	private Stack<TreeNode> addAll(TreeNode root) {
-		
+
 		while(root != null) {
 			st.push(root);
 			root = root.left;
@@ -68,7 +68,7 @@ public class BinarySearchTreeIterator {
 
 	/** @return whether we have a next smallest number */
 	public boolean hasNext() {
-          return st.size()>0?true:false;
+		return st.size()>0?true:false;
 	}
 }
 

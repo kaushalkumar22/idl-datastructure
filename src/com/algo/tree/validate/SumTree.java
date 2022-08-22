@@ -40,57 +40,50 @@ public class SumTree {
 		List<Integer> nums = Arrays.asList(26, 10, 3, 4, 6, null, 3);
 		TreeNode root = TreeUtil.createTree(nums);
 		System.out.println(tree.isSumTree(root));
+		System.out.println(SumTree.isSumTree2(root));
 
 	}
 
 	// returns 1 if SumTree property holds for the given tree
-	private boolean isSumTree(TreeNode node) {
-		int lSubSum; // for sum of nodes in left subtree
-		int rSubSum; // for sum of nodes in right subtree
-		/* If node is NULL or it's a leaf node then return true */
-		if (node == null || isLeafNode(node)) {
-			return true;
-		}
-
-		if (isSumTree(node.left) && isSumTree(node.right)) {
-
-			// Get the sum of nodes in left subtree
-			if (node.left == null) {
-				lSubSum = 0;
-			} else if (isLeafNode(node.left)) {
-				lSubSum = node.left.val;
-			} else {
-				lSubSum = 2 * (node.left.val);
-			}
-
-			// Get the sum of nodes in right subtree
-			if (node.right == null) {
-				rSubSum = 0;
-			} else if (isLeafNode(node.right)) {
-				rSubSum = node.right.val;
-			} else {
-				rSubSum = 2 * (node.right.val);
-			}
-
-			/*
-			 * If root's data is equal to sum of nodes in left and right subtrees then
-			 * return 1 else return 0
-			 */
-			if ((node.val == rSubSum + lSubSum)) {
-				return true;
-			}
-		}
-		return false;
+	private boolean isSumTree(TreeNode root) {
+	    if(root==null) return true;
+		return isSum(root)!=-1;
 	}
 
-	private boolean isLeafNode(TreeNode node) {
-		if (node == null) {
-			return false;
-		}
-		if (node.left == null && node.right == null) {
-			return true;
-		}
-		return false;
+	private int isSum(TreeNode root) {
+		if (root == null) return 0;
+		
+	    int left =isSum( root.left);
+	    int right =isSum( root.right);
+	    
+	    if (root.left == null && root.right == null) {
+            return root.val;
+        }
+	    if(root.val!=(left+right)) return -1;
+	    
+		return root.val+left+right;
 	}
-
+	public static int isSumTree2(TreeNode root){
+        // base case: empty tree
+        if (root == null) {
+            return 0;
+        }
+ 
+        // special case: leaf node
+        if (root.left == null && root.right == null) {
+            return root.val;
+        }
+ 
+        int left = isSumTree2(root.left);
+        int right = isSumTree2(root.right);
+ 
+        // if the root's value is equal to the sum of all elements present in its
+        // left and right subtree
+        if (left != Integer.MIN_VALUE && right != Integer.MIN_VALUE &&
+                root.val == left + right) {
+            return 2 * root.val;
+        }
+ 
+        return Integer.MIN_VALUE;
+    }
 }
