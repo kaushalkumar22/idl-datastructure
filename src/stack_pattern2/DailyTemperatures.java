@@ -37,7 +37,7 @@ public class DailyTemperatures {
 		return warmer;
 
 	}
-	public int[] dailyTemperatures(int[] temperatures) {
+	public int[] dailyTemperatures1(int[] temperatures) {
 		int n = temperatures.length;
 		int hottest = 0;
 		int answer[] = new int[n];

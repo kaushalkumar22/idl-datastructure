@@ -42,7 +42,7 @@ public class Keyboard4Keys {
 		return res;
 
 	}
-	public int maxA(int N) {
+	/*public int maxA(int N) {
 
 		//dp[i] represents the maximum number of A that can be printed when the total number of steps is i
 		int[] dp = new int[N + 1];
@@ -58,7 +58,7 @@ public class Keyboard4Keys {
 
 		return dp[N];
 	}
-}
+}*/
 public int countAs(int n){
 	if(n < 7){
 		return n;

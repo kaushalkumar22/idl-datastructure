@@ -1,5 +1,6 @@
 package binarysearch_miscellaneous;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -58,6 +59,7 @@ public class FindKClosestElements {
 			else
 				right = mid;
 		}
+
 		return Arrays.stream(A, left, left + k).boxed().collect(Collectors.toList());
 	}
 

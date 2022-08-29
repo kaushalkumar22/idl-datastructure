@@ -15,7 +15,7 @@ public class MinimumSizeSubarraySum {
 	public static void main(String[] args) {
 		int[] nums = { 2, 3, 1, 2, 4, 3 };
 		System.out.println(minSubArrayLen(7, nums));
-		System.out.println(maxSubArrayLen(new int[] {1, -1, 5, -2, 3},3));
+		//System.out.println(maxSubArrayLen(new int[] {1, -1, 5, -2, 3},3));
 
 	}
 
@@ -79,4 +79,4 @@ public class MinimumSizeSubarraySum {
         return max;
     }
 }
-}
+

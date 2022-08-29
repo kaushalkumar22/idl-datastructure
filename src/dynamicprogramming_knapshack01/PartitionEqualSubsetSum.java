@@ -28,7 +28,7 @@ public class PartitionEqualSubsetSum {
 	public static void main(String[] args) {
 		int[] nums= {1, 5, 11, 5};
 		System.out.println(canPartition(nums));
-		System.out.println(canPartitionOPt(nums));
+	//	System.out.println(canPartitionOPt(nums));
 
 	}
 	public static boolean canPartition(int[] nums) {

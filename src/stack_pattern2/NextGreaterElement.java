@@ -1,6 +1,7 @@
 package stack_pattern2;
 
-import java.util.Arrays;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.Stack;
 /**
  * Given an array of integers(positive or negative), print the next greater
@@ -23,7 +24,7 @@ public class NextGreaterElement {
 
 	public static void main(String[] args) {
 		int[] input = { 98, 23, 54, 12, 20, 7, 27 };
-		nextGreaterElement(input);
+		//nextGreaterElement(input);
 	}
 	public int[] nextGreaterElement(int[] findNums, int[] nums) {
 		Map<Integer, Integer> map = new HashMap<>(); // map from x to next greater element of x
