@@ -42,14 +42,14 @@ public class LongestConsecutiveSequence {
 			set.add(n);
 		}
 		int best = 0;
-		for (int n : set) {
-			if (!set.contains(n - 1)) { // only check for one direction
-				int m = n + 1;
-				while (set.contains(m)) {
-					m++;
-				}
-				best = Math.max(best, m - n);
+		for (int num : set) {
+			int count = 0;
+			if(set.contains(num-1)) continue;
+			while (set.contains(num)) {
+				count++;
+				num++;
 			}
+			best = Math.max(best, count);
 		}
 		return best;
 	}

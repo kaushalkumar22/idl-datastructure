@@ -42,7 +42,7 @@ public class OnlineStockSpan {
 
 
 	Stack<int[]> stack;
-	public StockSpanner() {
+	public OnlineStockSpan() {
 		stack = new Stack<>();
 	}     
 	public int next(int price) {

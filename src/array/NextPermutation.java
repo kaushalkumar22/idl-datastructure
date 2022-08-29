@@ -41,7 +41,7 @@ import java.util.Arrays;
  */
 public class NextPermutation {
 	public static void main(String[] args) {
-       System.out.println(Arrays.toString(nextPermutation(new int[]{1,1})));
+       System.out.println(Arrays.toString(nextPermutation(new int[]{1,5,1})));
 	}
 	public static int[] nextPermutation(int[] nums) {
 		int n =nums.length,i,j;
@@ -60,8 +60,6 @@ public class NextPermutation {
 			}
 			swap(nums, i, j);
 			reverse(nums,i+1,n-1);
-			String s="abc";
-			s.indexOf('c', i);
 		}
 		return nums;
 

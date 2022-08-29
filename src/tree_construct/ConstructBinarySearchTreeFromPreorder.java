@@ -77,9 +77,9 @@ public class ConstructBinarySearchTreeFromPreorder {
 		ConstructBinarySearchTreeFromPreorder tree = new ConstructBinarySearchTreeFromPreorder();
 		int pre[] = new int[]{10, 5, 1, 7, 40, 50};
 		int size = pre.length;
-		TreeNode root = tree.constructBST(pre, 0, size - 1);;
+		//TreeNode root = tree.constructBST(pre, 0, size - 1);;
 		System.out.println("Inorder traversal of the constructed tree is ");
-		tree.printInorder(root);
+	//	tree.printInorder(root);
 		System.out.println();
 		tree.index =0;
 		TreeNode root1 = tree.constructBST(pre,Integer.MIN_VALUE,Integer.MAX_VALUE, size);
