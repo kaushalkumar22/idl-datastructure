@@ -1,5 +1,11 @@
 package dynamicprogramming_lcs;
 //AABEBCDD //ABD twice
+
+/**
+ * Given a string S, find out the length of the longest repeating Subsequence.
+ *
+ * Input: "AABEBCDD" Output: ABD.
+ */
 public class LongestRepeatingSubsequence {
 	public static void main(String[] args) {
 		String s ="AABEBCDD";

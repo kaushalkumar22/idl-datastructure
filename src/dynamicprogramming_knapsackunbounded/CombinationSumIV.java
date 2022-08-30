@@ -15,8 +15,7 @@ package dynamicprogramming_knapsackunbounded;
  * 
  * Therefore the output is 7.
  * 
- * @author IBM
- *
+  *CoinChangeII
  */
 public class CombinationSumIV {
 

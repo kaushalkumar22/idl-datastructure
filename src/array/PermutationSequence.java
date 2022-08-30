@@ -32,9 +32,9 @@ import java.util.ArrayList;
  */
 public class PermutationSequence {
 	public static void main(String[] args) {
-
+        System.out.println(getPermutation(4,9));
 	}
-	public String getPermutation(int n, int k) {
+	public static String getPermutation(int n, int k) {
         StringBuilder sb = new StringBuilder();
         ArrayList<Integer> num = new ArrayList<Integer>();
         int fact = 1;

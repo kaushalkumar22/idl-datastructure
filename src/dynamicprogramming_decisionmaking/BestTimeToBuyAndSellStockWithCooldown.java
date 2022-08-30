@@ -36,10 +36,10 @@ public class BestTimeToBuyAndSellStockWithCooldown {
 		int minPrice =Integer.MAX_VALUE;
 		int maxProfit = 0;
 		int maxProfitPrev=0;
-		for (int i =0; i<prices.length; i++) {
+		for (int price :prices){
 			int maxProfitOld=maxProfit;
-			minPrice  = Math.min(minPrice,  prices[i]-maxProfitPrev); 
-			maxProfit = Math.max(maxProfit, prices[i]-minPrice);
+			minPrice  = Math.min(minPrice, price-maxProfitPrev);
+			maxProfit = Math.max(maxProfit, price-minPrice);
 			maxProfitPrev=maxProfitOld;
 		}
 		return maxProfit;

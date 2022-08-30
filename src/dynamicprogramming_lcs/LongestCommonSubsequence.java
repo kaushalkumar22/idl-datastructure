@@ -31,7 +31,25 @@ public class LongestCommonSubsequence {
 		int n = y.length();
 		System.out.println("Length of LCS is:" + LCSRecurcive(x, y, m, n));
 		System.out.println("Length of LCS is:" + LCSDP(x, y));
-
+		System.out.println("Length of LCS is:" + longestCommonSubsequence(x, y));
+	}
+	public static int longestCommonSubsequence(String s1, String s2) {
+		int m = s1.length(), n = s2.length();
+		if (m < n) {
+			return longestCommonSubsequence(s2, s1);
+		}
+		int[] dp = new int[n + 1];
+		for (int i = 0; i < s1.length(); ++i) {
+			for (int j = 0, prevRow = 0, prevRowPrevCol = 0; j < s2.length(); ++j) {
+				prevRowPrevCol = prevRow;
+				prevRow = dp[j + 1];
+				if(s1.charAt(i) == s2.charAt(j)) {
+					dp[j + 1] = 1+prevRowPrevCol ;
+				}else
+					dp[j + 1] =  Math.max(dp[j], prevRow);
+			}
+		}
+		return dp[n];
 	}
 
 	public static int LCSRecurcive(String s1, String s2, int m, int n) {
