@@ -35,9 +35,9 @@ import java.util.List;
  */
 public class PascalsTriangleII {
 	public static void main(String[] args) {
-
+		System.out.println(getRow(5));
 	}
-	 public List<Integer> getRow(int rowIndex) {
+	 public static List<Integer> getRow(int rowIndex) {
 	        Integer[] integers = new Integer[rowIndex + 1];
 	        Arrays.fill(integers, 1);
 	        for (int row = 0; row < rowIndex; row++) {

@@ -26,31 +26,37 @@ package dynamicprogramming_decisionmaking;
  */
 public class BestTimeToBuyAndSellStockII {
 	public static void main(String[] args) {
-		int[] prices= {7,1,5,3,6,4};
+		int[] prices= {1,2,3,4,5};
 		System.out.println(maxProfit(prices));
+		System.out.println(maxProfit1(prices));
 		System.out.println(maxProfit2(prices));
 	}
-	/*
-	 * Iterate the array from index 1 calculate the selling price at i as sell =prices[i]-prices[i-1];
-	 * if sell price is >0 add to maxProfit i.e maxProfit = maxProfit+Math.max(0, sell);
-	 * 
-	 */
-	private static int maxProfit(int[] prices) {
+
+	public static int maxProfit(int prices[]) {
+		int buy = Integer.MIN_VALUE;
+		int sell = 0;
+		for (int price :prices){
+			buy  = Math.max(buy, sell-price);
+			sell = Math.max(sell,price+buy);
+		}
+		return sell;
+	}
+	public static int maxProfit2(int[] prices) {
+
+		int buy =Integer.MAX_VALUE;
+		int sell = 0;
+		for (int price :prices){
+			buy  = Math.min(buy,  price-sell);
+			sell = Math.max(sell, price-buy);
+		}
+		return sell;
+	}
+	private static int maxProfit1(int[] prices) {
 
 		int maxProfit = 0;
 		for (int i = 1; i < prices.length; i++) {
 			maxProfit += Math.max(0, prices[i] - prices[i - 1]);
 		}
 		return maxProfit;
-	}
-	public static int maxProfit2(int[] prices) {
-
-		int buy =Integer.MAX_VALUE;
-		int sell = 0;
-		for (int i =0; i<prices.length; i++) {
-			buy  = Math.min(buy,  prices[i]-sell); 
-			sell = Math.max(sell, prices[i]-buy);
-		}
-		return sell;
 	}
 }

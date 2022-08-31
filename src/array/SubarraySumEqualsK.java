@@ -19,9 +19,11 @@ package array;
  */
 public class SubarraySumEqualsK {
 	public static void main(String[] args) {
-
+		int[] nums = { 2,6,4,8,10,9,15};
+		System.out.println(subarraySum(nums,18));
+		System.out.println(subarraySum1(nums,18));
 	}
-	public int subarraySum(int[] nums, int k) {
+	public static int subarraySum(int[] nums, int k) {
 		int count = 0;
 		int[] sum = new int[nums.length + 1];
 		sum[0] = 0;
@@ -35,7 +37,7 @@ public class SubarraySumEqualsK {
 		}
 		return count;
 	}
-	public int subarraySum1(int[] nums, int k) {
+	public static int subarraySum1(int[] nums, int k) {
 		int count = 0;
 		for (int start = 0; start < nums.length; start++) {
 			int sum=0;

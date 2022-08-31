@@ -1,5 +1,7 @@
 package array;
 
+import java.util.Arrays;
+
 /**
  * Given an integer array nums, you need to find one continuous subarray that if
  * you only sort this subarray in ascending order, then the whole array will be
@@ -34,9 +36,10 @@ package array;
  */
 public class ShortestUnsortedContinuousSubarray {
 	public static void main(String[] args) {
-		
+		int[] nums = { 2,6,4,8,10,9,15};
+		System.out.println(findUnsortedSubarray(nums));
 	}
-	public int findUnsortedSubarray(int[] A) {
+	public static int findUnsortedSubarray(int[] A) {
 	    int n = A.length, beg = -1, end = -2, min = A[n-1], max = A[0];
 	    for (int i=1;i<n;i++) {
 	      max = Math.max(max, A[i]);
