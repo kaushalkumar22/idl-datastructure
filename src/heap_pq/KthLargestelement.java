@@ -1,5 +1,7 @@
 package heap_pq;
 
+import java.util.PriorityQueue;
+
 public class KthLargestelement {
 
 	public static void main(String[] args) {
@@ -11,6 +13,18 @@ public class KthLargestelement {
 		System.out.println(getKthLargestelement(ropes,5));
 		printArray(ropes);
 	}
+	 public int findKthLargest(int[] nums, int k) {
+		 
+	        final PriorityQueue<Integer> pq = new PriorityQueue<>();
+	        for(int val : nums) {
+	            pq.offer(val);
+	 
+	            if(pq.size() > k) {
+	                pq.poll();
+	            }
+	        }
+	        return pq.peek();
+	    }
 
 	private static int getKthLargestelement(int arr[],int k){
 		

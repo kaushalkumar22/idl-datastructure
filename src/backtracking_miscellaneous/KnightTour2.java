@@ -1,6 +1,5 @@
 package backtracking_miscellaneous;
 
-import java.text.DecimalFormat;
 
 public class KnightTour2 {
 

@@ -1,4 +1,4 @@
-package greedy;
+package heap_pq;
 
 import java.util.Arrays;
 import java.util.PriorityQueue;

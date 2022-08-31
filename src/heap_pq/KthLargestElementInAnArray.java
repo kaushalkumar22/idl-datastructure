@@ -1,5 +1,6 @@
 package heap_pq;
 import java.util.Arrays;
+import java.util.PriorityQueue;
 import java.util.Random;
 
 /**
@@ -19,6 +20,19 @@ public class KthLargestElementInAnArray {
 		System.out.println(findKthLargestElement(nums,2));
 		System.out.println(findKthLargestElementOpt(nums,2));
 	}
+	 public int findKthLargest(int[] nums, int k) {
+		 
+	        final PriorityQueue<Integer> pq = new PriorityQueue<>();
+	        for(int val : nums) {
+	            pq.offer(val);
+	 
+	            if(pq.size() > k) {
+	                pq.poll();
+	            }
+	        }
+	        return pq.peek();
+	    }
+
 	/*
 	 * O(N) best case / O(N^2) worst case running time + O(1) memory The smart
 	 * approach for this problem is to use the selection algorithm (based on the
