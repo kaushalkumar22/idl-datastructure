@@ -28,7 +28,6 @@ public class CourseScheduleII {
 		//int[][] prerequisites= {{0,1},{0,2},{1,3},{1,4},{3,4}};
 		int[][] prerequisites= {{1,0},{2,0},{3,1},{3,2}};
 		System.out.println(Arrays.toString(new CourseScheduleII().findOrder(4,prerequisites)));
-		
 	}
 
 	public  int[]  findOrder(int numCourses, int[][] prerequisites) {

@@ -1,7 +1,9 @@
 package graph_bfs;
 
+import java.util.HashSet;
 import java.util.LinkedList;
 import java.util.Queue;
+import java.util.Set;
 
 /**
  * You are given an n x n integer matrix board where the cells are labeled from 1 to n2 in a Boustrophedon style starting from the bottom left of the board (i.e. board[n - 1][0]) and alternating direction each row.
@@ -27,8 +29,7 @@ import java.util.Queue;
  *
  * Example 1:
  *
- * Input: board = [[-1,-1,-1,-1,-1,-1],[-1,-1,-1,-1,-1,-1],[-1,-1,-1,-1,-1,-1],[-1,35,-1,-1,13,-1],[-1,-1,-1,-1,-1,-1],
- * [-1,15,-1,-1,-1,-1]]
+ * Input: board = [[-1,-1,-1,-1,-1,-1],[-1,-1,-1,-1,-1,-1],[-1,-1,-1,-1,-1,-1],[-1,35,-1,-1,13,-1],[-1,-1,-1,-1,-1,-1],[-1,15,-1,-1,-1,-1]]
  * Output: 4
  * Explanation:
  * In the beginning, you start at square 1 (at row 5, column 0).
@@ -45,12 +46,62 @@ import java.util.Queue;
  */
 public class SnakesAndLadders {
 	public static void main(String[] args) {
-
+		int[][] board = {{-1,-1,-1,-1,-1,-1},{-1,-1,-1,-1,-1,-1},{-1,-1,-1,-1,-1,-1},{-1,35,-1,-1,13,-1},{-1,-1,-1,-1,-1,-1},{-1,15,-1,-1,-1,-1}};
+		int a = 5;
+		System.out.println(~a);
+		System.out.println(snakesAndLadders(board));
+		System.out.println(snakesAndLadders2(board));
 	}
-
-	public int snakesAndLadders(int[][] board) {
+	/*	def snakesAndLadders(self, board):
+        n = len(board)
+        need = {1: 0}
+        bfs = [1]
+                for x in bfs:
+                for i in range(x + 1, x + 7):
+        a, b = (i - 1) / n, (i - 1) % n
+                nxt = board[~a][b if a % 2 == 0 else ~b]
+                if nxt > 0: i = nxt
+                    if i == n * n: return need[x] + 1
+                if i not in need:
+                 need[i] = need[x] + 1
+                bfs.append(i)
+                return -1*/
+	public static int snakesAndLadders2(int[][] board) {
+		Queue<Integer> q = new LinkedList<>();
+		q.offer(1);//put the start value to queue
 		int n = board.length;
-		int[] arr = new int[n * n];  
+		int goal = n*n;
+		int ans = 0;
+		Set<Integer> visited = new HashSet<>();
+		while(!q.isEmpty()) {
+			int qsize = q.size();
+			++ans;
+			for(int i = 0; i < qsize; ++i) {
+				int currValue = q.poll();
+				for(int j = 1; j <=6; ++j) {
+					int nextValue = currValue+j;
+					if (nextValue > goal) continue;
+					int r = (nextValue-1)/n;
+					int c = (nextValue-1)%n;
+					int nxt =board[n-1-r][(r%2==0)?c:(n-1-c)];
+					if(nxt > 0) {//if value is positive
+						nextValue = nxt;
+					}
+					if( nextValue == goal) return ans;
+					if(visited.contains(nextValue)){
+						continue;
+					}
+					visited.add(nextValue);
+					q.offer(nextValue);
+				}
+
+			}
+		}
+		return -1;
+	}
+	public static int snakesAndLadders(int[][] board) {
+		int n = board.length;
+		int[] arr = new int[n * n];
 		boolean flag = n%2==0?true:false;
 		int index = (n*n)-1;
 		for(int i=0; i<n;i++){

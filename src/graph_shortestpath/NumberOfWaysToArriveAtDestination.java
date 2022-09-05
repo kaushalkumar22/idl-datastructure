@@ -57,10 +57,12 @@ public class NumberOfWaysToArriveAtDestination {
 		minHeap.offer(new int[]{0, src});  // dist, src
 		while (!minHeap.isEmpty()) {
 			int[] top = minHeap.poll();
-			int d = top[0], u = top[1];
+			int d = top[0];
+			int u = top[1];
 			if (d > dist[u]) continue;  //Optimization
 			for (int[] nei : graph[u]) {
-				int v = nei[0], time = nei[1];
+				int v = nei[0];
+				int time = nei[1];
 				if (dist[v] > d + time) {
 					dist[v] = d + time;
 					ways[v] = ways[u];

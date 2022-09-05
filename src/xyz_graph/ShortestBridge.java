@@ -1,4 +1,4 @@
-package graph_bfs;
+package xyz_graph;
 
 import java.util.LinkedList;
 import java.util.Queue;

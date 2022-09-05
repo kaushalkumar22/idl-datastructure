@@ -62,6 +62,7 @@ public class DesignAddAndSearchWordsDataStructure {
 	}
 
 	public boolean search(String word) {
+
 		return match(word.toCharArray(), 0, root);
 	}
 

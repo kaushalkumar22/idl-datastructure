@@ -1,9 +1,12 @@
 package graph_unionfind;
 
 /**
- *There are n computers numbered from 0 to n - 1 connected by ethernet cables connections forming a network where connections[i] = [ai, bi] represents a connection between computers ai and bi. Any computer can reach any other computer directly or indirectly through the network.
+ *There are n computers numbered from 0 to n - 1 connected by ethernet cables connections forming a network
+ * where connections[i] = [ai, bi] represents a connection between computers ai and bi. Any computer can reach
+ * any other computer directly or indirectly through the network.
  *
- * You are given an initial computer network connections. You can extract certain cables between two directly connected computers, and place them between any pair of disconnected computers to make them directly connected.
+ * You are given an initial computer network connections. You can extract certain cables between two directly
+ * connected computers, and place them between any pair of disconnected computers to make them directly connected.
  *
  * Return the minimum number of times you need to do this in order to make all the computers connected. If it is not possible, return -1.
  *
@@ -17,6 +20,8 @@ package graph_unionfind;
  * Input: n = 6, connections = [[0,1],[0,2],[0,3],[1,2]]
  * Output: -1
  * Explanation: There are not enough cables.
+ *
+ * 12  [[1,5],[1,7],[1,2],[1,4],[3,7],[4,7],[3,5],[0,6],[0,1],[0,4],[2,6],[0,3],[0,2]] output =6
  */
 public class NumberofOperationstoMakeNetworkConnected {
 
@@ -29,7 +34,7 @@ public class NumberofOperationstoMakeNetworkConnected {
 	}
 
 	public int makeConnected(int n, int[][] connections) {
-		if(connections.length < n - 1)return  -1;
+		if(connections.length < n - 1) return  -1;
 		UnionFind uf = new UnionFind(n);
 		int count=n;
 		for (int[] connect : connections) {

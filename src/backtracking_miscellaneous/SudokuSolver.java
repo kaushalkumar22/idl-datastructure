@@ -4,70 +4,68 @@ package backtracking_miscellaneous;
 import java.util.Arrays;
 
 /**
- * 
+ *
  * Write a program to solve a Sudoku puzzle by filling the empty cells.
- * 
+ *
  * A sudoku solution must satisfy all of the following rules:
- * 
+ *
  * Each of the digits 1-9 must occur exactly once in each row. Each of the
  * digits 1-9 must occur exactly once in each column. Each of the the digits 1-9
  * must occur exactly once in each of the 9 3x3 sub-boxes of the grid.
- * 
+ *
  * Empty cells are indicated by the character '.'.
- * 
- * 
+ *
+ *
  * A sudoku puzzle...
- * 
- * 
+ *
+ *
  * ...and its solution numbers marked in red.
- * 
+ *
  * Note:
- * 
+ *
  * The given board contain only digits 1-9 and the character '.'. You may assume
  * that the given Sudoku puzzle will have a single unique solution. The given
  * board size is always 9x9.
- * 
- * 
+ *
+ *
  */
 public class SudokuSolver {
 
 	public static void main(String[] args) {
-		 char[][] board ={ 
-		    { '0' , '9' , '0' , '4' , '0' , '0' , '0' , '0' , '0' },
-			{ '0' , '0' , '0' , '9' , '0' , '0' , '5' , '0' , '4' },
-			{ '4' , '0' , '5' , '0' , '0' , '0' , '0' , '6' , '9' },
-			{ '2' , '0' , '0' , '0' , '5' , '9' , '0' , '8' , '0' },
-			{ '0' , '3' , '7' , '0' , '8' , '0' , '6' , '9' , '0' },
-			{ '0' , '4' , '0' , '7' , '1' , '0' , '0' , '0' , '2' },
-			{ '6' , '8' , '0' , '0' , '0' , '0' , '2' , '0' , '5' },
-			{ '9' , '0' , '4' , '0' , '0' , '2' , '0' , '0' , '0' },
-			{ '0' , '0' , '0' , '0' , '0' , '8' , '0' , '1' , '0' } };
-		    solveSudoku(board);
-		    printSudokuGrid(board);
+		char[][] board = {
+				{'5','3','.','.','7','.','.','.','.'},
+				{'6','.','.','1','9','5','.','.','.'},
+				{'.','9','8','.','.','.','.','6','.'},
+				{'8','.','.','.','6','.','.','.','3'},
+				{'4','.','.','8','.','3','.','.','1'},
+				{'7','.','.','.','2','.','.','.','6'},
+				{'.','6','.','.','.','.','2','8','.'},
+				{'.','.','.','4','1','9','.','.','5'},
+				{'.','.','.','.','8','.','.','7','9'}};
+
+		new SudokuSolver().solveSudoku(board);
+		for (int row = 0; row < board.length; row++)
+			System.out.println(Arrays.toString(board[row]));
 	}
-	private static void printSudokuGrid(char grid[][]) {
-		for (int row = 0; row < grid.length; row++) {
-			for (int col = 0; col <grid.length; col++)
-				System.out.print("  "+grid[row][col]);
-			System.out.println(" ");
-		}
-	}
-	public static void solveSudoku(char[][] board) {
-		doSolve(board, 0, 0);
+	public  void solveSudoku(char[][] board) {
+		solve(board);
 	}
 
-	private static boolean doSolve(char[][] board, int row, int col) {
-		for (int i = row; i < 9; i++, col = 0) { // note: must reset col here!
-			for (int j = col; j < 9; j++) {
-				if (board[i][j] != '.')
+	private  boolean solve(char[][] board) {
+		for (int row = 0; row < 9; row++) { // note: must reset col here!
+			for (int col = 0; col < 9; col++) {
+				if (board[row][col] != '.') { // continue if board sell is prefilled
 					continue;
+				}
 				for (char num = '1'; num <= '9'; num++) {
-					if (isValid(board, i, j, num)) {
-						board[i][j] = num;
-						if (doSolve(board, i, j + 1))
-							return true;
-						board[i][j] = '.';
+					if (!isValid(board, row, col, num)) {
+						continue;// continue if sub board 3X3 having the same number ,or 9X9(row or column) is having same number
 					}
+					board[row][col] = num;
+					if (solve(board)){
+						return true;
+					}
+					board[row][col] = '.';
 				}
 				return false;
 			}
@@ -75,10 +73,11 @@ public class SudokuSolver {
 		return true;
 	}
 
-	private static boolean isValid(char[][] board, int row, int col, char num) {
-		int blkrow = (row / 3) * 3, blkcol = (col / 3) * 3; // Block no. is i/3, first element is i/3*3
+	private  boolean isValid(char[][] board, int row, int col, char num) {
 		for (int i = 0; i < 9; i++)
-			if (board[i][col] == num || board[row][i] == num || board[blkrow + i / 3][blkcol + i % 3] == num)
+			if (board[i][col] == num
+					|| board[row][i] == num
+					|| board[(row / 3) * 3 + i / 3][(col / 3) * 3 + i % 3] == num)// Block no. is i/3, first element is i/3*3
 				return false;
 		return true;
 	}

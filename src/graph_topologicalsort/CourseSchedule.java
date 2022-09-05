@@ -41,9 +41,9 @@ public class CourseSchedule {
 		Map<Integer,List<Integer>> adjMap = new HashMap<>();
 
 		for (int i=0;i<numCourses;i++) {
-			adjMap.put(i, new ArrayList<Integer>());					
+			adjMap.putIfAbsent(i, new ArrayList<Integer>());
 		}
-		for (int[] pre : prerequisites) {		
+		for (int[] pre : prerequisites) {
 			adjMap.get(pre[0]).add(pre[1]);			
 		}
 		//System.out.println(adjMap);
