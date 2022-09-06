@@ -10,29 +10,23 @@ import java.util.Queue;
 import java.util.Set;
 
 /**
- *A transformation sequence from word beginWord to word endWord using a dictionary wordList is a sequence of words beginWord -> s1 -> s2 -> ... -> sk such that:
+ *A transformation sequence from word beginWord to word endWord using a dictionary wordList is a sequence of
+ * words beginWord -> s1 -> s2 -> ... -> sk such that:
  *
  *     Every adjacent pair of words differs by a single letter.
  *     Every si for 1 <= i <= k is in wordList. Note that beginWord does not need to be in wordList.
  *     sk == endWord
  *
- * Given two words, beginWord and endWord, and a dictionary wordList, return the number of words in the shortest transformation sequence from beginWord to endWord, or 0 if no such sequence exists.
- *
- *
- *
- * Example 1:
+ * Given two words, beginWord and endWord, and a dictionary wordList, return the number of words in the shortest transformation
+ * sequence from beginWord to endWord, or 0 if no such sequence exists.
  *
  * Input: beginWord = "hit", endWord = "cog", wordList = ["hot","dot","dog","lot","log","cog"]
  * Output: 5
  * Explanation: One shortest transformation sequence is "hit" -> "hot" -> "dot" -> "dog" -> cog", which is 5 words long.
  *
- * Example 2:
- *
  * Input: beginWord = "hit", endWord = "cog", wordList = ["hot","dot","dog","lot","log"]
  * Output: 0
  * Explanation: The endWord "cog" is not in wordList, therefore there is no valid transformation sequence.
- *
- *
  *
  * Constraints:
  *
@@ -51,31 +45,33 @@ public class WordLadder {
 		System.out.println(ladderLength( beginWord,  endWord,  wordList));
 	}
 	public static int ladderLength(String beginWord, String endWord, List<String> wordList) {
-		Set<String> dictinory = new HashSet<>(wordList);
-		Set<String> visit = new HashSet<>();
+		Set<String> wordSet = new HashSet<>(wordList);// check the word in dic in O(1)
+		Set<String> visited = new HashSet<>();// avoid duplicate
 		Queue<String> que = new LinkedList<>();
-		que.offer(beginWord);
-		int res=1;
-		while (!que.isEmpty()) {
-			for (int i = que.size(); i > 0; i--) {
+		que.add(beginWord);
+		int count=0;
+		while(!que.isEmpty()){
+			int size = que.size();
+			for (int i=0;i<size;i++){//this for loop used to check all value at same layer
 				String word = que.poll();
-				if (word.equals(endWord)) {
-					return res;
+				if(word.equals(endWord)) {//if word is same as end word return the count +1
+					return count+1;
 				}
-				for (int j = 0; j < word.length(); j++) {
-					char[] ch = word.toCharArray();
-					for (char c = 'a'; c <= 'z'; c++) {
-						if (c == ch[j]) continue;
-						ch[j] = c;
-						String nb = String.valueOf(ch);
-						if (dictinory.contains(nb)&&!visit.contains(nb)) {
-							visit.add(nb);
-							que.offer(nb);
+				for(int j=0;j<word.length();j++){
+					for(char c ='a';c<='z';c++){
+						char[] ch = word.toCharArray();
+						if(ch[j]==c) continue; // if both are same char means same word
+						ch[j]=c; // distinct char replace in char array
+						String next = String.valueOf(ch);
+						//if its in dictionary and not in visited set need to traverse for next
+						if(wordSet.contains(next)&&!visited.contains(next)){
+							visited.add(next);
+							que.add(next);
 						}
 					}
 				}
 			}
-			res++;
+			count++;
 		}
 		return 0;
 	}

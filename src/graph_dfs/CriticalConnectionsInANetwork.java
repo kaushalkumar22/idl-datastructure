@@ -1,12 +1,11 @@
 package graph_dfs;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.HashSet;
-import java.util.List;
+import java.util.*;
 
 /**
- * There are n servers numbered from 0 to n - 1 connected by undirected server-to-server connections forming a network where connections[i] = [ai, bi] represents a connection between servers ai and bi. Any server can reach other servers directly or indirectly through the network.
+ * There are n servers numbered from 0 to n - 1 connected by undirected server-to-server connections forming
+ * a network where connections[i] = [ai, bi] represents a connection between servers ai and bi. Any server can reach
+ * other servers directly or indirectly through the network.
  *
  * A critical connection is a connection that, if removed, will make some servers unable to reach some other server.
  *
@@ -16,51 +15,43 @@ import java.util.List;
  * Output: [[1,3]]
  * Explanation: [[3,1]] is also accepted.
  *
- * Example 2:
- *
  * Input: n = 2, connections = [[0,1]]
  * Output: [[0,1]]
  */
 public class CriticalConnectionsInANetwork {//Tarjan Algorithm
+
 	public static void main(String[] args) {
-		
-	}
-	public List<List<Integer>> criticalConnections(int n, List<List<Integer>> connections) {
-		List<Integer>[] graph = new ArrayList[n];
-		for (int i = 0; i < n; i++) {
-			graph[i] = new ArrayList<>();
-		}
-		for(List<Integer> oneConnection :connections) {
-			graph[oneConnection.get(0)].add(oneConnection.get(1));
-			graph[oneConnection.get(1)].add(oneConnection.get(0));
-		}
-		HashSet<List<Integer>> connectionsSet = new HashSet<>(connections);
-		int[] rank = new int[n];
-		Arrays.fill(rank, -2);
-		dfs(graph, 0, 0, rank, connectionsSet);
-		return new ArrayList<>(connectionsSet);
+		int n = 6;
+		//[[0,1],[1,2],[2,0],[1,3],[3,4],[4,5],[5,3]]
+		List<List<Integer>> connections = Arrays.asList(Arrays.asList(0, 1), Arrays.asList(1, 2),
+				Arrays.asList(2, 0), Arrays.asList(1, 3), Arrays.asList(3,4),Arrays.asList(4,5),Arrays.asList(4,5),Arrays.asList(5,3)
+
+		);
+		System.out.println(new CriticalConnectionsInANetwork().criticalConnections(n, connections));
 	}
 
-	int dfs(List<Integer>[] graph, int node, int depth, int[] rank, HashSet<List<Integer>> connectionsSet){
-		if (rank[node]>=0){
-			return rank[node]; // already visited node. return its rank
+	public List<List<Integer>> criticalConnections(int n, List<List<Integer>> connections) {
+
+		Map<Integer, List<Integer>> adjMap = new HashMap<>();
+		for (List<Integer> con : connections) {
+			adjMap.putIfAbsent(con.get(0), new ArrayList<>());
+			adjMap.putIfAbsent(con.get(1), new ArrayList<>());
+			adjMap.get(con.get(0)).add(con.get(1));
+			adjMap.get(con.get(1)).add(con.get(0));
 		}
-		rank[node] = depth;
-		int minDepthFound = depth; // can be Integer.MAX_VALUE also.
-		for(Integer neighbor: graph[node]){
-			if (rank[neighbor] == depth-1){ // ignore parent
-				continue;
-			}
-			int minDepth = dfs(graph, neighbor, depth+1, rank, connectionsSet);
-			minDepthFound = Math.min(minDepthFound, minDepth);
-			if (minDepth <= depth){
-				// to avoid the sorting just try to remove both combinations. of (x,y) and (y,x)
-				connectionsSet.remove(Arrays.asList(node, neighbor));
-				connectionsSet.remove(Arrays.asList(neighbor, node));
+		Set<Integer> visited = new HashSet<>();
+		List<List<Integer>> res = new ArrayList<>();
+		for (Integer key : adjMap.keySet()) {
+			List<Integer> values = adjMap.get(key);
+			if (values.size() == 1 && !visited.contains(key)) {
+				res.add(Arrays.asList(key, values.get(0)));
+				visited.add(key);
+				if (adjMap.get(values.get(0)).get(0)==key) {
+					visited.add(values.get(0));
+				}
 			}
 		}
-		return minDepthFound;
+		return res;
 	}
 }
-
 

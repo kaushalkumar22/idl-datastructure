@@ -42,41 +42,37 @@ import java.util.Set;
  */
 public class OpenTheLock {//BFS
 	public static void main(String[] args) {
-		String deadends[]= {"8888"}, target = "0009";
-		System.out.println(openLock(deadends,  target));
+		String deadends[]= {"0201","0101","0102","1212","2002"}, target = "0202";
+		System.out.println(new OpenTheLock().openLock(deadends,  target));
 	}
-	public static int openLock(String[] deadends, String target) {
-		Set<String> begin = new HashSet<>();
-		Set<String> end = new HashSet<>();
-		Set<String> deads = new HashSet<>(Arrays.asList(deadends));
-		begin.add("0000");
-		end.add(target);
-		int level = 0;
-		Set<String> temp;
-		while(!begin.isEmpty() && !end.isEmpty()) {
-			if (begin.size() > end.size()) {
-				temp = begin;
-				begin = end;
-				end = temp;
-			}
-			temp = new HashSet<>();
-			for(String s : begin) {
-				if(end.contains(s)) return level;
-				if(deads.contains(s)) continue;
-				deads.add(s);
-				StringBuilder sb = new StringBuilder(s);
-				for(int i = 0; i < 4; i ++) {
-					char c = sb.charAt(i);
-					String s1 = sb.substring(0, i) + (c == '9' ? 0 : c - '0' + 1) + sb.substring(i + 1);
-					String s2 = sb.substring(0, i) + (c == '0' ? 9 : c - '0' - 1) + sb.substring(i + 1);
-					if(!deads.contains(s1))
-						temp.add(s1);
-					if(!deads.contains(s2))
-						temp.add(s2);
+	public  int openLock(String[] deadends, String target) {
+		Set<String> deeds = new HashSet<>(Arrays.asList(deadends));
+		Set<String> visited = new HashSet<>();
+		Queue<String> que = new LinkedList<>();
+		que.add("0000");
+		visited.add("0000");
+		int count =0;
+		while(!que.isEmpty()){
+			int qsize = que.size();
+			for(int j=0;j<qsize;j++) {
+				String curr = que.poll();
+				if (curr.equals(target)) return count;
+				char[] ch = curr.toCharArray();
+				for (int i = 0; i < 4; i++) {
+					char c = ch[i];
+					String nextMove1 = curr.substring(0, i) + (c == '9' ? 0 : c - '0' + 1) + curr.substring(i + 1);
+					String nextMove2 = curr.substring(0, i) + (c == '0' ? 9 : c - '0' - 1) + curr.substring(i + 1);
+					if (!deeds.contains(nextMove1) && !visited.contains(nextMove1)) {
+						que.add(nextMove1);
+						visited.add(nextMove1);
+					}
+					if (!deeds.contains(nextMove2) && !visited.contains(nextMove2)) {
+						que.add(nextMove2);
+						visited.add(nextMove2);
+					}
 				}
 			}
-			level ++;
-			begin = temp;
+			count++;
 		}
 		return -1;
 	}
