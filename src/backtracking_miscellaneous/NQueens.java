@@ -7,19 +7,21 @@ import java.util.List;
 /**
  * The n-queens puzzle is the problem of placing n queens on an nxn chessboard
  * such that no two queens attack each other.
+ * <p>
  * Given an integer n, return all distinct solutions to the n-queens puzzle.
- *
+ * <p>
  * Each solution contains a distinct board configuration of the n-queens'
  * placement, where 'Q' and '.' both indicate a queen and an empty space
  * respectively.
- *
+ * <p>
  * Input: 4
  * Output: [ [".Q..","...Q", "Q...", "..Q."] & ["..Q.","Q...", "...Q", ".Q.."] ]
- * Explanation: There exist two
- * distinct solutions to the 4-queens puzzle as shown above.
+ * <p>
+ * Explanation: There exist two distinct solutions to the 4-queens puzzle as shown above.
  */
 public class NQueens {
 	public static void main(String[] args) {
+
 		System.out.println(new NQueens().solveNQueens( 4));
 	}
 	public  List<List<String>> solveNQueens(int n) {
@@ -34,7 +36,7 @@ public class NQueens {
 	}
 	private void solve(char[][] board, List<List<String>> res, int row, int n) {
 		if(row==n){
-			res.add(formatReslt(board));
+			res.add(formatResult(board));
 			return;
 		}
 		for(int col =0;col<n;col++){
@@ -67,7 +69,7 @@ public class NQueens {
 		return true;
 	}
 
-	private List<String> formatReslt(char[][] board) {
+	private List<String> formatResult(char[][] board) {
 		List<String> res = new ArrayList<>();
 		for(char[] row :board){
 			res.add(new String(row));

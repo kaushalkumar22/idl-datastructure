@@ -1,4 +1,4 @@
-package heap_pq;
+package heap;
 import java.util.HashMap;
 import java.util.Map;
  

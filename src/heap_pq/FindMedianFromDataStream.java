@@ -54,26 +54,31 @@ public class FindMedianFromDataStream {
 		FindMedianFromDataStream mediun = new FindMedianFromDataStream();
 		mediun.addNum(2);
 		mediun.addNum(3);
-		System.out.println(mediun.findMedian());
+		//System.out.println(mediun.findMedian());
 		mediun.addNum(4);
+		//mediun.addNum(5);
+		//mediun.addNum(6);
+
+		System.out.println(maxpq.peek());
+		System.out.println(minpq.peek());
 		System.out.println(mediun.findMedian());
 
 
 	}
-	private PriorityQueue<Integer> maxpq;
-	private PriorityQueue<Integer> minpq;
+	private static PriorityQueue<Integer> maxpq;
+	private static PriorityQueue<Integer> minpq;
 
 	public FindMedianFromDataStream() {
-          maxpq = new PriorityQueue<Integer>();
-          minpq = new PriorityQueue<Integer>(Comparator.reverseOrder());
+		minpq = new PriorityQueue<Integer>();
+		maxpq = new PriorityQueue<Integer>(Comparator.reverseOrder());
 	}
 
 	public void addNum(int num) {
-            maxpq.offer(num);
-            minpq.offer(maxpq.poll());
-            if(maxpq.size()<minpq.size()) {
-            	maxpq.offer(minpq.poll());
-            }
+		maxpq.offer(num);
+		minpq.offer(maxpq.poll());
+		if(maxpq.size()<minpq.size()) {
+			maxpq.offer(minpq.poll());
+		}
 	}
 
 	public double findMedian() {	

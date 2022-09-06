@@ -19,39 +19,39 @@ import java.util.PriorityQueue;
  */
 public class MeetingRoomII {
 
-    public static void main(String[] args) {
-        //int[][] intervals ={{0, 30},{5, 10},{15, 20}};
-        int[][] intervals ={{1,30},{2,30},{5,16},{17,18}};
-        System.out.println(minMeetingRooms(intervals));
-    }
-    public static int minMeetingRooms(int[][] intervals) {
+	public static void main(String[] args) {
+		int[][] intervals ={{0, 30},{5, 10},{15, 20}};
+		//int[][] intervals ={{1,30},{2,30},{5,16},{17,18}};
+		System.out.println(minMeetingRooms(intervals));
+	}
+	public static int minMeetingRooms(int[][] intervals) {
 
-        if(intervals == null || intervals.length == 0) {
-            return 0;
-        }
+		if(intervals == null || intervals.length == 0) {
+			return 0;
+		}
 
-        // Sort the intervals by start time
-        Arrays.sort(intervals, (i1, i2) -> i1[0] - i2[0]);
+		// Sort the intervals by start time
+		Arrays.sort(intervals, (a,b) -> Integer.compare(a[0], b[0]));
 
-        // to store end time of each meeting, smaller value will be at the peek()
-        PriorityQueue<Integer> heap = new PriorityQueue<Integer>();
+		// to store end time of each meeting, smaller value will be at the peek()
+		PriorityQueue<Integer> heap = new PriorityQueue<Integer>((a,b) -> Integer.compare(a, b));
 
-        // start with the first meeting, put it to a meeting room
-        int count = 1;
-        heap.offer(intervals[0][1]);
+		// start with the first meeting, put it to a meeting room
+		int count = 1;
+		heap.offer(intervals[0][1]);
 
-        for(int i = 1; i < intervals.length; i++){
+		for(int i = 1; i < intervals.length; i++){
 
-            if(intervals[i][0] < heap.peek()) {
-                count++; // conflict, need 1 more room
-                heap.offer(intervals[i][1]); // poll then offer, conceptually merging 2 intervals
-            } else {
-                // if the current meeting starts right after there's no need for a new room,
-                //merge the interval, poll then offer, conceptually merging 2 intervals
-                heap.offer(Math.max(intervals[i][1], heap.poll()));             }
-        }
+			if(intervals[i][0] < heap.peek()) {
+				count++; // conflict, need 1 more room
+				heap.offer(intervals[i][1]); // poll then offer, conceptually merging 2 intervals
+			} else {
+				// if the current meeting starts right after there's no need for a new room,
+				//merge the interval, poll then offer, conceptually merging 2 intervals
+				heap.offer(Math.max(intervals[i][1], heap.poll()));             }
+		}
 
-        return count;
-    }
+		return count;
+	}
 
 }
