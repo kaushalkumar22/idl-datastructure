@@ -17,7 +17,9 @@ import java.util.Queue;
  *
  * Example 1:
  *
- * Input: grid = [[0,1],[1,0]]
+ * Input: grid = [
+ * [0,1],
+ * [1,0]]
  * Output: 2
  *
  * Example 2:
@@ -32,47 +34,49 @@ import java.util.Queue;
  */
 public class ShortestPathinBinaryMatrix {
 	public static void main(String[] args) {
-		
+		int[][] grid = {{0,0,0},{1,1,0},{1,1,0}};
+		System.out.println(new ShortestPathinBinaryMatrix().shortestPathBinaryMatrix(grid));
 	}
-	private int dir[][] = new int[][]{{0,1},{0,-1},{1,0},{-1,0},{1,-1},{-1,1},{-1,-1},{1,1}};
 
 	public int shortestPathBinaryMatrix(int[][] grid) {
 
-		int m = grid.length;
-		int n = grid[0].length;
-
-		if(grid[0][0]==1 || grid[m-1][n-1]==1) {
+		int row = grid.length;
+		int col = grid[0].length;
+		if(grid[0][0]==1||grid[row-1][col-1]==1){//invalid cases return from here
 			return -1;
 		}
-
-		boolean[][] visited = new boolean[m][n];
-		visited[0][0] = true;
-		Queue<int[]> queue = new LinkedList<>();
-		queue.add(new int[]{0,0});
-
-		int ans=0;
-		while (!queue.isEmpty()) {
-			int size = queue.size();
-			for(int i=0;i<size;i++) {
-				int[] pop = queue.remove();
-				if(pop[0]==m-1 && pop[1]==n-1) {
-					return ans+1;
+		int dirs[][] = new int[][]{{0, 1}, {0, -1}, {1, 0}, {-1, 0}, {1, -1}, {-1, 1}, {-1, -1}, {1, 1}};
+		Queue<int[]> que = new LinkedList<>();
+		que.add(new int[]{0,0});
+		int count =0;
+		while(!que.isEmpty()){
+			int size = que.size();
+			for (int i=0; i<size;i++){
+				int[] curr= que.poll();
+				if((curr[0]==row-1)&&(curr[1]==col-1)){
+					return count+1;
 				}
-				for (int k=0;k<8;k++) {
-					int nextX = dir[k][0]+pop[0];
-					int nextY = dir[k][1]+pop[1];
-
-					if(nextX>=0 && nextX<m && nextY>=0 && nextY<n && !visited[nextX][nextY] && grid[nextX][nextY]==0) {
-						queue.add(new int[]{nextX,nextY});
-						visited[nextX][nextY]=true;
+				for (int[] dir :dirs){
+					int x =curr[0]+dir[0];
+					int y =curr[1]+dir[1];
+					if(!isValid(grid,x,y)) {
+						continue;
 					}
-
+					grid[x][y]=1;
+					que.add(new int[]{x,y});
 				}
 			}
-			ans++;
+			count++;
 		}
-
 		return -1;
 	}
+	private boolean isValid(int[][] grid, int x, int y) {
+		if(x<0||y<0|x>=grid.length||y>=grid[0].length||grid[x][y]==1){
+			return false;
+		}
+		return true;
+	}
 }
+
+
 
