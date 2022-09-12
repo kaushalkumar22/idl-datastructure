@@ -43,7 +43,8 @@ import java.util.List;
  */
 public class FindEventualSafeStates {
 	public static void main(String[] args) {
-		
+		int[][] graph= {{1,2,3,4},{1,2},{3,4},{0,4},{}};
+		System.out.println(new FindEventualSafeStates().eventualSafeNodes(graph));
 	}
 	public List<Integer> eventualSafeNodes(int[][] graph) {
 		List<Integer> res = new ArrayList<>();
@@ -53,13 +54,16 @@ public class FindEventualSafeStates {
 		int[] color = new int[nodeCount];
 
 		for(int i = 0;i < nodeCount;i++){
-			if(dfs(graph, i, color))    res.add(i);
+			if(dfs(graph, i, color))  {
+				res.add(i);
+			}
 		}
-
 		return res;
 	}
 	public boolean dfs(int[][] graph, int start, int[] color){
-		if(color[start] != 0)   return color[start] == 1;
+		if(color[start] != 0) {
+			return color[start] == 1;
+		}
 
 		color[start] = 2;
 		for(int newNode : graph[start]){

@@ -1,9 +1,13 @@
 package graph_dfs;
 
+import java.util.*;
+
 /**
- * We want to split a group of n people (labeled from 1 to n) into two groups of any size. Each person may dislike some other people, and they should not go into the same group.
+ * We want to split a group of n people (labeled from 1 to n) into two groups of any size. Each person may dislike some other people,
+ * and they should not go into the same group.
  *
- * Given the integer n and the array dislikes where dislikes[i] = [ai, bi] indicates that the person labeled ai does not like the person labeled bi, return true if it is possible to split everyone into two groups in this way.
+ * Given the integer n and the array dislikes where dislikes[i] = [ai, bi] indicates that the person labeled ai does not like the person
+ * labeled bi, return true if it is possible to split everyone into two groups in this way.
  *
  *
  *
@@ -36,36 +40,38 @@ package graph_dfs;
  */
 public class PossibleBipartition {
 	public static void main(String[] args) {
-
+		int n = 4, dislikes[][] = {{1, 2}, {1, 3}, {2, 4}};
+		//int n = 3, dislikes[][] = {{1,2},{1,3},{2,3}};
+		System.out.println(new PossibleBipartition().possibleBipartition(n, dislikes));
 	}
-	public boolean possibleBipartition(int N, int[][] dislikes) {
-		int[][] graph = new int[N][N];
-		for (int[] d : dislikes) {
-			graph[d[0] - 1][d[1] - 1] = 1;
-			graph[d[1] - 1][d[0] - 1] = 1;
+
+	public boolean possibleBipartition(int n, int[][] dislikes) {
+		int[] colors = new int[n + 1];
+		Map<Integer, List<Integer>> graph = new HashMap<>();
+		for (int[] edge : dislikes) {
+			graph.computeIfAbsent(edge[0], l -> new ArrayList<>()).add(edge[1]);
+			graph.computeIfAbsent(edge[1], l -> new ArrayList<>()).add(edge[0]);
 		}
-		int[] group = new int[N];
-		for (int i = 0; i < N; i++) {
-			if (group[i] == 0 && !dfs(graph, group, i, 1)) {
+		for (int i = 1; i <= n; i++) {
+			if (colors[i] == 0 && !dfs(graph, colors, i, 1)) {
 				return false;
 			}
 		}
 		return true;
 	}
-	private boolean dfs(int[][] graph, int[] group, int index, int g) {
-		group[index] = g;
-		for (int i = 0; i < graph.length; i++) {
-			if (graph[index][i] == 1) {
-				if (group[i] == g) {
-					return false;
-				}
-				if (group[i] == 0 && !dfs(graph, group, i, -g)) {
-					return false;
-				}
+
+	private boolean dfs(Map<Integer, List<Integer>> graph, int[] colorTable, int cur, int color) {
+		colorTable[cur] = color;
+
+		for (int next : graph.getOrDefault(cur, Collections.emptyList())) {
+			if (colorTable[next] == color) {
+				return false;
+			}
+			if (colorTable[next] == 0 && !dfs(graph, colorTable, next, -color)) {
+				return false;
 			}
 		}
 		return true;
 	}
-
 }
 

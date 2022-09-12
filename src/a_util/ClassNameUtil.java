@@ -10,7 +10,7 @@ public class ClassNameUtil {
         }
         System.out.println(name);
         System.out.println(
-                " n = 4, connections = [[0,1],[1,2],[2,0],[1,3]]"
+                " matrix = [[9,9,4],[6,6,8],[2,1,1]]"
                 .replace("[", "{")
                 .replace("]", "}")
                         .replace("\"", "'"));
