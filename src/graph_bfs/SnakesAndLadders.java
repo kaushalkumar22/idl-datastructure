@@ -65,7 +65,7 @@ public class SnakesAndLadders {
 		Set<Integer> visited = new HashSet<>();
 		while(!q.isEmpty()) {
 			int qsize = q.size();
-			++ans;
+			
 			for(int i = 0; i < qsize; ++i) {
 				int currValue = q.poll();
 				for(int j = 1; j <=6; ++j) {
@@ -77,7 +77,7 @@ public class SnakesAndLadders {
 					if(nxt > 0) {//if value is positive
 						nextValue = nxt;
 					}
-					if( nextValue == goal) return ans;
+					if( nextValue == goal) return ans+1;
 					if(visited.contains(nextValue)){
 						continue;
 					}
@@ -86,6 +86,7 @@ public class SnakesAndLadders {
 				}
 
 			}
+			++ans;
 		}
 		return -1;
 	}

@@ -3,11 +3,20 @@ package graph_dfs;
 import java.util.*;
 
 /**
+<<<<<<< Updated upstream
  * We want to split a group of n people (labeled from 1 to n) into two groups of any size. Each person may dislike some other people,
  * and they should not go into the same group.
  *
  * Given the integer n and the array dislikes where dislikes[i] = [ai, bi] indicates that the person labeled ai does not like the person
  * labeled bi, return true if it is possible to split everyone into two groups in this way.
+=======
+ * We want to split a group of n people (labeled from 1 to n) into two groups of any size. 
+ * Each person may dislike some other people, and they should not go into the same group.
+ *
+ * Given the integer n and the array dislikes where dislikes[i] = [ai, bi] indicates that the person 
+ * labeled ai does not like the person labeled bi, return true if it is possible to split everyone into 
+ * two groups in this way.
+>>>>>>> Stashed changes
  *
  *
  *
@@ -38,6 +47,7 @@ import java.util.*;
  *     ai < bi
  *     All the pairs of dislikes are unique.
  */
+//graph coloring prob or detect cycle in directed graph
 public class PossibleBipartition {
 	public static void main(String[] args) {
 		int n = 4, dislikes[][] = {{1, 2}, {1, 3}, {2, 4}};
