@@ -1,4 +1,4 @@
-package heap_pq;
+package heap;
 
 public class MaxHeap {
 

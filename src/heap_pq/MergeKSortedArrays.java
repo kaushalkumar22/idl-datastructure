@@ -1,6 +1,7 @@
 package heap_pq;
 
-import java.util.Arrays;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.PriorityQueue;
 
 /**
@@ -11,51 +12,37 @@ import java.util.PriorityQueue;
  */
 public class MergeKSortedArrays {
 	public static void main(String[] args) {
-		int[][] arr= {{2, 6, 8, 12, 34},
+		int[][] arr= {
+				{2, 6, 8, 12, 34},
 				{1, 9, 20, 25, 100, 1000},
-				{23, 34, 90, 2000}};
+				{23, 34, 90, 2000}
+		};
 
-		System.out.println(Arrays.toString(mergeKSortedArray(arr)));
+		System.out.println(mergeKSortedArray(arr));
 	}
-	public static int[] mergeKSortedArray(int[][] arr) {
+	public static List<Integer> mergeKSortedArray(int[][] nums) {
 		//PriorityQueue is heap in Java 
-		PriorityQueue<ArrayContainer> queue = new PriorityQueue<ArrayContainer>();
-		int total=0;
+		PriorityQueue<int[]> pq = new PriorityQueue<int[]>((a,b)->Integer.compare(a[0], b[0]));
 
-		//add arrays to heap
-		for (int i = 0; i < arr.length; i++) {
-			queue.add(new ArrayContainer(arr[i], 0));
-			total = total + arr[i].length;
+		//add each array to heap with their index
+		for (int i = 0; i < nums.length; i++) {
+			pq.add(new int[] {nums[i][0],i,0});
 		}
 
-		int m=0;
-		int result[] = new int[total];
-
+        List<Integer> res = new ArrayList<Integer>();
 		//while heap is not empty
-		while(!queue.isEmpty()){
-			ArrayContainer ac = queue.poll();
-			result[m++]=ac.arr[ac.index];
-
-			if(ac.index < ac.arr.length-1){
-				queue.add(new ArrayContainer(ac.arr, ac.index+1));
+		while(!pq.isEmpty()){
+			int[] arr = pq.poll();
+			int num = arr[0];
+			int currArrIndex =arr[1];
+			int currNumIndex =arr[2];
+            res.add(num);
+            
+			if(nums[currArrIndex].length>currNumIndex+1){
+				pq.add(new int[] {nums[currArrIndex][currNumIndex+1],currArrIndex,currNumIndex+1});
 			}
 		}
 
-		return result;
+		return res;
 	}
-	static class ArrayContainer implements Comparable<ArrayContainer> {
-		int[] arr;
-		int index;
-
-		public ArrayContainer(int[] arr, int index) {
-			this.arr = arr;
-			this.index = index;
-		}
-
-		@Override
-		public int compareTo(ArrayContainer o) {
-			return this.arr[this.index] - o.arr[o.index];
-		}
-	}
-
 }
