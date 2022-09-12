@@ -11,18 +11,8 @@ public class TestStream {
         IntSummaryStatistics stats = primes.stream()
                 .mapToInt((x) -> x)
                 .summaryStatistics();
-       System.out.println(stats.getMin().);
+       System.out.println(stats.getMin());
         ;
 
-    }
-}
-class Test extends TestStream{
-    Integer im =10;
-    public Test() {
-        this(im);
-       // super();
-    }
-    public Test(Integer im){
-        this.im =
     }
 }

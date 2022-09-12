@@ -7,53 +7,53 @@ import java.util.Objects;
 public class ComparableComparator{
 
     public static void main(String[] args) {
-        Employee[] comp = new Employee[10];
+        Emps[] comp = new Emps[10];
         for (int i = 100; i > 90; i--) {
-            comp[i-91] = new Employee(i, "name_" + i, 1000.5 + i);
+            comp[i-91] = new Emps(i, "name_" + i, 1000.5 + i);
         }
         System.out.println(Arrays.toString(comp));
-        Arrays.sort(comp,Employee.NAME_COMP);
+        Arrays.sort(comp,Emps.NAME_COMP);
         System.out.println(Arrays.toString(comp));
     }
 }
-class Employee implements Comparable<Employee>{
+class Emps implements Comparable<Emps>{
 
     private int id;
     private String name;
     private double salary;
 
-    public Employee(int id, String name, double salary) {
+    public Emps(int id, String name, double salary) {
         this.id = id;
         this.name = name;
         this.salary = salary;
     }
 
     @Override
-    public int compareTo(Employee e) {
+    public int compareTo(Emps e) {
         return Integer.compare(e.id,this.id);
     }
 
-    public static Comparator<Employee> ID_COMP = new Comparator<Employee>() {
+    public static Comparator<Emps> ID_COMP = new Comparator<Emps>() {
         @Override
-        public int compare(Employee e1, Employee e2) {
+        public int compare(Emps e1, Emps e2) {
             return Integer.compare(e1.id, e2.id);
         }
     };
-    public static Comparator<Employee> NAME_COMP = new Comparator<Employee>() {
+    public static Comparator<Emps> NAME_COMP = new Comparator<Emps>() {
         @Override
-        public int compare(Employee e1, Employee e2) {
+        public int compare(Emps e1, Emps e2) {
             return e1.name.compareTo(e2.name);
         }
     };
-    public static Comparator<Employee> SALARY_COMP = new Comparator<Employee>() {
+    public static Comparator<Emps> SALARY_COMP = new Comparator<Emps>() {
         @Override
-        public int compare(Employee e1, Employee e2) {
+        public int compare(Emps e1, Emps e2) {
             return Double.compare(e1.salary,e2.salary);
         }
     };
 
     @Override
-    //this is required to print the user-friendly information about the Employee
+    //this is required to print the user-friendly information about the Emps
     public String toString() {
         return "[id=" + this.id + ", name=" + this.name +  ", salary=" +
                 this.salary + "]";
@@ -72,15 +72,15 @@ class Employee implements Comparable<Employee>{
         return salary;
     }
 
-    public static Comparator<Employee> getIdComp() {
+    public static Comparator<Emps> getIdComp() {
         return ID_COMP;
     }
 
-    public static Comparator<Employee> getNameComp() {
+    public static Comparator<Emps> getNameComp() {
         return NAME_COMP;
     }
 
-    public static Comparator<Employee> getSalaryComp() {
+    public static Comparator<Emps> getSalaryComp() {
         return SALARY_COMP;
     }
 
