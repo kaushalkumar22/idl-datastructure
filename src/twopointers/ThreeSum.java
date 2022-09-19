@@ -8,20 +8,20 @@ import java.util.List;
  * Given an array nums of n integers, are there elements a, b, c in nums such
  * that a + b + c = 0? Find all unique triplets in the array which gives the sum
  * of zero.
- * 
+ *<p>
  * Notice that the solution set must not contain duplicate triplets.
- *  
+ *<p>
  * Input: nums = [-1,0,1,2,-1,-4] Output: [[-1,-1,2],[-1,0,1]]
- *  
+ *<p>
  * Input: nums = [] Output: []
- * 
+ *<p>
  * Input: nums = [0] Output: []
- * 
+ *<p>
  * Constraints:
- * 
+ *<p>
  * 0 <= nums.length <= 3000 
  * -10^5 <= nums[i] <= 10^5
- * 
+ *
  */
 public class ThreeSum {
 	public static void main(String[] args) {
@@ -72,11 +72,11 @@ public class ThreeSum {
 
 	public List<List<Integer>> twoSum(int[] nums, int target, int low) {
 		List<List<Integer>> res = new ArrayList<>();
-		int high=nums.length-1;                 
-		while(low<high){    
+		int high=nums.length-1;
+		while(low<high){
 			int sum = nums[low]+nums[high];
 			if(sum==target){
-				res.add(Arrays.asList(nums[low],nums[high]));            
+				res.add(Arrays.asList(nums[low],nums[high]));
 				////if there are duplicate need to skip and forward 
 				while(low<high&&nums[low]==nums[low+1]) low++;
 				//if there are duplicate need to skip and backward 
@@ -88,8 +88,8 @@ public class ThreeSum {
 				low++;
 			}else {
 				high--;
-			}                
-		}                    
+			}
+		}
 		return res;
 	}
 	public static List<List<Integer>> threeSum2(int[] nums) {

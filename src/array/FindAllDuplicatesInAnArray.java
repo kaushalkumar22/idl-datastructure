@@ -7,13 +7,13 @@ import java.util.List;
  * 
  * Given an array of integers, 1 ≤ a[i] ≤ n (n = size of array), some elements
  * appear twice and others appear once.
- * 
+ * <p>
  * Find all the elements that appear twice in this array.
- * 
+ * <p>
  * Could you do it without extra space and in O(n) runtime?
- * 
+ * <p>
  * Input: [4,3,2,7,8,2,3,1]
- * 
+ * <p>
  * Output: [2,3]
  *
  */

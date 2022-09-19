@@ -6,19 +6,18 @@ import java.util.List;
 
 /**
  * Given an array nums of n integers and an integer target, are there elements
- * a, b, c, and d in nums such that a + b + c + d = target? Find all unique
- * quadruplets in the array which gives the sum of target.
- * 
+ * a, b, c, and d in nums such that a + b + c + d = target?
+ *<p>
+ * Find all unique quadruplets in the array which gives the sum of target.
+ *<p>
  * Note:
- * 
+ *<p>
  * The solution set must not contain duplicate quadruplets.
- * 
- * Example:
- * 
+ *
  * Given array nums = [1, 0, -1, 0, -2, 2], and target = 0.
- * 
+ *<p>
  * A solution set is: [ [-1, 0, 0, 1], [-2, -1, 1, 2], [-2, 0, 0, 2] ]
- * 
+ *
  */
 public class FourSum {
 	public static void main(String[] args) {
@@ -67,11 +66,11 @@ public class FourSum {
 
 	public List<List<Integer>> twoSum(int[] nums, int target, int low) {
 		List<List<Integer>> res = new ArrayList<>();
-		int high=nums.length-1; 				
-		while(low<high){	
+		int high=nums.length-1;
+		while(low<high){
 			int sum = nums[low]+nums[high];
 			if(sum==target){
-				res.add(Arrays.asList(nums[low],nums[high]));			
+				res.add(Arrays.asList(nums[low],nums[high]));
 				////if there are duplicate need to skip and forward 
 				while(low<high&&nums[low]==nums[low+1]) low++;
 				//if there are duplicate need to skip and backward 
@@ -83,8 +82,8 @@ public class FourSum {
 				low++;
 			}else {
 				high--;
-			}				
-		}                    
+			}
+		}
 		return res;
 	}
 
@@ -107,10 +106,10 @@ public class FourSum {
 				}
 
 				int low =j+1,high=n-1;
-				while(low<high){	
+				while(low<high){
 					int sum =nums[i]+nums[j]+ nums[low]+nums[high];
 					if(sum==target){
-						res.add(Arrays.asList(nums[i],nums[j],nums[low],nums[high]));			
+						res.add(Arrays.asList(nums[i],nums[j],nums[low],nums[high]));
 						////if there are duplicate need to skip and forward 
 						while(low<high&&nums[low]==nums[low+1]) low++;
 						//if there are duplicate need to skip and backward 
@@ -122,7 +121,7 @@ public class FourSum {
 						low++;
 					}else {
 						high--;
-					}		
+					}
 				}
 			}
 		}

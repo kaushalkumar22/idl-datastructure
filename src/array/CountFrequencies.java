@@ -5,7 +5,7 @@ package array;
  * being repeated, count the frequency of all elements.
  * 
  * Input Array: {2, 3,3, 2, 5} Output: {{2,2},{3,2},{5,1}}
- * 
+ * <p>
  * Could you do it without extra space and in O(n) runtime?
  */
 public class CountFrequencies {

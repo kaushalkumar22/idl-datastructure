@@ -2,18 +2,18 @@ package array;
 
 /**
  * Given an unsorted integer array, find the smallest missing positive integer.
- * 
+ * <p>
  * Input: [1,2,0] Output: 3
- * 
+ * <p>
  * Input: [3,4,-1,1] Output: 2 
- * 
+ * <p>
  * Algorithm should run in O(n) time and uses constant extra space.
- * 
+ * <p>
  * this algo is based on index swapping ,suppose nums[i] =k then swap the
  * nums[i] at k location in nums provided k should be in range of 0<k<=n then
  * start iterating from begin if there is not proper value at the index means
  * that index number is missing
- * 
+ * <p>
  *
  */
 public class FirstMissingPositive {

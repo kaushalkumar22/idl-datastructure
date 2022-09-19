@@ -30,7 +30,7 @@ public class ExceptionHandling {
     public void method6() throws NullPointerException {
         try{
 
-        }catch (ArrayIndexOutOfBoundsException | NullPointerException ex){
+        }catch (ArrayIndexOutOfBoundsException|NullPointerException ex){
 
         }
     }
