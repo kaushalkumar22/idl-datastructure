@@ -1,4 +1,4 @@
-package stack_miscellaneous;
+package twopointers;
 
 import java.util.Stack;
 

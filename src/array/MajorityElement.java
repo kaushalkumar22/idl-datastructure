@@ -23,6 +23,7 @@ public class MajorityElement {
 
 		int[] array = { 2, 6, 2, 2, 6, 2, 2, 8, 2, 1 };
 		System.out.println(Arrays.toString(array) + " \nMajority Element: " + majorityElement(array));
+		System.out.println(Arrays.toString(array) + " \nMajority Element: " + majorityElement2(array));
 	}
 	// Boyer-Moore Vote Algorithm
 	public static int majorityElement(int[] num) {
@@ -41,11 +42,20 @@ public class MajorityElement {
 		return major;
 	}
 	
-	public int majorityElement2(int[] nums) {
-        Arrays.sort(nums);
-	  int len = nums.length;
-	  return nums[len/2];
-    }
+	public static int majorityElement2(int[] nums) {
+		int maj=nums[0];
+		int count=0;
+		for(int num :nums) {
 
-
+			if (maj == num) {
+				count++;
+			} else if (count == 0) {
+				maj = num;
+				count++;
+			} else {
+				count--;
+			}
+		}
+			return maj;
+		}
 }

@@ -55,7 +55,8 @@ public class TopKFrequentElements {
 		}
 		// bucket sort on freq
 		List<Integer>[] bucket = new List[nums.length + 1];
-		for (int i = 0; i < bucket.length; i++) bucket[i] = new ArrayList();
+		for (int i = 0; i < bucket.length; i++)
+			bucket[i] = new ArrayList();
 		for (int key : freq.keySet()) {
 			bucket[freq.get(key)].add(key);
 		}

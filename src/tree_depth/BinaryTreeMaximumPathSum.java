@@ -21,7 +21,7 @@ Input: [1,2,3]
 
 Output: 6
 
-Input: [-10,9,20,null,null,15,7]
+Input: [10,9,20,null,null,15,7]
 
    -10
    / \
@@ -34,7 +34,7 @@ Output: 42
 public class BinaryTreeMaximumPathSum {
 	public static void main(String args[]) {
 		BinaryTreeMaximumPathSum tree = new BinaryTreeMaximumPathSum();
-		List<Integer> nums = (List<Integer>) Arrays.asList(-10,9,20,null,null,15,7);
+		List<Integer> nums = (List<Integer>) Arrays.asList(10,9,20,null,null,15,7);
 		TreeNode root = TreeUtil.createTree(nums);
 		System.out.println(tree.maxPathSum(root));
 

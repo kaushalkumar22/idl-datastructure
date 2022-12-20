@@ -41,16 +41,19 @@ public class LongestConsecutiveSequence {
 		for (int n : nums) {
 			set.add(n);
 		}
-		int best = 0;
-		for (int num : set) {
-			int count = 0;
-			if(set.contains(num-1)) continue;
-			while (set.contains(num)) {
+		int best =0;
+		for(int i=0;i<nums.length;i++){
+			int val=nums[i];
+			if(set.contains(val-1)) continue;
+			int count=0;
+			while(set.contains(val)){
 				count++;
-				num++;
+				val++;
 			}
-			best = Math.max(best, count);
+			best= Math.max(best,count);
 		}
+
+
 		return best;
 	}
 

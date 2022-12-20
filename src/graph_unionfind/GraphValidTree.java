@@ -25,8 +25,8 @@ import java.util.Set;
 public class GraphValidTree {
 
 	public static void main(String[] args) {
-		int n = 5,  edges[][] = {{0,1}, {1,2}, {2,3}, {1,3}, {1,4}};
-		//int n = 5,  edges[][] = {{0,1}, {0,2}, {0,3}, {1,4}};
+		//int n = 5,  edges[][] = {{0,1}, {1,2}, {2,3}, {1,3}, {1,4}};
+		int n = 5,  edges[][] = {{0,1}, {0,2}, {0,3}, {1,4}};
 		//int[][] edges = {};
 		System.out.println(new GraphValidTree().validTree(n,edges) );
 	}

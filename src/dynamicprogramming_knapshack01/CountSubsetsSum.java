@@ -14,8 +14,8 @@ package dynamicprogramming_knapshack01;
  */
 public class CountSubsetsSum {
 	public static void main(String args[]) {
-		int arr[] = {2, 3, 5,6,8,10};
-		int s=10;
+		int arr[] = {1,2,3};
+		int s=3;
 		System.out.println(countSubsetSum(arr, s));
 		System.out.println(countSubsetSumOpt(arr, s));
 

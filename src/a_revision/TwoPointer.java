@@ -19,24 +19,13 @@ import twopointers.TwoSumII;
 import twopointers.ValidTriangleNumber;
 
 public class TwoPointer {
-
-    Object[] obj ={
-            BoatsToSavePeople.class,
-            ContainerWithMostWater.class,
-            CountRepetitions.class,
-            DeleteAndEarn.class,
-            FourSum.class,
-            LongPressedName.class,
-            MergeSortedArray.class,
-            MoveZeroes.class,
-            Sort0and1.class,
-            SortColors.class,
-            SquaresOfASortedArray.class,
-            ThreeSum.class,
-            ThreeSumClosest.class,
-            ThreeSumSmaller.class,
-            TwoSum.class,
-            TwoSumII.class,
-            ValidTriangleNumber.class
-    };
+    public static void main(String[] args) {
+        int x =0;
+        next(x);
+        System.out.println(x);
+    }
+    public static void next(int x) {
+         x ++ ;
+        System.out.println(x);
+    }
 }

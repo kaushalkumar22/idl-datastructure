@@ -30,9 +30,18 @@ public class CoinChangeII {
 	public static void main(String[] args) {
 		int amount = 5;
 		int[] coins = { 1, 5, 2 };
-		System.out.println(change(amount, coins));
+		System.out.println(changeRec(amount, coins,coins.length));
 		System.out.println(change1(amount, coins));
 		System.out.println(change2(amount, coins));
+	}
+	public static int changeRec(int amount, int[] coins,int n) {
+		if(n==0) return 0;
+        if(amount==0) return 1;
+		if(amount>=coins[n-1]){
+			return changeRec( amount-coins[n-1], coins, n) + changeRec( amount, coins, n-1);
+		}else {
+		   return changeRec( amount, coins, n-1);
+		}
 	}
 	public static int change(int amount, int[] coins) {
 		int[] dp = new int[amount + 1];

@@ -1,10 +1,12 @@
 package heap_pq;
 
+import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.List;
 import java.util.PriorityQueue;
 
 /**
- *   Given an array of meeting time intervals consisting of start and end times [[s1,e1],[s2,e2],...] (si < ei), find the minimum number of conference rooms required.
+ *     Given an array of meeting time intervals consisting of start and end times [[s1,e1],[s2,e2],...] (si < ei), find the minimum number of conference rooms required.
  *     Input: [[0, 30],[5, 10],[15, 20]]
  *     Output: 2
  *     Example 2:
@@ -20,10 +22,12 @@ import java.util.PriorityQueue;
 public class MeetingRoomII {
 
 	public static void main(String[] args) {
-		int[][] intervals ={{0, 30},{5, 10},{15, 20}};
-		//int[][] intervals ={{1,30},{2,30},{5,16},{17,18}};
+		//int[][] intervals ={{0, 30},{5, 10},{15, 20}};
+		int[][] intervals ={{1,30},{2,25},{5,16},{17,18}};
 		System.out.println(minMeetingRooms(intervals));
+		//System.out.println(minMeetingRooms2(intervals))
 	}
+
 	public static int minMeetingRooms(int[][] intervals) {
 
 		if(intervals == null || intervals.length == 0) {
@@ -34,7 +38,7 @@ public class MeetingRoomII {
 		Arrays.sort(intervals, (a,b) -> Integer.compare(a[0], b[0]));
 
 		// to store end time of each meeting, smaller value will be at the peek()
-		PriorityQueue<Integer> heap = new PriorityQueue<Integer>((a,b) -> Integer.compare(a, b));
+		PriorityQueue<Integer> heap = new PriorityQueue<Integer>();
 
 		// start with the first meeting, put it to a meeting room
 		int count = 1;

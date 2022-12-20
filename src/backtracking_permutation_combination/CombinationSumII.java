@@ -26,22 +26,22 @@ import java.util.List;
  * 
  * Complexity Analysis
  * 
- * Let NNN be the size of the input array.
+ * Let N be the size of the input array.
  * 
  * Time Complexity: O(2^N)
  * 
- * In the worst case, our algorithm will exhaust all possible combinations sfrom
+ * In the worst case, our algorithm will exhaust all possible combinations from
  * the input array, which in total amounts to 2^N as we discussed before.
- * 
- * The sorting will take O(NlogN)
+ *
+ * The sorting will take O(NlogN).
  * 
  * To sum up, the overall time complexity of the algorithm is dominated by the
- * backtracking process, which is O(2N)
+ * backtracking process, which is O(2^N)
  * 
  * Space Complexity: O(N)
  * 
  * We use the variable comb to keep track of the current combination we build,
- * which requires O(N)space.
+ * which requires O(N)
  * 
  * In addition, we apply recursion in the algorithm, which will incur additional
  * memory consumption in the function call stack. In the worst case, the stack
@@ -75,7 +75,7 @@ public class CombinationSumII {
 			return;
 		}
 		for(int i = start; i < A.length; i++){
-			if (target < A[i]||i > start && A[i] == A[i - 1]) continue; /** skip duplicates */
+			if (target < A[i]||i > start && A[i] == A[i - 1]) continue; //skip duplicates
 			subRes.add(A[i]);
 			backtrack(res, subRes, A,target - A[i], i+1);
 			subRes.remove(subRes.size() - 1);

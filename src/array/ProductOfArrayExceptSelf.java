@@ -23,28 +23,23 @@ import java.util.stream.IntStream;
 public class ProductOfArrayExceptSelf {
 
 	public static void main(String[] args) {
-		int[] nums = { 1, 2, 3, 4 };
+		int[] nums = { 4};
 		System.out.println(Arrays.toString(productExceptSelf(nums)));
 
 	}
 
-	/*
-	 * first from lest side do the product and add in res[] array except self res[i]
-	 * = res[i - 1] * nums[i - 1]; from right side store the a[i+1] into right and
-	 * to the multiplication with a[i]*right
-	 */
 	public static int[] productExceptSelf(int[] nums) {
 		int n = nums.length;
 		int[] res = new int[n];
-		res[0] = 1;
-		for (int i = 1; i < n; i++) {
+		//Arrays.fill(res,1);
+		res[0]=1;
+		for(int i=1;i<n;i++) {
 			res[i] = res[i - 1] * nums[i - 1];
 		}
-		int right = 1;
-		for (int i = n - 2; i >= 0; i--) {
-			right *= nums[i + 1];
-			res[i] = res[i]*right;
-
+		int prod =1;
+		for(int i=n-2;i>=0;i--){
+			prod *=nums[i+1];
+			res[i]=res[i]*prod;
 		}
 		return res;
 	}

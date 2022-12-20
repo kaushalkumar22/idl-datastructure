@@ -19,32 +19,29 @@ import java.util.Stack;
 public class LargestRectangleInHistogram {
 
 	public static void main(String[] args) {
-
-		int input[] = { 6, 2, 5, 4, 5, 5, 2, 6, 4 };
-
+		int input[] = { 2};
 		System.out.println(getmaxArea(input));
 	}
 
 	public static int getmaxArea(int heights[]) {
-		Stack<Integer> s = new Stack<Integer>();
-		int n = heights.length;
-		int maxArea = 0;
-		int i = 0;
-		while (i < n) {
 
-			if (s.isEmpty() || heights[s.peek()] <= heights[i]) {
-				s.push(i++);
-			} else {
-				int top = s.pop();
-				maxArea = Math.max(maxArea, heights[top] * (s.isEmpty() ? i : i - s.peek() - 1));
+		int maxArea=0;
+		Stack<Integer> st= new Stack<>();
+		int n= heights.length;
+		int i=0;
+		while (i<n){
+			if(st.isEmpty()||heights[st.peek()]<heights[i]){
+				st.push(i++);
+			}else{
+				int top = st.pop();
+				maxArea=Math.max(maxArea,heights[top]*(i-(st.isEmpty()?0:st.peek()+1)));
+
 			}
 		}
-		while (!s.isEmpty()) {
-			int tp = s.pop();
-			maxArea = Math.max(maxArea, heights[tp] * (s.isEmpty() ? i : i - s.peek() - 1));
+		while (!st.isEmpty()){
+			int top = st.pop();
+			maxArea=Math.max(maxArea,heights[top]*(i-(st.isEmpty()?0:st.peek()+1)));
 		}
 		return maxArea;
-
 	}
-	
 }

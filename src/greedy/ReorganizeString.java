@@ -1,56 +1,58 @@
 package greedy;
 
 /**
- * 
- * Given a string S, check if the letters can be rearranged so that two
- * characters that are adjacent to each other are not the same.
- * 
- * If possible, output any possible result. If not possible, return the empty
- * string.
- * 
- * Example 1:
- * 
- * Input: S = "aab" Output: "aba"
- * 
- * Example 2:
- * 
- * Input: S = "aaab" Output: ""
+ * Given a string s, rearrange the characters of s so that any two adjacent characters are not the same.
+ * Return any possible rearrangement of s or return "" if not possible.
  *
- * 
+ * Input: s = "aab"
+ * Output: "aba"
+ *
+ * Input: s = "aaab"
+ * Output: ""
+ * Constraints:
+ *     1 <= s.length <= 500
+ *     s consists of lowercase English letters.
  */
 public class ReorganizeString {
-	public String reorganizeString(String S) {
-		int[] hash = new int[26];
-		for (int i = 0; i < S.length(); i++) {
-			hash[S.charAt(i) - 'a']++;
-		} 
-		int max = 0, letter = 0;
-		for (int i = 0; i < hash.length; i++) {
-			if (hash[i] > max) {
-				max = hash[i];
-				letter = i;
+	public static void main(String[] args) {
+		System.out.println(reorganizeString("aaab"));
+	}
+	public static String reorganizeString(String s) {
+		int n = s.length();
+		int[] cache = new int[26];
+		int maxCharCount =0;
+		char mostFreqChar =0;
+		for(char c : s.toCharArray()){
+			cache[c-'a']++;
+			if(maxCharCount<cache[c-'a']){
+				maxCharCount = cache[c-'a'];
+				mostFreqChar = c;
 			}
 		}
-		if (max > (S.length() + 1) / 2) {
-			return ""; 
+		//max char size is more than half that means same cahr will be together
+		if(maxCharCount>(n+1)/2){
+			return "";
 		}
-		char[] res = new char[S.length()];
-		int idx = 0;
-		while (hash[letter] > 0) {
-			res[idx] = (char) (letter + 'a');
-			idx += 2;
-			hash[letter]--;
+		char[] res = new char[n];
+		int index = 0 ;
+		while(cache[mostFreqChar-'a']>0){
+			res[index] = mostFreqChar;
+			cache[mostFreqChar - 'a']--;
+			index += 2;
 		}
-		for (int i = 0; i < hash.length; i++) {
-			while (hash[i] > 0) {
-				if (idx >= res.length) {
-					idx = 1;
+		for(int i = 0 ;i<26; i++){
+			int curr = cache[i];
+			while(curr>0){
+				if(index>=n){
+					index = 1;
 				}
-				res[idx] = (char) (i + 'a');
-				idx += 2;
-				hash[i]--;
+				char ch = (char)(i + 'a');
+				res[index] = ch;
+				cache[i]--;
+				curr = cache[i];
+				index += 2;
 			}
 		}
-		return String.valueOf(res);
+		return new String(res);
 	}
 }
