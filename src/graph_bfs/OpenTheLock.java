@@ -43,36 +43,38 @@ import java.util.Set;
 public class OpenTheLock {//BFS
 	public static void main(String[] args) {
 		String deadends[]= {"0201","0101","0102","1212","2002"}, target = "0202";
-		System.out.println(new OpenTheLock().openLock(deadends,  target));
+		System.out.println(new OpenTheLock().openLock2(deadends,  target));
 	}
-	public  int openLock(String[] deadends, String target) {
-		Set<String> deeds = new HashSet<>(Arrays.asList(deadends));
-		Set<String> visited = new HashSet<>();
+	public  int openLock2(String[] deadends, String target) {
+
+		Set<String> deads   = new HashSet<>(Arrays.asList(deadends));
+		Set<String> visited  = new HashSet<>();
+
 		Queue<String> que = new LinkedList<>();
 		que.add("0000");
-		visited.add("0000");
-		int count =0;
+		int minCount =0;
 		while(!que.isEmpty()){
-			int qsize = que.size();
-			for(int j=0;j<qsize;j++) {
+			int qSize = que.size();
+			for(int i=0;i<qSize;i++){
 				String curr = que.poll();
-				if (curr.equals(target)) return count;
-				char[] ch = curr.toCharArray();
-				for (int i = 0; i < 4; i++) {
-					char c = ch[i];
-					String nextMove1 = curr.substring(0, i) + (c == '9' ? 0 : c - '0' + 1) + curr.substring(i + 1);
-					String nextMove2 = curr.substring(0, i) + (c == '0' ? 9 : c - '0' - 1) + curr.substring(i + 1);
-					if (!deeds.contains(nextMove1) && !visited.contains(nextMove1)) {
-						que.add(nextMove1);
-						visited.add(nextMove1);
+				if(curr.equals(target)) return minCount;
+
+				for(int j= 0;j<4;j++){
+					char c = curr.charAt(j);
+					String forward  =  curr.substring(0,j) + (c =='9' ? 0 :c -'0'+1) + curr.substring(j+1);
+					String backward =  curr.substring(0,j) + (c =='0' ? 9 :c -'0' -1) + curr.substring(j+1);
+					if(!deads.contains(forward)&&!visited.contains(forward)){
+						que.add(forward);
+						visited.add(forward);
 					}
-					if (!deeds.contains(nextMove2) && !visited.contains(nextMove2)) {
-						que.add(nextMove2);
-						visited.add(nextMove2);
+
+					if(!deads.contains(backward)&&!visited.contains(backward)){
+						que.add(backward);
+						visited.add(backward);
 					}
 				}
 			}
-			count++;
+			minCount++;
 		}
 		return -1;
 	}

@@ -12,8 +12,6 @@ import java.util.List;
  * In Pascal's triangle, each number is the sum of the two numbers directly
  * above it.
  *
- * Example:
- *
  * Input: 5 Output: [ 
  *     [1], 
  *    [1,1], 
@@ -26,11 +24,23 @@ import java.util.List;
  */
 public class PascalsTriangle {
 	public static void main(String[] args) {
+		int n= 5;
+		List<List<Integer>> res = new ArrayList<>();
+		List<Integer> sub = new ArrayList<>();
+		for(int i=0;i<n;i++){
+			sub.add(0,1);
+			for(int j=1;j<sub.size()-1;j++) {
+				sub.set(j,sub.get(j)+sub.get(j+1));
+			}
+			res.add(new ArrayList<>(sub));
+		}
+
+		System.out.println(res);
 		System.out.println(generate(5));
 	}
 	public static List<List<Integer>> generate(int numRows) {
-		List<List<Integer>> allrows = new ArrayList<List<Integer>>();
-		ArrayList<Integer> row = new ArrayList<Integer>();
+		List<List<Integer>> allrows = new ArrayList<>();
+		ArrayList<Integer> row = new ArrayList<>();
 		for(int i=0;i<numRows;i++) {
 			row.add(0, 1);
 			for(int j=1;j<row.size()-1;j++) {

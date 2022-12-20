@@ -21,28 +21,23 @@ public class MergeKSortedArrays {
 		System.out.println(mergeKSortedArray(arr));
 	}
 	public static List<Integer> mergeKSortedArray(int[][] nums) {
-		//PriorityQueue is heap in Java 
-		PriorityQueue<int[]> pq = new PriorityQueue<int[]>((a,b)->Integer.compare(a[0], b[0]));
 
-		//add each array to heap with their index
-		for (int i = 0; i < nums.length; i++) {
-			pq.add(new int[] {nums[i][0],i,0});
+		List<Integer> res = new ArrayList<>();
+		PriorityQueue<int[]> pq = new PriorityQueue<>((a,b)->Integer.compare(a[0],b[0]));
+		for(int i=0;i<nums.length;i++){
+			pq.add(new int[]{nums[i][0],i,0});
 		}
-
-        List<Integer> res = new ArrayList<Integer>();
-		//while heap is not empty
 		while(!pq.isEmpty()){
-			int[] arr = pq.poll();
-			int num = arr[0];
-			int currArrIndex =arr[1];
-			int currNumIndex =arr[2];
-            res.add(num);
-            
-			if(nums[currArrIndex].length>currNumIndex+1){
-				pq.add(new int[] {nums[currArrIndex][currNumIndex+1],currArrIndex,currNumIndex+1});
+			int[] curr = pq.poll();
+			res.add(curr[0]);
+			int currArray = curr[1];
+			int nextNumIndex= curr[2]+1;
+			if(nextNumIndex>=nums[currArray].length){
+				continue;
 			}
-		}
+			pq.add(new int[]{nums[currArray][nextNumIndex],currArray,nextNumIndex});
 
+		}
 		return res;
 	}
 }

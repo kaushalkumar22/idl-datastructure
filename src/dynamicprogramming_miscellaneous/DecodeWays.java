@@ -24,9 +24,28 @@ package dynamicprogramming_miscellaneous;
  */
 public class DecodeWays {
 	public static void main(String[] args) {
-		System.out.println( numDecodings( "12") );
+
+		System.out.println( numDecodings( "2611055971756562") );
 	}
 	public static int numDecodings(String s) {
+		int n=s.length();
+		int[] dp=new int[n+1];
+		dp[n]=1;
+		for(int i=n-1;i>=0;i--){
+			char c =s.charAt(i);
+			if(c=='0') continue;
+			if(i<n-1&&(c=='1'||c=='2'&&s.charAt(i+1)<='6')) {
+				dp[i]=dp[i+1]+dp[i+2];
+			}else{
+				dp[i]=dp[i+1];
+			}
+		}
+		return dp[0];
+	}
+
+
+
+	public static int numDecodings2(String s) {
 		if (s == null || s.length() == 0) {
 			return 0;
 		}

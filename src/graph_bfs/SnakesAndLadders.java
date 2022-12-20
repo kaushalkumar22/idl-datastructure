@@ -6,16 +6,19 @@ import java.util.Queue;
 import java.util.Set;
 
 /**
- * You are given an n x n integer matrix board where the cells are labeled from 1 to n2 in a Boustrophedon style starting from the bottom left of the board (i.e. board[n - 1][0]) and alternating direction each row.
+ * You are given an n x n integer matrix board where the cells are labeled from 1 to n2 in a Boustrophedon style
+ * starting from the bottom left of the board (i.e. board[n - 1][0]) and alternating direction each row.
  *
  * You start on square 1 of the board. In each move, starting from square curr, do the following:
  *
  *     Choose a destination square next with a label in the range [curr + 1, min(curr + 6, n2)].
- *         This choice simulates the result of a standard 6-sided die roll: i.e., there are always at most 6 destinations, regardless of the size of the board.
+ *         This choice simulates the result of a standard 6-sided die roll: i.e., there are always at most 6 destinations,
+ *         regardless of the size of the board.
  *     If next has a snake or ladder, you must move to the destination of that snake or ladder. Otherwise, you move to next.
  *     The game ends when you reach the square n2.
  *
- * A board square on row r and column c has a snake or ladder if board[r][c] != -1. The destination of that snake or ladder is board[r][c]. Squares 1 and n2 do not have a snake or ladder.
+ * A board square on row r and column c has a snake or ladder if board[r][c] != -1. The destination of that snake or
+ * ladder is board[r][c]. Squares 1 and n2 do not have a snake or ladder.
  *
  * Note that you only take a snake or ladder at most once per move. If the destination to a snake or ladder
  * is the start of another snake or ladder, you do not follow the subsequent snake or ladder.
@@ -29,7 +32,8 @@ import java.util.Set;
  *
  * Example 1:
  *
- * Input: board = [[-1,-1,-1,-1,-1,-1],[-1,-1,-1,-1,-1,-1],[-1,-1,-1,-1,-1,-1],[-1,35,-1,-1,13,-1],[-1,-1,-1,-1,-1,-1],[-1,15,-1,-1,-1,-1]]
+ * Input: board = [[-1,-1,-1,-1,-1,-1],[-1,-1,-1,-1,-1,-1],[-1,-1,-1,-1,-1,-1],[-1,35,-1,-1,13,-1],[-1,-1,-1,-1,-1,-1],
+ * [-1,15,-1,-1,-1,-1]]
  * Output: 4
  * Explanation:
  * In the beginning, you start at square 1 (at row 5, column 0).
@@ -57,36 +61,35 @@ public class SnakesAndLadders {
 		System.out.println(new SnakesAndLadders().snakesAndLadders(board));
 	}
 	public int snakesAndLadders(int[][] board) {
-		Queue<Integer> q = new LinkedList<>();
-		q.offer(1);//put the start value to queue
-		int n = board.length;
-		int goal = n*n;
-		int ans = 0;
+		int row = board.length;
+		int col = board[0].length;
+		int dest=row*col;
 		Set<Integer> visited = new HashSet<>();
-		while(!q.isEmpty()) {
-			int qsize = q.size();
-			
-			for(int i = 0; i < qsize; ++i) {
-				int currValue = q.poll();
-				for(int j = 1; j <=6; ++j) {
-					int nextValue = currValue+j;
-					if (nextValue > goal) continue;
-					int r = (nextValue-1)/n;
-					int c = (nextValue-1)%n;
-					int nxt =board[n-1-r][(r%2==0)?c:(n-1-c)];
-					if(nxt > 0) {//if value is positive
-						nextValue = nxt;
+        Queue<Integer> que = new LinkedList<>();
+		que.add(1);
+		int count=0;
+		while (!que.isEmpty()){
+			int n = que.size();
+			for (int i=0;i<n;i++){
+				int curr= que.poll();
+				for(int j=1;j<=6;j++){
+					int next = curr+j;
+					if (next>dest) continue;
+					int x= (next-1)/col;
+					int y =(next-1)%col;
+					int val = board[row-1-x][x%2==0?y:col-1-y];
+					if(val>0){
+						next=val;
 					}
-					if( nextValue == goal) return ans+1;
-					if(visited.contains(nextValue)){
+					if( next == dest) return count+1;
+					if (visited.contains(next)){
 						continue;
 					}
-					visited.add(nextValue);
-					q.offer(nextValue);
+					visited.add(next);
+					que.add(next);
 				}
-
 			}
-			++ans;
+			count++;
 		}
 		return -1;
 	}

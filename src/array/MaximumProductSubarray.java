@@ -22,7 +22,14 @@ package array;
 public class MaximumProductSubarray {
 
     public static void main(String[] args) {
-        int[] nums = {2,3,-2,4};
+        int[] nums = {-2,2,3,0,-2,4,-5};
+        int best=nums[0];
+        int prod =1;
+        for(int num:nums){
+            prod=prod*num==0?num:prod*num;
+            best= Math.max(best,Math.max(prod,num));
+        }
+        System.out.println(best);
         System.out.println(maxProduct(nums));
     }
     public static int maxProduct(int[] nums) {

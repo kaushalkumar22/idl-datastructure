@@ -49,8 +49,23 @@ package greedy;
 public class GasStation {
 
 	public static void main(String[] args) {
-		// TODO Auto-generated method stub
+		System.out.println(canCompleteCircui1(new int[]{1,2,3,4,5}, new int[]{3,4,5,1,2}));
+//[5,1,2,3,4]
 
+//[4,4,1,5,1]
+	}
+	public static int canCompleteCircui1(int[] gas, int[] cost) {
+		int n = gas.length;
+		int start = -1;
+		int total =0;
+		for(int i= 0; i<n;i++){
+			int tank =  gas[i]-cost[i];
+			total += tank;
+			if(tank>0&&start==-1){
+				start =i;
+			}
+		}
+		return total>=0 ? start :-1;
 	}
 	public int canCompleteCircuit(int[] gas, int[] cost) {
 		int sumGas = 0;

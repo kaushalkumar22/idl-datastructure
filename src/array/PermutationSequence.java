@@ -19,20 +19,17 @@ import java.util.ArrayList;
  * 
  * Given n will be between 1 and 9 inclusive. Given k will be between 1 and n!
  * inclusive.
- * 
- * Example 1:
- * 
+ *
  * Input: n = 3, k = 3 Output: "213"
- * 
- * Example 2:
- * 
+ *
  * Input: n = 4, k = 9 Output: "2314"
  *
  * 
  */
 public class PermutationSequence {
 	public static void main(String[] args) {
-        System.out.println(getPermutation(4,9));
+
+        System.out.println(getPermutation(4,14));
 	}
 	public static String getPermutation(int n, int k) {
         StringBuilder sb = new StringBuilder();
@@ -42,11 +39,13 @@ public class PermutationSequence {
             fact *= i;
             num.add(i);
         }
-        for (int i = 0, l = k - 1; i < n; i++) {
-            fact /= (n - i);
-            int index = (l / fact);
+        k=k-1;
+        while(n>0){
+            fact =fact/n; //
+            int index = k/fact;
             sb.append(num.remove(index));
-            l -= index * fact;
+            k = k- index * fact;
+            n--;
         }
         return sb.toString();
     }

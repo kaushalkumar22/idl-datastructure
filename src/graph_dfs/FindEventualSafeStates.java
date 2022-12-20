@@ -12,6 +12,7 @@ import java.util.List;
  * starting from that node leads to a terminal node (or another safe node).
  *
  * Return an array containing all the safe nodes of the graph. The answer should be sorted in ascending order.
+ *
  * Illustration of graph
  *
  * Input: graph = [[1,2],[2,3],[5],[0],[5],[],[]]
@@ -33,6 +34,7 @@ import java.util.List;
  *     graph[i] is sorted in a strictly increasing order.
  *     The graph may contain self-loops.
  *     The number of edges in the graph will be in the range [1, 4 * 104].
+
  *     value of color represents three states:
  *
  * 0:have not been visited
@@ -46,7 +48,7 @@ import java.util.List;
  */
 public class FindEventualSafeStates {
 	public static void main(String[] args) {
-		int[][] graph= {{1,2,3,4},{1,2},{3,4},{0,4},{}};
+		int[][] graph= {{1,2},{2,3},{5},{0},{5},{},{}};
 		System.out.println(new FindEventualSafeStates().eventualSafeNodes(graph));
 	}
 	public List<Integer> eventualSafeNodes(int[][] graph) {

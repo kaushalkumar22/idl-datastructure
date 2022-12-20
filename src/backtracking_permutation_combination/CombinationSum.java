@@ -40,7 +40,7 @@ import java.util.List;
 public class CombinationSum {
 
 	public static void main(String[] args) {
-		int[] candidates = {2,3,6,7};
+		int[] candidates = {2,3,5};
 		int target=8;
 		System.out.println(combinationSum(candidates, target));
 	}
@@ -51,17 +51,20 @@ public class CombinationSum {
 		return res;
 	}
 
-	static void backtrack(List<List<Integer>> res, List<Integer> subRes, int A[],int target, int start){
+	static void backtrack(List<List<Integer>> res, List<Integer> subRes, int A[],int target, int i){
 		if(target == 0 ){
 			res.add(new ArrayList<Integer>(subRes));
 			return;
 		}
-		for(int i = start; i < A.length; i++){
-			if (target < A[i]||i > start && A[i] == A[i - 1]) continue; /** skip duplicates */
+		//for(int i = start; i < A.length; i++){
+
+			if (i>=A.length||target < A[i]) return; /** skip duplicates */
+
 			subRes.add(A[i]);
 			backtrack(res, subRes, A,target - A[i], i);
 			subRes.remove(subRes.size() - 1);
-		}
+			backtrack(res, subRes, A,target , i+1);
+		//}
 	}
 } 	 
 

@@ -10,14 +10,11 @@ import java.util.PriorityQueue;
 /**
  * Given a list of airline tickets represented by pairs of departure and arrival
  * airports [from, to], reconstruct the itinerary in order. All of the tickets
-<<<<<<< Updated upstream
  * belong to a man who departs from JFK. Thus, the itinerary must begin with JFK.
  * 
-=======
  * belong to a man who departs from JFK. Thus, the itinerary must begin with
  * JFK.
  * <p>
->>>>>>> Stashed changes
  * Note:
  * <p>
  * If there are multiple valid itineraries, you should return the itinerary that

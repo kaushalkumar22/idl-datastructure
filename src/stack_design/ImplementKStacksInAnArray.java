@@ -68,12 +68,14 @@ public class ImplementKStacksInAnArray {
 
 	// A utility function to check if there is space available 
 	boolean isAvailable(){ 
-		return (nextAvailable  == -1); 
+
+		return (nextAvailable  == -1);
 	} 
 
 	// To check whether stack number 'sn' is empty or not 
 	boolean isEmpty(int sn){ 
-		return (topOfStack[sn] == -1); 
+
+		return (topOfStack[sn] == -1);
 	} 
 }
 

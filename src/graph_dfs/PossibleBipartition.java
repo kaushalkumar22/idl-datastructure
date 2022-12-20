@@ -3,41 +3,29 @@ package graph_dfs;
 import java.util.*;
 
 /**
-<<<<<<< Updated upstream
- * We want to split a group of n people (labeled from 1 to n) into two groups of any size. Each person may dislike some other people,
- * and they should not go into the same group.
+ * We want to split a group of n people (labeled from 1 to n) into two groups of any size. Each person may dislike some other
+ * people,and they should not go into the same group.
  *
- * Given the integer n and the array dislikes where dislikes[i] = [ai, bi] indicates that the person labeled ai does not like the person
- * labeled bi, return true if it is possible to split everyone into two groups in this way.
-=======
- * We want to split a group of n people (labeled from 1 to n) into two groups of any size. 
+ * Given the integer n and the array dislikes where dislikes[i] = [ai, bi] indicates that the person labeled ai does not
+ * like the person labeled bi, return true if it is possible to split everyone into two groups in this way.
+ * We want to split a group of n people (labeled from 1 to n) into two groups of any size.
  * Each person may dislike some other people, and they should not go into the same group.
  *
  * Given the integer n and the array dislikes where dislikes[i] = [ai, bi] indicates that the person 
  * labeled ai does not like the person labeled bi, return true if it is possible to split everyone into 
  * two groups in this way.
->>>>>>> Stashed changes
  *
- *
- *
- * Example 1:
  *
  * Input: n = 4, dislikes = [[1,2],[1,3],[2,4]]
  * Output: true
  * Explanation: group1 [1,4] and group2 [2,3].
  *
- * Example 2:
- *
  * Input: n = 3, dislikes = [[1,2],[1,3],[2,3]]
  * Output: false
  *
- * Example 3:
- *
  * Input: n = 5, dislikes = [[1,2],[2,3],[3,4],[4,5],[1,5]]
  * Output: false
- *
- *
- *
+
  * Constraints:
  *
  *     1 <= n <= 2000
@@ -70,14 +58,14 @@ public class PossibleBipartition {
 		return true;
 	}
 
-	private boolean dfs(Map<Integer, List<Integer>> graph, int[] colorTable, int cur, int color) {
-		colorTable[cur] = color;
+	private boolean dfs(Map<Integer, List<Integer>> graph, int[] colors, int cur, int color) {
 
+		colors[cur] = color;
 		for (int next : graph.getOrDefault(cur, Collections.emptyList())) {
-			if (colorTable[next] == color) {
+			if (colors[next] == color) {
 				return false;
 			}
-			if (colorTable[next] == 0 && !dfs(graph, colorTable, next, -color)) {
+			if (colors[next] == 0 && !dfs(graph, colors, next, -color)) {
 				return false;
 			}
 		}
