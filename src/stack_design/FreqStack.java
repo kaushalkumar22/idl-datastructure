@@ -65,57 +65,33 @@ public class FreqStack {
 
 	}
   //  Approach 1: Stack of Stacks
-	HashMap<Integer, Integer> freq = new HashMap<>();
-	HashMap<Integer, Stack<Integer>> m = new HashMap<>();
-	int maxfreq = 0;
+    List<Stack<Integer>> list;
+	Map<Integer,Integer> map;
+	public FreqStack() {
+		list= new ArrayList<>();
+		map= new HashMap<>();
+	}
 
-	public void push(int x) {
-		int f = freq.getOrDefault(x, 0) + 1;
-		freq.put(x, f);
-		maxfreq = Math.max(maxfreq, f);
-		if (!m.containsKey(f)) m.put(f, new Stack<Integer>());
-		m.get(f).add(x);
+	public void push(int val) {
+		map.put(val,map.getOrDefault(val,0)+1);
+		int frq = map.get(val);
+		if(frq-1==list.size()){
+			list.add(new Stack<Integer>());
+		}
+		list.get(frq-1).push(val);
 	}
 
 	public int pop() {
-		int x = m.get(maxfreq).pop();
-		freq.put(x, maxfreq - 1);
-		if (m.get(maxfreq).size() == 0) maxfreq--;
-		return x;
-	}
-
- //   Approach 2: Stack of Stacks
-
-	/*
-	 * create a frequency map that will contains frequency of each no.
-	 * create a list that will hold a stack at each index and stack will hold the 
-	 * nums which are having the same frequency.
-	 */
-	Map<Integer,Integer> keyVsFreq;
-	List<Stack<Integer>> bucket;
-	public FreqStack() {
-		keyVsFreq = new HashMap<Integer, Integer>();
-		bucket = new ArrayList<Stack<Integer>>();
-	}
-
-	public void push1(int x) {
-
-		keyVsFreq.put(x, keyVsFreq.getOrDefault(x, 0)+1);
-		int freq = keyVsFreq.get(x);
-		if(freq-1==bucket.size()) {
-			bucket.add(new Stack<Integer>());
+		if(list.size()<1){
+			return 0;
 		}
-		bucket.get(freq-1).push(x);
-	}
-
-	public int pop1() {
-		int freq = bucket.size();
-		int x = bucket.get(freq-1).pop();
-		if(bucket.get(freq-1).isEmpty()) {
-			bucket.remove(freq-1);
+		Stack<Integer> st = list.get(list.size()-1);
+		int val=st.pop();
+		if(st.isEmpty()){
+			list.remove(list.size()-1);
+			map.put(val,map.get(val)-1);
 		}
-		keyVsFreq.put(x, keyVsFreq.get(x)-1);
-		return x;
-
+		return val;
 	}
 }
+

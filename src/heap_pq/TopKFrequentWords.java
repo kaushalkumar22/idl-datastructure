@@ -1,10 +1,6 @@
 package heap_pq;
 
-import java.util.HashMap;
-import java.util.LinkedList;
-import java.util.List;
-import java.util.Map;
-import java.util.PriorityQueue;
+import java.util.*;
 
 /**
  * Given an array of strings words and an integer k, return the k most frequent strings.
@@ -25,32 +21,24 @@ public class TopKFrequentWords {
 				 int k = 4;
            System.out.println(topKFrequent(words,k) );
 	}
+
     public static List<String> topKFrequent(String[] words, int k) {
-
-        List<String> result = new LinkedList<>();
-        Map<String, Integer> map = new HashMap<>();
-        for(int i=0; i<words.length; i++) {
-            if(map.containsKey(words[i]))
-                map.put(words[i], map.get(words[i])+1);
-            else
-                map.put(words[i], 1);
+        Map<String, Integer> freq = new HashMap<>();
+        for(String s : words){
+            freq.put(s, freq.getOrDefault(s,0)+1);
         }
-
-        PriorityQueue<Map.Entry<String, Integer>> pq = new PriorityQueue<>(
-                (a,b) -> a.getValue()==b.getValue() ? b.getKey().compareTo(a.getKey()) : a.getValue()-b.getValue()
-        );
-
-        for(Map.Entry<String, Integer> entry: map.entrySet())
-        {
-            pq.offer(entry);
-            if(pq.size()>k)
+        PriorityQueue<Map.Entry<String, Integer>> pq = new PriorityQueue<>((a,b)-> a.getValue()==b.getValue()?
+                b.getKey().compareTo(a.getKey()):b.getValue()-a.getValue());
+        for(Map.Entry<String, Integer> entry : freq.entrySet()){
+            pq.add(entry);
+            if(pq.size()>k){
                 pq.poll();
+            }
         }
-
-        while(!pq.isEmpty())
-            result.add(0, pq.poll().getKey());
-
-        return result;
+        List<String> res = new ArrayList<>(k);
+        while(!pq.isEmpty()){
+            res.add(pq.poll().getKey());
+        }
+        return res;
     }
-
 }

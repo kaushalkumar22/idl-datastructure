@@ -30,8 +30,47 @@ public class BestTimeToBuyAndSellStockIV {
     public static void main(String[] args) {
         System.out.println(maxProfit(2, new int[] {3,2,6,5,0,3}));
         System.out.println(maxProfit2(2, new int[] {3,2,6,5,0,3}));
-    }
 
+    }
+    public static int maxProfit3(int k, int[] prices) {
+        if ( k < 1 ){
+            return 0;
+        }
+
+        if ( prices == null || prices.length <= 1 ){
+            return 0;
+        }
+
+        //fix for memory problem in frequent trades
+        if ( k >= prices.length/2 ){
+            int profit = 0;
+            for (int i = 1; i < prices.length; i++){
+                if (prices[i] > prices[i-1] ){
+                    profit += prices[i] - prices[i-1];
+                }
+            }
+            return profit;
+        }
+
+        //DP for at most k trades
+        int[] buy = new int[k+1];
+        int[] sell = new int[k+1];
+
+        for (int i = 0; i <= k; i++){
+            buy[i] = Integer.MIN_VALUE;
+            sell[i] = 0;
+        }
+
+        for (int price :prices){
+            for (int j = 1; j<=k;j++){
+                buy[j]  = Math.max(buy[j], sell[j-1] - price);
+                sell[j] = Math.max(sell[j], price + buy[j]);
+            }
+        }
+
+        return sell[k];
+
+    }
     public static int maxProfit(int k, int[] prices) {
 
         int len = prices.length;
@@ -90,9 +129,9 @@ public class BestTimeToBuyAndSellStockIV {
         }
 
         for (int price :prices){
-            for (int j = k; j > 0; j--){
+            for (int j = 1; j<=k;j++){
+                buy[j]  = Math.max(buy[j], sell[j-1] - price);
                 sell[j] = Math.max(sell[j], price + buy[j]);
-                buy[j] = Math.max(buy[j], sell[j-1] - price);
             }
         }
 

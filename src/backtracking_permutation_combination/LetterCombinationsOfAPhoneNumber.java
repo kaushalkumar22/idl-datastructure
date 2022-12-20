@@ -41,6 +41,7 @@ public class LetterCombinationsOfAPhoneNumber {
 	private void backtrack(String digits,List<String> res, StringBuilder subRes,  int i) {
 		if (i == digits.length()) {
 			res.add(subRes.toString());
+
 			return;
 		}
 		for (char c : KEYPAD[Character.getNumericValue(digits.charAt(i))].toCharArray()) {

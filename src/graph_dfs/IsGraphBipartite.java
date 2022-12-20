@@ -33,25 +33,37 @@ package graph_dfs;
  */
 public class IsGraphBipartite {
 	public static void main(String[] args) {
-
+		int[][] graph = {{1,3},{0,2},{1,3},{0,2}};
+		System.out.println(new IsGraphBipartite().isBipartite( graph));
 	}
 
-	public boolean isBipartite(int[][] g) {
-		int[] colors = new int[g.length];
-		for (int i = 0; i < g.length; i++)
-			if (colors[i] == 0 && !validColor(g, colors, 1, i))
-				return false;
+	public boolean isBipartite(int[][] graph) {
+		int n = graph.length;
+		int[] colors = new int[n];
+		for(int i = 0;i<n;i++){
+			if(colors[i]!=0)continue;
+			if(!dfs( graph, colors,i,1)){
+				return false ;
+			}
+		}
 		return true;
 	}
-
-	boolean validColor(int[][] g, int[] colors, int color, int node) {
-		if (colors[node] != 0)
-			return colors[node] == color;
-		colors[node] = color;
-		for (int adjacent : g[node])
-			if (!validColor(g, colors, -color, adjacent))
+	//graph = {{1,3},{0,2},{1,3},{0,2}};
+	private boolean dfs(int[][] graph, int[] colors ,int start,int color){
+		if(colors[start]!=0){
+			return colors[start] == color;
+		}
+		colors[start] = color;
+		for(int next : graph[start]){
+			if(colors[start]==colors[next]){
 				return false;
+			}
+			if(colors[next]==0){
+				if(!dfs(graph, colors,next,-color)){
+					return false;
+				}
+			}
+		}
 		return true;
 	}
 }
-

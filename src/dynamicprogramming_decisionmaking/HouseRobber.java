@@ -35,13 +35,13 @@ public class HouseRobber {
 	 public static int robOpt(int[] nums) {
 	        int n = nums.length;
 			if(n==0) return 0;
-			int prev1=0;
-	        int prev=nums[0];
+			int avoid=0;
+	        int using=nums[0];
 	        int max=nums[0];
-			for(int i=2;i<=n;i++) {
-				max= Math.max(prev,prev1+nums[i-1]);
-	            prev1=prev;
-	            prev=max;
+			for(int i=1;i<n;i++) {
+				max= Math.max(using,avoid+nums[i]);
+	            avoid=using;
+	            using=max;
 			}
 			return max;
 	    }

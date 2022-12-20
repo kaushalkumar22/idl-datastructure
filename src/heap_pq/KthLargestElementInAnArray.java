@@ -15,10 +15,24 @@ import java.util.Random;
 public class KthLargestElementInAnArray {
 
 	public static void main(String[] args) {
-		int[] nums = {3,2,1,5,6,4};
+		int[] nums = {3,2,3,1,2,4,5,5,6};
 		System.out.println(Arrays.toString(nums));
-		System.out.println(findKthLargestElement(nums,2));
+		System.out.println(findKthLargest1(nums,2));
 		System.out.println(findKthLargestElementOpt(nums,2));
+	}
+	public static int findKthLargest1(int[] nums, int k) {
+		int max  = Integer.MIN_VALUE;
+		int max2 = Integer.MIN_VALUE;
+		for(int num :nums){
+			if(num>max){
+				max2 = max;
+				max = num;
+			}else if(num!=max&&num>max2){
+				max2 = num;
+			}
+
+		}
+		return max2;
 	}
 	 public int findKthLargest(int[] nums, int k) {
 		 

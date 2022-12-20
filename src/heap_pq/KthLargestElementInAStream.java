@@ -27,26 +27,20 @@ public class KthLargestElementInAStream {
 		int k = 3;
 	}
 
+	private PriorityQueue<Integer> pq ;
 	private int k;
-	private PriorityQueue<Integer> pq;
 	public KthLargestElementInAStream(int k, int[] nums) {
-		this.k = k;
-		pq = new PriorityQueue<>();
-		for(int num: nums){
-			pq.add(num);
+		this.k=k;
+		pq =new PriorityQueue<>();
+		for(int num : nums){
+			add(num);
 		}
 	}
-
 	public int add(int val) {
 		pq.add(val);
-		pop();
+		if(pq.size()>k){
+			pq.poll();
+		}
 		return pq.peek();
 	}
-	public void pop(){
-		while(pq.size() > k){
-			pq.remove();
-		}
-	}
 }
-
-

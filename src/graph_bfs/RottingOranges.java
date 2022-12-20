@@ -24,8 +24,44 @@ import java.util.Queue;
 public class RottingOranges {
 	public static void main(String[] args) {
 		int[][] grid = {{2,1,1},{1,1,0},{0,1,1}};
-		System.out.println(new RottingOranges().orangesRotting(grid));
+		System.out.println(new RottingOranges().orangesRotting1(grid));
 
+	}
+	public int orangesRotting1(int[][] grid) {
+		int freshOrange  = 0;
+		int row = grid.length;
+		int col = grid[0].length;
+		Queue<int[]> que = new LinkedList<>();
+
+		for(int i=0;i< row ;i++){
+			for(int j=0;j<col;j++){
+				if(grid[i][j] == 2){
+					que.add( new int[]{i,j});
+				}
+				if(grid[i][j] == 1){
+					freshOrange ++;
+				}
+			}
+		}
+		int count = 0;
+		int[][] dirs = {{1,0},{-1,0},{0,1},{0,-1}};
+		while(!que.isEmpty()){
+			int size = que.size();
+			for(int i = 0;i< size ; i++){
+				int[]  curr = que.poll();
+				if(freshOrange==0) return count;
+				for(int[] dir : dirs){
+					int x = curr[0] + dir[0];
+					int y = curr[1] + dir[1];
+					if(!isValid(grid,x,y) )continue;
+					que.add( new int[]{x,y});
+					grid[x][y] = 2 ;
+					freshOrange -- ;
+				}
+			}
+			count++;
+		}
+		return freshOrange != 0 ? -1 : count;
 	}
 	public int orangesRotting(int[][] grid) {
 		int row =grid.length;
@@ -67,7 +103,7 @@ public class RottingOranges {
 		return freshCount==0?count-1:-1;
 	}
 	boolean isValid(int[][] grid ,int x ,int y){
-		if(x<0||y<0||x>grid.length-1||y>grid[0].length-1||grid[x][y]==0||grid[x][y]==2){
+		if(x<0||y<0||x>grid.length-1||y>grid[0].length-1||grid[x][y]==0||grid[x][y]!=1){
 			return false;
 		}
 		return true;

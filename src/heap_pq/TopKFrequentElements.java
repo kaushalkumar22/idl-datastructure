@@ -10,7 +10,7 @@ import java.util.TreeMap;
 
 /**
  * Given an integer array nums and an integer k, return the k most frequent elements. You may return the answer in any order.
- *  Input: nums = [1,1,1,2,2,3], k = 2
+ *Input: nums = [1,1,1,2,2,3], k = 2
  * Output: [1,2]
  * Input: nums = [1], k = 1
  * Output: [1]
@@ -20,7 +20,7 @@ public class TopKFrequentElements {
 	{
 		TopKFrequentElements solution = new TopKFrequentElements();
 
-		int[] array = {1,2,2,2,2,3,3,3,4,4,4,5,6,6,6};
+		int[] array = {1,2,2,2,2,3,3,4,4,4,5,6,6,6};
 
 		int n = 3;
 		System.out.println("Nth most frequent number is:\n" + solution.topKFrequent(array, n));
@@ -28,8 +28,26 @@ public class TopKFrequentElements {
 		System.out.println("Nth most frequent number is:\n" + solution.topKFrequent2(array, n));
 
 	}
-	//Java O(n) Solution - Bucket Sort
 	public List<Integer> topKFrequent(int[] nums, int k) {
+		Map<Integer,Integer> freq = new HashMap<>();
+		for(int num :nums){
+			freq.put(num,freq.getOrDefault(num,0)+1);
+		}
+		PriorityQueue<Integer> pq = new PriorityQueue<>((a,b)->freq.get(a)-freq.get(b));
+		for(Integer key : freq.keySet()){
+			pq.add(key);
+			if(pq.size()>k){
+				pq.poll();
+			}
+		}
+		List<Integer> res = new ArrayList<>();
+		while(!pq.isEmpty()){
+			res.add(0,pq.poll());
+		}
+		return res;
+	}
+	//Java O(n) Solution - Bucket Sort
+	public List<Integer> topKFrequent5(int[] nums, int k) {
 		// freq map
 		Map<Integer, Integer> freq = new HashMap<Integer, Integer>();
 		for (int n : nums) {
