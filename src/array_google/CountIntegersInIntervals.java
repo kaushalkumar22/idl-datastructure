@@ -1,8 +1,6 @@
 package array_google;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.PriorityQueue;
+import java.util.*;
 
 /**
  * Given an empty set of intervals, implement a data structure that can:
@@ -54,36 +52,46 @@ import java.util.PriorityQueue;
 public class CountIntegersInIntervals {
     public static void main(String[] args) {
         CountIntegersInIntervals countIntervals = new CountIntegersInIntervals(); // initialize the object with an empty set of intervals.
-        countIntervals.add(2, 3);  // add [2, 3] to the set of intervals.
-        countIntervals.add(7, 10); // add [7, 10] to the set of intervals.
+        countIntervals.add(39, 44);  // add [2, 3] to the set of intervals.
+        countIntervals.add(13, 49); // add [7, 10] to the set of intervals.
         System.out.println( countIntervals.count()); // return 6
         // the integers 2 and 3 are present in the interval [2, 3].
         // the integers 7, 8, 9, and 10 are present in the interval [7, 10].
-        countIntervals.add(5,8);  // add [5, 8] to the set of intervals.
+        countIntervals.add(47,50);  // add [5, 8] to the set of intervals.
         System.out.println( countIntervals.count());    // return 8
     }
 
     private List<int[]> intervals ;
     private int integersCount = 0;
     public CountIntegersInIntervals() {
+
         intervals = new ArrayList<>();
     }
     //[[],[],[39,44],[13,49],[],[],[47,50]]
     public void add(int left, int right) {
-        if(intervals.isEmpty()|| intervals.get(intervals.size()-1)[1]<left){
-            intervals.add(new int[]{left,right});
-            integersCount += (right-left +1);
-        }else{
-
-            for(int[] in : intervals){
-                if(in[1]>=right){
-                    int tempCount = in[1]-in[0]+1;
-                    in[0] = Math.min(in[0],left);
-                    in[1] = Math.max(in[1],right);
-                    integersCount += (in[1]-in[0] +1)-tempCount;
+        int[] newInterval ={left,right};
+        integersCount=0;
+        List<int[]> res = new ArrayList<>();
+        for(int i=0;i<intervals.size();i++){
+            int[] interval =intervals.get(i);
+            if(interval[1]<newInterval[0]){
+                res.add(interval);
+                integersCount += (interval[1]-interval[0] +1);
+            }else if(interval[0]>newInterval[1]){
+                res.add(newInterval);
+                integersCount += (newInterval[1]-newInterval[0] +1);
+                while(i++<intervals.size()){
+                    integersCount += (intervals.get(i)[1]-intervals.get(i)[0] +1);
+                    res.add(intervals.get(i));
                 }
+            }else {
+                newInterval[0] = Math.min(interval[0],newInterval[0]);
+                newInterval[1] = Math.max(interval[1],newInterval[1]);
             }
         }
+        res.add(newInterval);
+        integersCount += (newInterval[1]-newInterval[0] +1);
+        intervals = res;
     }
 
     public int count() {
