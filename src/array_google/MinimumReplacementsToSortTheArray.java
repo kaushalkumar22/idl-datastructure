@@ -26,7 +26,7 @@ package array_google;
  *
  * if current no is divisible by the previous number and suppose
  * current no is a, and prev no is b,
- * the we must need to divide current number(a) to a/b-1 times
+ * then we must need to divide current number(a) to a/b-1 times
  *
  * suppose current number is 9 and previous number is 3,
  * then we can divide it into 9/3 times-1,
@@ -63,7 +63,7 @@ public class MinimumReplacementsToSortTheArray {
         System.out.println(minimumReplacement( nums));
     }
     public static long minimumReplacement(int[] nums) {
-        int n=nums.length , prev=nums[n-1];;
+        int n = nums.length , prev = nums[n-1];;
         long ans=0;
         for(int i=n-2;i>=0;i--){
             int noOfTime = nums[i]/prev;

@@ -26,6 +26,24 @@ public class DecodeWays {
 	public static void main(String[] args) {
 
 		System.out.println( numDecodings( "2611055971756562") );
+		System.out.println( numDecodings2( "226") );
+	}
+	static int numDecodings2(String s) {
+		int n = s.length();
+		int T[] = new int[n+1];
+		if (s.charAt(n - 1) != '0') T[n - 1] = 1;
+		for (int i = n - 2; i >= 0; i--) {
+			int c1 = s.charAt(i) - '0';
+			int c2 = s.charAt(i+1) - '0';
+			if (c1 != 0 ) {
+				T[i] =  T[i + 1];
+			}
+			int second =c1 * 10 + c2;
+			if(second>=10 && second <= 26){
+				T[i] += T[i+1]+T[i +2];
+			}
+		}
+		return T[0];
 	}
 	public static int numDecodings(String s) {
 		int n=s.length();
@@ -45,7 +63,7 @@ public class DecodeWays {
 
 
 
-	public static int numDecodings2(String s) {
+	public static int numDecodings3(String s) {
 		if (s == null || s.length() == 0) {
 			return 0;
 		}
