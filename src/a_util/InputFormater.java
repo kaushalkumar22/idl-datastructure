@@ -2,7 +2,7 @@ package a_util;
 
 public class InputFormater {
     public static void main(String[] args) {
-        String s ="intervals = [[1,2],[3,5],[6,7],[8,10],[12,16]], newInterval = [4,8]";
+        String s =" [[0,2,0],[1,0,1],[3,0,3],[4,1,2],[7,3,1]], n = 4";
         s = s.replace("[","{").replace("]","}").replace("\"","'");
         System.out.println(s);
     }

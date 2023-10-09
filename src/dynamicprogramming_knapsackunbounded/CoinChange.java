@@ -21,9 +21,25 @@ public class CoinChange {
 
 	public static void main(String args[]) {
 
-		int amount = 11;
-		int coins[] = { 5,2,1 };
+		int amount = 3;
+		int coins[] = { 5};
 		System.out.println("Total ways: " + coinChange(coins,amount));
+		System.out.println("Total ways: " + coinChangeRec(coins,0,coins.length,amount));
+	}
+	public static int coinChangeRec(int[] coins, int i ,int n,int amount) {
+
+		if(amount==0) return 0 ;
+
+		if(i==n) return Integer.MAX_VALUE-1;
+
+		int res = -1;
+		if(amount>= coins[i]){
+			res = Math.min(1+coinChangeRec(coins,  i , n, amount-coins[i]),coinChangeRec(coins,  i+1 , n, amount));
+		}else{
+			res = coinChangeRec(coins,  i+1 , n, amount);
+		}
+
+		return res;
 	}
 
 	public static int coinChange(int[] coins, int amount) {

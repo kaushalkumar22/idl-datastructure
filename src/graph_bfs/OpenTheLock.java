@@ -61,8 +61,10 @@ public class OpenTheLock {//BFS
 
 				for(int j= 0;j<4;j++){
 					char c = curr.charAt(j);
-					String forward  =  curr.substring(0,j) + (c =='9' ? 0 :c -'0'+1) + curr.substring(j+1);
-					String backward =  curr.substring(0,j) + (c =='0' ? 9 :c -'0' -1) + curr.substring(j+1);
+					String backward = curr.substring(0,j) + (c=='0' ?  '9' :( c-'0'-1)) + curr.substring(j+1,4);
+					String forward = curr.substring(0,j) + (c=='9' ? '0' :( c-'0'+1)) + curr.substring(j+1,4);
+					//String forward  =  curr.substring(0,j) + (c =='9' ? '0' :c -'0'+1) + curr.substring(j+1);
+					//String backward =  curr.substring(0,j) + (c =='0' ? '9' :c -'0' -1) + curr.substring(j+1);
 					if(!deads.contains(forward)&&!visited.contains(forward)){
 						que.add(forward);
 						visited.add(forward);

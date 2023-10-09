@@ -7,6 +7,9 @@ import java.util.Map;
 
 public class LetterCombinations {
     public static void main(String[] args) {
+        String text = "098q7654";
+        String regex = "\\d+";
+        System.out.println(text.matches(regex));
         System.out.println(letterCombinations("23"));
     }
     public static List<String> letterCombinations(String digits) {

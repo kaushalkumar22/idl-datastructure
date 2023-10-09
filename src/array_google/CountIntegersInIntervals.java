@@ -52,6 +52,7 @@ import java.util.*;
 public class CountIntegersInIntervals {
     public static void main(String[] args) {
         CountIntegersInIntervals countIntervals = new CountIntegersInIntervals(); // initialize the object with an empty set of intervals.
+<<<<<<< HEAD
         countIntervals.add(39, 44);  // add [2, 3] to the set of intervals.
         System.out.println(countIntervals.count()); // return 6
         // the integers 2 and 3 are present in the interval [2, 3].
@@ -86,3 +87,36 @@ public class CountIntegersInIntervals {
         return intCount;
     }
 }
+=======
+        countIntervals.add(39, 44);
+        countIntervals.add(13, 49);
+        System.out.println( countIntervals.count());
+        countIntervals.add(47,50);
+       // countIntervals.add(11, 11);
+        System.out.println( countIntervals.count());
+    }
+    private TreeMap<Integer,Integer> intervals;
+    private int count ;
+    public CountIntegersInIntervals(){
+        intervals = new TreeMap<>();
+    }
+
+    public void add(int left ,int right){
+        Integer currLeft = intervals.floorKey(right);
+        while(currLeft!= null && intervals.get(currLeft)>=left){
+            int currRight = intervals.get(currLeft);
+            intervals.remove(currLeft);
+            count -= (currRight-currLeft+1);
+            left  = Math.min(left,currLeft);
+            right = Math.max(right,currRight);
+            currLeft = intervals.floorKey(right);
+        }
+        intervals.put(left,right);
+        count += (right-left+1);
+    }
+   public int count(){
+       return count;
+    }
+
+}
+>>>>>>> 8a047339a54026e2e27a7b38d9ad047d99d1d6b7

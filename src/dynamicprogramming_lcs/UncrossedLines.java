@@ -1,7 +1,8 @@
 package dynamicprogramming_lcs;
 
 /**
- * You are given two integer arrays nums1 and nums2. We write the integers of nums1 and nums2 (in the order they are given) on two separate horizontal lines.
+ * You are given two integer arrays nums1 and nums2. We write the integers of nums1 and nums2 (in the order they are given) on two
+ * separate horizontal lines.
  * We may draw connecting lines: a straight line connecting two numbers nums1[i] and nums2[j] such that:
  * 	• nums1[i] == nums2[j], and
  * 	• the line we draw does not intersect any other connecting (non-horizontal) line.

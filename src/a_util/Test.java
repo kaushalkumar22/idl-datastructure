@@ -8,8 +8,16 @@ public class Test {
     public static void main(String[] args) {
         String t= "cycle";
         System.out.println(minStep( "BAAABAB"));//ABBBABA
+
+
         System.out.println(solution( "abacdec"));
+        String initLoadMode ="BEGINNING";
+        MDFEventsInitLoadMode mode = initLoadMode.equals(MDFEventsInitLoadMode.BEGINNING.name()) ? MDFEventsInitLoadMode.BEGINNING : MDFEventsInitLoadMode.RESUME;
+
+        System.out.println(mode);
+
     }
+
     //BAAABAB
     public  static int minStep(String S) {
 
@@ -44,4 +52,7 @@ public class Test {
         nums[i]=nums[j];
         nums[j]=c;
     }
+}
+enum MDFEventsInitLoadMode {
+    BEGINNING,RESUME;
 }
