@@ -7,8 +7,12 @@
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
         <module name="lld-systemdesign" />
-        <module name="lld-designpattern" />
+        <module name="ood-designpattern" />
+        <module name="ood-javastream" />
       </profile>
     </annotationProcessing>
+    <bytecodeTargetLevel>
+      <module name="lld-designpattern" target="16" />
+    </bytecodeTargetLevel>
   </component>
 </project>

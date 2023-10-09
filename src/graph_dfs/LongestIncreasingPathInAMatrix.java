@@ -1,7 +1,9 @@
 package graph_dfs;
 
 import java.util.ArrayList;
+import java.util.LinkedList;
 import java.util.List;
+import java.util.Queue;
 
 /**
  * Given an m x n integers matrix, return the length of the longest increasing path in matrix.
@@ -25,44 +27,56 @@ import java.util.List;
  *
  * Input: matrix = [[1]]
  * Output: 1
+ * [7,8,9],
+ * [9,7,6],
+ * [7,2,3]]
  */
 public class LongestIncreasingPathInAMatrix {
 	public static void main(String[] args) {
-		int[][] matrix = {{9,9,4},{6,6,8},{2,1,1}};
+		int[][] matrix = {{7,8,9},{9,7,6},{7,2,3}};
 		System.out.println(new LongestIncreasingPathInAMatrix().longestIncreasingPath( matrix));
 	}
 
-	public static final int[][] dirs = {{0, 1}, {1, 0}, {0, -1}, {-1, 0}};
-
 	public int longestIncreasingPath(int[][] matrix) {
-		int row = matrix.length;
-		int col = matrix[0].length;
-		int[][] visited = new int[row][col];
-		int max =0;
-		for (int i=0;i<row;i++){
-			for(int j=0;j<col;j++){
-				max=Math.max(max,dfs(matrix,i,j,visited));
-
+		if(matrix.length == 0) return 0;
+		int m = matrix.length, n = matrix[0].length;
+		int max = 1;
+		for(int i = 0; i < m; i++) {
+			for(int j = 0; j < n; j++) {
+				int len = bfs(matrix, i, j);
+				max = Math.max(max, len);
 			}
 		}
 		return max;
 	}
 
-	private int dfs(int[][] matrix, int i, int j, int[][] visited) {
-		if(visited[i][j]!=0) return visited[i][j];
-		int max=1;
-		for (int[] dir :dirs){
-			int x =i+dir[0];
-			int y =j+dir[1];
-			if(x<0||y<0||x>=matrix.length||y>=matrix[0].length||matrix[i][j]>=matrix[x][y]){
-				continue;
+	public int bfs(int[][] matrix, int i, int j) {
+
+		Queue<int[]> que = new LinkedList<>();
+		que.add(new int[]{i,j});
+		int[][] dirs = {{0, 1}, {1, 0}, {0, -1}, {-1, 0}};
+		int count = 0;
+		boolean[][] visited = new boolean[matrix.length][matrix[0].length];
+		while(!que.isEmpty()){
+			count++;
+			int n = que.size();
+			for(int k =0 ;k<n;k++){
+				int[] curr = que.poll();
+				for(int[] dir: dirs) {
+					int x = curr[0] + dir[0], y = curr[1] + dir[1];
+					if(!isValid(matrix,curr[0],curr[1],x,y)) continue;
+					//visited[x][y] = true;
+					que.add(new int[]{x,y});
+				}
 			}
-			max=Math.max(1+dfs(matrix,x,y,visited),max);
 		}
-		visited[i][j]=max;
-		return max;
+		return count;
 	}
+	private boolean isValid(int[][] matrix, int i, int j, int x, int y){
+		if(x < 0 || x >= matrix.length || y < 0 || y >= matrix[0].length || matrix[x][y] <= matrix[i][j]) {
+			return false;
+		}
 
-
+		return true;
+	}
 }
-

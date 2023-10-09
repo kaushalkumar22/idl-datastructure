@@ -45,7 +45,9 @@ public class GroupAnagrams {
 	public static void main(String[] args) {
 		 String[] strs = { "eat", "tea", "tan", "ate", "nat", "bat" };
 		//String[] strs = { "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa", "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa" };
-
+		for( char j = 'a' ;j<='z';j++){
+             System.out.println(j);
+		}
 		System.out.println(groupAnagrams(strs));
 		System.out.println(groupAnagrams2(strs));
 
@@ -78,8 +80,7 @@ public class GroupAnagrams {
 			for (char c : s.toCharArray())
 				ca[c - 'a']++;
 			String keyStr = String.valueOf(ca);
-			if (!map.containsKey(keyStr))
-				map.put(keyStr, new ArrayList<>());
+			map.put(keyStr,map.getOrDefault(keyStr,new ArrayList<String>()));
 			map.get(keyStr).add(s);
 		}
 		return new ArrayList<>(map.values());

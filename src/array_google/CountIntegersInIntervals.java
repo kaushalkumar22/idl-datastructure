@@ -53,53 +53,36 @@ public class CountIntegersInIntervals {
     public static void main(String[] args) {
         CountIntegersInIntervals countIntervals = new CountIntegersInIntervals(); // initialize the object with an empty set of intervals.
         countIntervals.add(39, 44);  // add [2, 3] to the set of intervals.
-        countIntervals.add(13, 49); // add [7, 10] to the set of intervals.
-        System.out.println( countIntervals.count()); // return 6
+        System.out.println(countIntervals.count()); // return 6
         // the integers 2 and 3 are present in the interval [2, 3].
         // the integers 7, 8, 9, and 10 are present in the interval [7, 10].
-        countIntervals.add(47,50);  // add [5, 8] to the set of intervals.
-        System.out.println( countIntervals.count());    // return 8
-    }
+        countIntervals.add(47, 50);  // add [5, 8] to the set of intervals.
+        countIntervals.add(13, 49); // add [7, 10] to the set of intervals.
 
-    private List<int[]> intervals ;
-    private int integersCount = 0;
-    public CountIntegersInIntervals() {
-
-        intervals = new ArrayList<>();
+        System.out.println(countIntervals.count());    // return 8
     }
-    //[[],[],[39,44],[13,49],[],[],[47,50]]
+    TreeMap<Integer, Integer> intervalTreeMap;
+    public CountIntegersInIntervals (){
+        intervalTreeMap = new TreeMap<>();
+    }
+    int intCount = 0;
+
     public void add(int left, int right) {
-        int[] newInterval ={left,right};
-        integersCount=0;
-        List<int[]> res = new ArrayList<>();
-        for(int i=0;i<intervals.size();i++){
-            int[] interval =intervals.get(i);
-            if(interval[1]<newInterval[0]){
-                res.add(interval);
-                integersCount += (interval[1]-interval[0] +1);
-            }else if(interval[0]>newInterval[1]){
-                res.add(newInterval);
-                integersCount += (newInterval[1]-newInterval[0] +1);
-                while(i<intervals.size()){
-                    integersCount += (intervals.get(i)[1]-intervals.get(i)[0] +1);
-                    res.add(intervals.get(i));
-                    i++;
-                }
-            }else {
-                integersCount -= (interval[1]-interval[0] +1);
-                newInterval[0] = Math.min(interval[0],newInterval[0]);
-                newInterval[1] = Math.max(interval[1],newInterval[1]);
-            }
+        Integer floor = intervalTreeMap.floorKey(right);
+        while(floor!=null && intervalTreeMap.get(floor)>=left){
+            int smallLeft = floor;
+            int smallRight = intervalTreeMap.get(floor);
+            intCount -= (smallRight-smallLeft+1);
+            left = Math.min(left,floor);
+            right = Math.max(right,smallRight);
+            intervalTreeMap.remove(smallLeft);
+            floor = intervalTreeMap.floorKey(right);
         }
-        res.add(newInterval);
-        integersCount += (newInterval[1]-newInterval[0] +1);
-        intervals = res;
+        intervalTreeMap.put(left,right);
+        intCount += (right-left+1);
     }
-
 
     public int count() {
-        return integersCount;
+        return intCount;
     }
-
-
 }

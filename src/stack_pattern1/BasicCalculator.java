@@ -37,7 +37,7 @@ public class BasicCalculator {
 		System.out.println(calculate( s));
 	}
 	public static int calculate(String s) {
-		Stack<Integer> stack = new Stack<Integer>();
+		Stack<Integer> stack = new Stack<>();
 		int result = 0;
 		int number = 0;
 		int sign = 1;

@@ -17,6 +17,7 @@ package array_google;
  * Output: 0
  * Explanation: The array is already in non-decreasing order. Therefore, we return 0.
  *
+ *[12,9,7,6,17,19,21] O/P =6
  * Constraints:
  *     1 <= nums.length <= 105
  *     3,9,3
@@ -37,7 +38,7 @@ package array_google;
  * so we can divide 7 into
  * 2 ,5
  * 3, 4
- * out of this 3,4 is best choice ,
+ * out of this 3,4 is the best choice ,
  *
  * and for every element we have to add noOfTime to our ans,
  * i.e, no of times we need to divide a current element,
@@ -76,3 +77,4 @@ public class MinimumReplacementsToSortTheArray {
         return ans;
     }
 }
+

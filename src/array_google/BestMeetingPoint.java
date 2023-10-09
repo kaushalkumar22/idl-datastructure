@@ -65,27 +65,34 @@ import java.util.stream.Collectors;
  */
 public class BestMeetingPoint {
     public static void main(String[] args) {
-      //  int[][] grid = {
-         //       {1, 0, 0, 0, 1},
-          //      {0, 0, 0, 0, 0},
-          //      {0, 0, 1, 0, 0}};
-        int[][] grid = {{1, 0, 1, 0, 1},
+        int[][] grid = {
+                {1, 0, 0, 0, 1},
+               {0, 0, 0, 0, 0},
+               {0, 0, 1, 0, 0}};
+        /*int[][] grid = {{1, 0, 1, 0, 1},
                 {0, 1, 0, 0, 0},
-                {0, 1, 1, 0, 0}};
+                {0, 1, 1, 0, 0}};*/
         new BestMeetingPoint().minTotalDistance(grid);
     }
     public int minTotalDistance(int[][] grid) {
 
         List<Integer> xs = new ArrayList<>();
         List<Integer> ys = new ArrayList<>();
+        int count =0;
+        int xSum = 0;
+        int ySum = 0;
         for (int i=0;i<grid.length;i++){
             for(int j=0;j<grid[0].length;j++){
                 if(grid[i][j]==1){
                     xs.add(i);
                     ys.add(j);
+                    xSum+=i;
+                    ySum+=j;
+                    count++;
                 }
             }
         }
+        System.out.println(xSum/count+" "+ySum/count );
         int xMedian = xs.stream().collect(Collectors.summingInt(Integer::intValue))/xs.size();
         int yMedian = ys.stream().collect(Collectors.summingInt(Integer::intValue))/ys.size();
         int dis=0;

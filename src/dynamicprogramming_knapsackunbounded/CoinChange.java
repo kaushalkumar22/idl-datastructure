@@ -25,6 +25,7 @@ public class CoinChange {
 		int coins[] = { 5,2,1 };
 		System.out.println("Total ways: " + coinChange(coins,amount));
 	}
+
 	public static int coinChange(int[] coins, int amount) {
 		int[] dp = new int[amount + 1];
 		Arrays.fill(dp, amount + 1);

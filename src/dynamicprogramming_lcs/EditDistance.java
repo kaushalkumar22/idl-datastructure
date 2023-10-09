@@ -1,5 +1,7 @@
 package dynamicprogramming_lcs;
 
+import java.util.TreeMap;
+
 /**
  * 
  * Given two words word1 and word2, find the minimum number of operations
@@ -24,12 +26,39 @@ package dynamicprogramming_lcs;
 public class EditDistance {
 
 	public static void main(String args[]) {
+		TreeMap<Integer,Integer> map;
 		String str1 = "azced";
 		String str2 = "abcdef";
 		int result = minDistance1(str1, str2);
 		System.out.println("Minimum Edit Distance: " + result);
 		System.out.println(minDistance(str1, str2));
+		System.out.println(minDistanceRec(str1, str2));
 	}
+	public static int minDistanceRec(String s1, String s2) {
+		return dfs(s1,s2,0,0);
+	}
+
+	private static int dfs(String s1, String s2, int i, int j) {
+		if(s1.length()==0) return s2.length();
+		if(s2.length()==0) return s1.length();
+		if (s1.length() == i) {
+			return s2.length() - j;
+		}
+		if (s2.length() == j) {
+			return s1.length() - i;
+		}
+		int res;
+		if(s1.charAt(i)==s2.charAt(j)){
+			res = dfs(s1,s2,i+1,j+1);
+		}else {
+			int insert = dfs(s1,s2,i,j+1);
+			int delete = dfs(s1,s2,i+1,j);
+			int replace = dfs(s1,s2,i+1,j+1);
+			res = Math.min(insert, Math.min(delete,replace))+1;
+		}
+		return res;
+	}
+
 	/**
 	 * Uses bottom up DP to find the edit distance
 	 */

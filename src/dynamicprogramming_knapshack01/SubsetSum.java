@@ -19,15 +19,29 @@ package dynamicprogramming_knapshack01;
  */
 public class SubsetSum {
 	public static void main(String args[]) {
-		int nums[] = {1, 2, 3, 5};
-		int s=12;
+		int nums[] = {2, 3, 7, 8,10};
+		//int nums[] = {1, 2, 3, 5};
+		int s=15;
 		System.out.print(subsetSum(nums, s));
 		System.out.print(subsetSumOpt(nums, s));
-
-		System.out.print(subsetSumRec(nums, s,nums.length));
+		System.out.print(subsetSumRec(nums, s,0,nums.length));
 
 	}
-	public static boolean subsetSumRec(int nums[], int s,int n) {
+	public static boolean subsetSumRec(int nums[], int s,int i ,int n) {
+
+		if (s == 0)
+			return true;
+		if (i==n )
+			return false;
+
+        boolean res = false;
+
+		if(nums[i]<=s) {
+			res = subsetSumRec(nums, s - nums[i], i + 1, n) || subsetSumRec(nums, s, i + 1, n);
+		}
+		return res;
+	}
+	public static boolean subsetSumRec1(int nums[], int s,int n) {
 
 		if (s == 0)
 			return true;
@@ -35,9 +49,9 @@ public class SubsetSum {
 			return false;
 
 		if(nums[n-1]<=s) {
-			return subsetSumRec(nums, s-nums[n-1], n-1)||subsetSumRec(nums, s,n-1);
+			return subsetSumRec1(nums, s-nums[n-1], n-1)||subsetSumRec1(nums, s,n-1);
 		}else {
-			return subsetSumRec(nums,s,n-1);
+			return subsetSumRec1(nums,s,n-1);
 		}
 	}
 
@@ -63,12 +77,12 @@ public class SubsetSum {
 	}
 	public static boolean subsetSumOpt(int nums[], int s) {
 
-		int n=nums.length;
+		int n = nums.length;
 		boolean[] dp= new boolean[s+1];
-		dp[0]=true;
-		for(int i=1;i<=n;i++) {
-			for(int j=s;j<=nums[i-1];j++) {	
-				dp[j]=dp[j-nums[i-1]]||dp[j];	
+		dp[0] = true;
+		for(int num:nums){
+			for(int i=s;i>=num;i--) {
+					dp[i] =dp[i-num]|| dp[i];
 			}
 		}
 		return dp[s];
