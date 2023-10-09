@@ -47,7 +47,8 @@ public class BinarySearchTreeIterator {
 	}
 	Stack<TreeNode> st = new Stack<TreeNode>();
 	public BinarySearchTreeIterator(TreeNode root) {
-		addAll(root);	
+
+		addAll(root);
 	}
 
 	private Stack<TreeNode> addAll(TreeNode root) {
@@ -68,6 +69,7 @@ public class BinarySearchTreeIterator {
 
 	/** @return whether we have a next smallest number */
 	public boolean hasNext() {
+
 		return st.size()>0?true:false;
 	}
 }

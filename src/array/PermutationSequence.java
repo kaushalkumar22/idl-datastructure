@@ -29,7 +29,7 @@ import java.util.ArrayList;
 public class PermutationSequence {
 	public static void main(String[] args) {
 
-        System.out.println(getPermutation(4,14));
+        System.out.println(getPermutation(3,6));
 	}
 	public static String getPermutation(int n, int k) {
         StringBuilder sb = new StringBuilder();
@@ -40,12 +40,11 @@ public class PermutationSequence {
             num.add(i);
         }
         k=k-1;
-        while(n>0){
-            fact =fact/n; //
+        for(int i =0;i<n;i++){
+            fact =fact/(n-i); //
             int index = k/fact;
             sb.append(num.remove(index));
             k = k- index * fact;
-            n--;
         }
         return sb.toString();
     }

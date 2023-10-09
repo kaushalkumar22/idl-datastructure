@@ -26,10 +26,27 @@ import java.util.Arrays;
 public class PartitionEqualSubsetSum {
 
 	public static void main(String[] args) {
-		int[] nums= {1, 5, 11, 5};
+		int[] nums= {1, 5, 11, 6};
 		System.out.println(canPartition(nums));
-	//	System.out.println(canPartitionOPt(nums));
+		System.out.println(canPartitionRec(nums));
 
+	}
+	public static boolean canPartitionRec(int[] nums) {
+		int sum = Arrays.stream(nums).sum();
+		if(sum%2 != 0) return false;
+		int s = sum/2;
+		int n = nums.length;
+		return canPartition(nums,s,0,n);
+	}
+	private static boolean canPartition(int[] nums,int s,int i,int n){
+
+		if(s==0) return true;
+		if(i==n) return false;
+		if(nums[i]<= s){
+			return canPartition(nums,s-nums[i],i+1,n) ||canPartition(nums,s,i+1,n);
+		}else{
+			return canPartition(nums,s,i+1,n);
+		}
 	}
 	public static boolean canPartition(int[] nums) {
 		int n=nums.length;

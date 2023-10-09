@@ -38,7 +38,7 @@ public class MeetingRoomII {
 		Arrays.sort(intervals, (a,b) -> Integer.compare(a[0], b[0]));
 
 		// to store end time of each meeting, smaller value will be at the peek()
-		PriorityQueue<Integer> heap = new PriorityQueue<Integer>();
+		PriorityQueue<Integer> heap = new PriorityQueue<>();
 
 		// start with the first meeting, put it to a meeting room
 		int count = 1;

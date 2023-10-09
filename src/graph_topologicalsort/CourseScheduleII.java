@@ -10,15 +10,17 @@ import java.util.Map;
 import java.util.Queue;
 import java.util.Set;
 /**
- * 
-There are a total of numCourses courses you have to take, labeled from 0 to numCourses - 1. You are given an array prerequisites where prerequisites[i] = [ai, bi] indicates that you must take course bi first if you want to take course ai.
-For example, the pair [0, 1], indicates that to take course 0 you have to first take course 1.
-Return the ordering of courses you should take to finish all courses. If there are many valid answers, return any of them.
+ *
+ There are a total of numCourses courses you have to take, labeled from 0 to numCourses - 1.
+ You are given an array prerequisites where prerequisites[i] = [ai, bi]
+ indicates that you must take course bi first if you want to take course ai.
+ For example, the pair [0, 1], indicates that to take course 0 you have to first take course 1.
+ Return the ordering of courses you should take to finish all courses. If there are many valid answers, return any of them.
  If it is impossible to finish all courses, return an empty array.
 
-Input: numCourses = 2, prerequisites = [[1,0]]
-Output: [0,1]
-Explanation: There are a total of 2 courses to take. To take course 1 you should have finished course 0.
+ Input: numCourses = 2, prerequisites = [[1,0]]
+ Output: [0,1]
+ Explanation: There are a total of 2 courses to take. To take course 1 you should have finished course 0.
  So the correct course order is [0,1].
  *
  */
@@ -31,43 +33,40 @@ public class CourseScheduleII {
 	}
 
 	public  int[]  findOrder(int numCourses, int[][] prerequisites) {
-		//if(prerequisites.length==0) return new int[];
-		Map<Integer,List<Integer>> adjMap = new HashMap<>();
-		 Set<Integer> visited =new HashSet<>();
-		 Set<Integer> cycle =new HashSet<>();
 
-		for (int i=0;i<numCourses;i++) {
-			adjMap.put(i, new ArrayList<Integer>());					
-		}
-		for (int[] pre : prerequisites) {	
-			if(pre.length==0)continue;
-			adjMap.get(pre[0]).add(pre[1]);			
-		}
+		Map<Integer,List<Integer>> adjMap = getAdjMap( numCourses, prerequisites);
+		Set<Integer> visited =new HashSet<>();
 		List<Integer> res = new ArrayList<>();
 		for (int i = 0 ; i < numCourses; i++) {
-			if (!dfs(i, adjMap,res,visited,cycle)) {
+			if (!dfs(i, adjMap,res,visited,new HashSet<>())) {
 				return  new int[] {};
 			}
 		}
-		int[] array = new int[res.size()];
-		for(int i = 0; i < res.size(); i++)
-			array[i] = res.get(i);
-		return array;
+		return  res.stream().mapToInt(i -> i).toArray();
 	}
 
 	private  boolean dfs(int course, Map<Integer, List<Integer>> adjMap,
-			List<Integer> res,Set<Integer> visited,Set<Integer> cycle) {
+						 List<Integer> res,Set<Integer> visited,Set<Integer> cycle) {
 
 		if(cycle.contains(course)) return false;
 		if(visited.contains(course)) return true;
 		cycle.add(course);
-		for (Integer pre : adjMap.get(course)) {	
+		for (Integer pre : adjMap.get(course)) {
 			if (!dfs(pre, adjMap,res,visited,cycle)) return false;
 		}
-		cycle.remove(course);
 		visited.add(course);
 		res.add(course);
 		return true;
+	}
+	private Map<Integer,List<Integer>> getAdjMap(int numCourses, int[][] prerequisites){
+		Map<Integer,List<Integer>> adjMap = new HashMap<>();
+		for (int i=0;i<numCourses;i++) {
+			adjMap.put(i, new ArrayList<>());
+		}
+		for (int[] pre : prerequisites) {
+			adjMap.get(pre[0]).add(pre[1]);
+		}
+		return adjMap;
 	}
 }
 

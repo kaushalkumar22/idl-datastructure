@@ -8,7 +8,8 @@ import java.util.List;
 import java.util.Map;
 
 /**
- * Given a list of accounts where each element accounts[i] is a list of strings, where the first element accounts[i][0] is a name,
+ * Given a list of accounts where each element accounts[i] is a list of strings, where the first element accounts[i][0]
+ * is a name,
  * and the rest of the elements are emails representing emails of the account.
  *
  * Now, we would like to merge these accounts. Two accounts definitely belong to the same person if there is some common email to
@@ -102,9 +103,9 @@ public class AccountsMerge {
 		}
 		int find(int x){
 			if(x!=parent[x]){
-				parent[x]=find(parent[x]);
+				x=find(parent[x]);
 			}
-			return parent[x];
+			return x;
 		}
 		void union(int a , int b){
 			int p1 =find(a);

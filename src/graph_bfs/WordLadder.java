@@ -62,7 +62,7 @@ public class WordLadder {
 						char[] ch = word.toCharArray();
 						if(ch[j]==c) continue; // if both are same char means same word
 						ch[j]=c; // distinct char replace in char array
-						String next = String.valueOf(ch);
+						String next = new String(ch);
 						//if its in dictionary and not in visited set need to traverse for next
 						if(wordSet.contains(next)&&!visited.contains(next)){
 							visited.add(next);

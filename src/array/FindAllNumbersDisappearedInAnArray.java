@@ -25,13 +25,17 @@ public class FindAllNumbersDisappearedInAnArray {
 		System.out.println(findDisappearedNumbers(new int[] {4,3,2,7,8,2,3,1} ));
 	}
 	public static List<Integer> findDisappearedNumbers(int[] nums) {
-		List<Integer> res = new ArrayList<Integer>();
-		for(int i=0;i<nums.length;i++) {
-			int index = Math.abs(nums[i])-1;
-			nums[index]=-Math.abs(nums[index]);
+		List<Integer> res = new ArrayList<>();
+		for(int i =0;i<nums.length;i++){
+			int index = Math.abs(nums[i]);
+			if(nums[index-1]<0){
+				continue;
+			}else{
+				nums[index-1] = -nums[index-1];
+			}
 		}
-		for(int i=0;i<nums.length;i++) {
-			if(nums[i]>0) {
+		for(int i =0;i<nums.length;i++){
+			if(nums[i]>0){
 				res.add(i+1);
 			}
 		}

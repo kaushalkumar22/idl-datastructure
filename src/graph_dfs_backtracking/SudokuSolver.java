@@ -67,10 +67,10 @@ public class SudokuSolver {
 					}
 					board[row][col] = '.';
 				}
-				return false;
+				//return false;
 			}
 		}
-		return true;
+		return false;
 	}
 
 	private  boolean isValid(char[][] board, int row, int col, char num) {

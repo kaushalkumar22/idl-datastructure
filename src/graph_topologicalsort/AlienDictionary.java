@@ -58,7 +58,7 @@ public class AlienDictionary {
 	public static void main(String[] args) {
 		AlienDictionary ad= new AlienDictionary();
 		//String[] words ={"wrt","wrf","er","ett","rftt"};
-		String[] words ={"z","x"};
+		String[] words ={"z","x","z"};
 		System.out.println(ad.alienOrderDFS(words));
 	}
 	public String alienOrderDFS(String[] words) {
@@ -67,10 +67,10 @@ public class AlienDictionary {
 		buildGraph(words,adjMap);
 		StringBuilder sb = new StringBuilder();
 		Set<Character> visited = new HashSet<>();
-		Set<Character> cycle = new HashSet<>();
+		//Set<Character> cycle = new HashSet<>();
 		
 		for (Character c :adjMap.keySet()) {
-			if(!dfs(c,adjMap,sb, visited,cycle)) {
+			if(!dfs(c,adjMap,sb, visited,new HashSet<>())) {
 				return "";
 			}
 		}
@@ -88,7 +88,7 @@ public class AlienDictionary {
 				return false;
 			}
 		}
-		cycle.remove(c);
+		//cycle.remove(c);
 		visited.add(c);
 		sb.append(c);
 		

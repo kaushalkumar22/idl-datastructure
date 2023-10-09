@@ -37,7 +37,6 @@ public class KthSmallestElementOfTwoSortedArrays {
 		System.out.println(kthSmallest(arr1, arr2, k));
 	}
 
-
 	// O(logk)
 	public static int kthSmallest(int X[], int Y[], int k) {
 
@@ -72,10 +71,10 @@ public class KthSmallestElementOfTwoSortedArrays {
 				low++;
 				continue;
 			}
-			int maxLeftX = (pIndexX == 0) ? Integer.MIN_VALUE : X[pIndexX - 1];
+			int maxLeftX  = (pIndexX == 0) ? Integer.MIN_VALUE :  X[pIndexX - 1];
 			int minRightX = (pIndexX == m) ? Integer.MAX_VALUE : X[pIndexX];
 
-			int maxLeftY = (pIndexY == 0) ? Integer.MIN_VALUE : Y[pIndexY - 1];
+			int maxLeftY  = (pIndexY == 0) ? Integer.MIN_VALUE :  Y[pIndexY - 1];
 			int minRightY = (pIndexY == n) ? Integer.MAX_VALUE : Y[pIndexY];
 
 			if (maxLeftX <= minRightY && maxLeftY <= minRightX) {
@@ -122,6 +121,4 @@ public class KthSmallestElementOfTwoSortedArrays {
 		int temp[] = Arrays.copyOfRange(arr1, i, m);
 		return kth(temp, m - i, arr2, n, k - i);
 	}
-
-
 }

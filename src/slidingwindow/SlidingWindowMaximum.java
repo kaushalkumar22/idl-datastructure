@@ -1,6 +1,7 @@
 package slidingwindow;
 
 import java.util.Arrays;
+import java.util.Deque;
 import java.util.LinkedList;
 
 /**
@@ -30,16 +31,20 @@ import java.util.LinkedList;
 public class SlidingWindowMaximum {
 
 	public static void main(String[] args) {
-		int[] nums = { 1, 3, -1, -3, 5, 3, 6, 7 };
+		int[] nums = {1 , 3, -1, -3, 5, 3, 6, 7 };
 		int[] result = maxSlidingWindow(nums, 3);
 		System.out.println(Arrays.toString(result));
 	}
-
+	//k=4
+	//0   1   2   3  4  5  6  7
+	//1 , 3, -1, -3, 5, 3, 6, 7
+	//DQ : 1 2,3
 	public static int[] maxSlidingWindow(int[] nums, int k) {
 		int n = nums.length;
 		if (n == 0) return nums;
 		int[] result = new int[n - k + 1];
-		LinkedList<Integer> dq = new LinkedList<>();
+		Deque<Integer> dq = new LinkedList<>();
+		//Deque
 		for (int i = 0; i < n; i++) {
 
 			if (!dq.isEmpty() && dq.getFirst() < i - k + 1) {
