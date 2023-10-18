@@ -30,6 +30,23 @@ public class SortColors {
 		System.out.println(Arrays.toString(nums));
 	}
 	public static void sortColors(int[] nums) {
+		int j = 0;
+		int k = nums.length-1;
+		for(int i =0 ;i<k ;i++){
+			if(nums[i]==2){
+				int temp = nums[i];
+				nums[i] = nums[k];
+				nums[k] = temp;
+				k--;
+			}else if(nums[i]==0){
+				int temp = nums[i];
+				nums[i] = nums[j];
+				nums[j] = temp;
+				j++;
+			}
+		}
+	}
+	public static void sortColors1(int[] nums) {
 		int i=0;
 		int j=0;
 		int k = nums.length-1;

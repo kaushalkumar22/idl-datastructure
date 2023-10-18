@@ -10,6 +10,9 @@
       </profile>
     </annotationProcessing>
     <bytecodeTargetLevel>
+      <module name="lld-design" target="11" />
+      <module name="lld-design.main" target="11" />
+      <module name="lld-design.test" target="11" />
       <module name="lld-designpattern" target="16" />
       <module name="ood-designpattern" target="16" />
       <module name="ood-javastream" target="16" />

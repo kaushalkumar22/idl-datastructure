@@ -22,38 +22,6 @@ public class FirstUniqueCharacterInAString {
 	 *  
 	 *  Time Complexity: O(N) 
 	 */
-	
-	public static Character getFirstNonRepeatingCharOpt(String str) {
-
-		if (str == null || str.isEmpty()) { 
-			return null; 
-		}
-		int n = str.length();
-		if (n == 1) {
-			return str.charAt(0);
-		}
-		int[] charIdx = new int[256];
-		// Initialize character index of all characters to -1
-		Arrays.fill(charIdx, -1);
-
-		for (int i = 0; i < n; i++) {
-			if (charIdx[str.charAt(i)] == -1) {
-				// character seen first time
-				charIdx[str.charAt(i)] = i;
-			} else {
-				//If repeating, then index = -2
-				charIdx[str.charAt(i)] = -2;
-			}
-		}
-
-		int minIdx = 257; // Index of first non repeating character
-		for (int i = 0; i < 256; i++) {
-			if (charIdx[i] >= 0 && minIdx > charIdx[i]) {
-				minIdx = charIdx[i];
-			}
-		}
-		return (minIdx >= 0 && minIdx < n) ? str.charAt(minIdx) : null;
-	}
 
 	public int firstUniqChar(String s) {
 		int[] freq =new int[26];

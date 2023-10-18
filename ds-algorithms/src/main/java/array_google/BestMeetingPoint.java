@@ -92,6 +92,7 @@ public class BestMeetingPoint {
             }
         }
         System.out.println(xSum/count+" "+ySum/count );
+
         int xMedian = xs.stream().collect(Collectors.summingInt(Integer::intValue))/xs.size();
         int yMedian = ys.stream().collect(Collectors.summingInt(Integer::intValue))/ys.size();
         int dis=0;

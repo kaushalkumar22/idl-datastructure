@@ -8,11 +8,9 @@ package string;
  * 
  * Input: 12345 Output: "Twelve Thousand Three Hundred Forty Five"
  * 
- * Input: 1234567 Output: "One Million Two Hundred Thirty Four Thousand Five
- * Hundred Sixty Seven"
+ * Input: 1234567 Output: "One Million Two Hundred Thirty Four Thousand Five Hundred Sixty Seven"
  * 
- * Input: 1234567891 Output: "One Billion Two Hundred Thirty Four Million Five
- * Hundred Sixty Seven Thousand Eight Hundred Ninety One"
+ * Input: 1234567891 Output: "One Billion Two Hundred Thirty Four Million Five Hundred Sixty Seven Thousand Eight Hundred Ninety One"
  *
  */
 public class IntegerToEnglishWords {

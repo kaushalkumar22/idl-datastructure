@@ -5,7 +5,8 @@ import graph_dfs_backtracking.SudokuSolver;
 /**
  * You are playing the Bulls and Cows game with your friend.
  *
- * You write down a secret number and ask your friend to guess what the number is. When your friend makes a guess, you provide a hint with the following info:
+ * You write down a secret number and ask your friend to guess what the number is. When your friend makes a guess,
+ * you provide a hint with the following info:
  *
  *     The number of "bulls", which are digits in the guess that are in the correct position.
  *     The number of "cows", which are digits in the guess that are in your secret number but are located in the
@@ -50,10 +51,10 @@ public class BullsAndCows {
             if(s==g){
                 bull++;
             }else{
-                if(hint[secret.charAt(i)-'0']++<0){
+                if(hint[s]++<0){
                     cow++;
                 }
-                if(hint[guess.charAt(i)-'0']-->0){
+                if(hint[g]-->0){
                     cow++;
                 }
             }

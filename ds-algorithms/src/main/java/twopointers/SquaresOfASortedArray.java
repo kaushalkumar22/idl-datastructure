@@ -35,26 +35,6 @@ public class SquaresOfASortedArray {
 			}
 		}
 		return result;
-
-	}
-	public int maxArea(int[] height) {
-		int left =0;
-		int right = height.length-1;
-		int leftMax = 0;
-		int rightMax=0;
-		int maxWater=0;
-		while(left<right){
-			leftMax=Math.max(leftMax,height[left]);
-			rightMax=Math.max(rightMax,height[right]);
-			maxWater=Math.max(maxWater,Math.min(leftMax,rightMax)*(right-left));
-			if(leftMax<rightMax){
-				left++;
-			}else{
-				right--;
-			}
-
-		}
-		return maxWater;
 	}
 }
 

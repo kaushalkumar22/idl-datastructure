@@ -41,21 +41,20 @@ public class LongestConsecutiveSequence {
 		for (int n : nums) {
 			set.add(n);
 		}
-		int best =0;
-		for(int i=0;i<nums.length;i++){
-			int val=nums[i];
-			if(set.contains(val-1)) continue;
-			int count=0;
-			while(set.contains(val)){
+		int maxCount = 0;
+		for(int num :nums){
+			if(set.contains(num-1)) continue;
+			int count = 1;
+			int curr = num+1;
+			while(set.contains(curr)){
 				count++;
-				val++;
+				curr++;
 			}
-			best= Math.max(best,count);
+			maxCount = Math.max(count,maxCount);
 		}
-
-
-		return best;
+		return maxCount;
 	}
+
 
 	/**
 	 * Whenever a new element n is inserted into the map, do two things:
