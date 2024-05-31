@@ -302,62 +302,67 @@ private void dfs(int node, boolean[] visited, Stack<Integer> stack, List<List<In
 
 A Minimum Spanning Tree (MST) is a subset of the edges of a connected, undirected graph that connects all the vertices together, without any cycles, and with the minimum possible total edge weight. In other words, an MST is a tree that spans all the vertices in the graph and has the least total edge weight among all possible spanning trees.
 
-### Properties of Minimum Spanning Trees
+## Properties of Minimum Spanning Trees
 
-    An MST of a graph is unique if all the edge weights are distinct.
-    The total weight of an MST is always less than or equal to the total weight of any other spanning tree.
-    If all edges have the same weight, every spanning tree is an MST.
+- **Uniqueness**: An MST of a graph is unique if all the edge weights are distinct.
+- **Total Weight**: The total weight of an MST is always less than or equal to the total weight of any other spanning tree.
+- **Equal Edge Weights**: If all edges have the same weight, every spanning tree is an MST.
 
-  ###  Applications 
-    Network Design: Constructing economical networks such as electrical grids, computer networks, road networks, and telecommunication networks.
-    Approximation Algorithms: Used in algorithms for solving NP-hard problems like the Traveling Salesman Problem (TSP).
-    Cluster Analysis: MST can be used in hierarchical clustering, where clusters are formed based on minimum distance.
+## Applications
 
-Given a graph with vertices {A,B,C,D,E}{A,B,C,D,E} and edges with weights:
+- **Network Design**: Constructing economical networks such as electrical grids, computer networks, road networks, and telecommunication networks.
+- **Approximation Algorithms**: Used in algorithms for solving NP-hard problems like the Traveling Salesman Problem (TSP).
+- **Cluster Analysis**: MST can be used in hierarchical clustering, where clusters are formed based on minimum distance.
 
-    (A,B,1)(A,B,1)
-    (A,C,3)(A,C,3)
-    (B,C,3)(B,C,3)
-    (B,D,6)(B,D,6)
-    (C,D,4)(C,D,4)
-    (C,E,2)(C,E,2)
-    (D,E,5)(D,E,5)
-    
-   ### Kruskal's Algorithm:
-   
-Kruskal's algorithm builds the MST by sorting all edges and adding the smallest edge to the MST if it doesn't form a cycle with the edges already included. 
-This uses the Union-Find data structure to detect cycles.
+## Example Graph
 
-#### Algorithm
+Given a graph with vertices {A, B, C, D, E} and edges with weights:
 
-    Sort all edges in non-decreasing order of their weights.
-    Initialize a Union-Find data structure to manage the components.
-    Iterate through the sorted edges and add each edge to the MST if it doesn't form a cycle.
-    Continue until the MST includes V−1V−1 edges, where VV is the number of vertices.
+- (A, B, 1)
+- (A, C, 3)
+- (B, C, 3)
+- (B, D, 6)
+- (C, D, 4)
+- (C, E, 2)
+- (D, E, 5)
 
-Time Complexity
+## Kruskal's Algorithm
 
-    Time Complexity: O(Elog⁡E)O(ElogE), which simplifies to O(Elog⁡V)O(ElogV) because the number of edges EE is at most V2V2.
+Kruskal's algorithm builds the MST by sorting all edges and adding the smallest edge to the MST if it doesn't form a cycle with the edges already included. This uses the Union-Find data structure to detect cycles.
 
+### Algorithm
+
+1. Sort all edges in non-decreasing order of their weights.
+2. Initialize a Union-Find data structure to manage the components.
+3. Iterate through the sorted edges and add each edge to the MST if it doesn't form a cycle.
+4. Continue until the MST includes \(V-1\) edges, where \(V\) is the number of vertices.
+
+### Time Complexity
+
+The time complexity of Kruskal's algorithm is \(O(E \log E)\), which simplifies to \(O(E \log V)\) because the number of edges \(E\) is at most \(V^2\).
+
+### Implementation
+
+```java
 class Kruskal {
     class Edge implements Comparable<Edge> {
         int src, dest, weight;
-        
+
         Edge(int src, int dest, int weight) {
             this.src = src;
             this.dest = dest;
             this.weight = weight;
         }
-        
+
         @Override
         public int compareTo(Edge other) {
             return this.weight - other.weight;
         }
     }
-    
+
     class UnionFind {
         int[] parent, rank;
-        
+
         UnionFind(int n) {
             parent = new int[n];
             rank = new int[n];
@@ -366,14 +371,14 @@ class Kruskal {
                 rank[i] = 0;
             }
         }
-        
+
         int find(int u) {
             if (u != parent[u]) {
                 parent[u] = find(parent[u]);
             }
             return parent[u];
         }
-        
+
         void union(int u, int v) {
             int rootU = find(u);
             int rootV = find(v);
@@ -389,12 +394,12 @@ class Kruskal {
             }
         }
     }
-    
+
     public int kruskalMST(int vertices, List<Edge> edges) {
         Collections.sort(edges);
         UnionFind uf = new UnionFind(vertices);
         int mstWeight = 0;
-        
+
         for (Edge edge : edges) {
             int srcRoot = uf.find(edge.src);
             int destRoot = uf.find(edge.dest);
@@ -403,60 +408,65 @@ class Kruskal {
                 uf.union(srcRoot, destRoot);
             }
         }
-        
+
         return mstWeight;
     }
 }
-      
-    Sort edges by weight: (A,B,1)(A,B,1), (C,E,2)(C,E,2), (A,C,3)(A,C,3), (B,C,3)(B,C,3), (C,D,4)(C,D,4), (D,E,5)(D,E,5), (B,D,6)(B,D,6).
-    Start with A−BA−B.
-    Add C−EC−E (no cycle).
-    Add A−CA−C (no cycle).
-    Add C−DC−D (no cycle).
-    Stop since we have V−1V−1 edges.
-       
-   ### Prim's Algorithm:
-   
- Prim's algorithm grows the MST by starting from an arbitrary vertex and repeatedly adding the minimum weight edge that connects a vertex in the growing MST to a vertex outside it.
+```
 
-#### Algorithm
+### Steps with the Example Graph
 
-    Start with any vertex. Initialize a priority queue to process the smallest edge.
-    Use a visited array or distance array to track the inclusion of vertices in the MST.
-    While there are vertices not yet included in the MST:
-        Extract the minimum weight edge from the priority queue.
-        Include the corresponding vertex in the MST.
-        Update the priority queue with edges connected to the newly included vertex.
-        Ensure that edges connecting two included vertices are ignored.
+1. Sort edges by weight: (A, B, 1), (C, E, 2), (A, C, 3), (B, C, 3), (C, D, 4), (D, E, 5), (B, D, 6).
+2. Start with (A, B).
+3. Add (C, E) (no cycle).
+4. Add (A, C) (no cycle).
+5. Add (C, D) (no cycle).
+6. Stop since we have \(V-1\) edges.
 
-#### Time Complexity
+## Prim's Algorithm
 
-    Time Complexity: O(Elog⁡V)O(ElogV), where EE is the number of edges and VV is the number of vertices.
+Prim's algorithm grows the MST by starting from an arbitrary vertex and repeatedly adding the minimum weight edge that connects a vertex in the growing MST to a vertex outside it.
 
+### Algorithm
+
+1. Start with any vertex. Initialize a priority queue to process the smallest edge.
+2. Use a visited array or distance array to track the inclusion of vertices in the MST.
+3. While there are vertices not yet included in the MST:
+    - Extract the minimum weight edge from the priority queue.
+    - Include the corresponding vertex in the MST.
+    - Update the priority queue with edges connected to the newly included vertex.
+    - Ensure that edges connecting two included vertices are ignored.
+
+### Time Complexity
+
+The time complexity of Prim's algorithm is \(O(E \log V)\), where \(E\) is the number of edges and \(V\) is the number of vertices.
+
+### Implementation
+
+```java
 class Prim {
     class Edge {
-        int vertex;
-        int weight;
-        
+        int vertex, weight;
+
         Edge(int vertex, int weight) {
             this.vertex = vertex;
             this.weight = weight;
         }
     }
-    
+
     public int primMST(int vertices, List<List<Edge>> adj) {
         boolean[] visited = new boolean[vertices];
         PriorityQueue<Edge> pq = new PriorityQueue<>(Comparator.comparingInt(edge -> edge.weight));
         int mstWeight = 0;
 
         pq.add(new Edge(0, 0)); // Start with vertex 0
-        
+
         while (!pq.isEmpty()) {
             Edge edge = pq.poll();
             int vertex = edge.vertex;
-            
+
             if (visited[vertex]) continue;
-            
+
             visited[vertex] = true;
             mstWeight += edge.weight;
 
@@ -466,25 +476,25 @@ class Prim {
                 }
             }
         }
-        
+
         return mstWeight;
     }
 }
+```
 
-    Start with vertex AA. Current MST: AA.
-    Add edge A−BA−B (minimum edge). Current MST: A−BA−B.
-    Add edge A−CA−C (minimum edge). Current MST: A−B−A−CA−B−A−C.
-    Add edge C−EC−E (minimum edge). Current MST: A−B−A−C−EA−B−A−C−E.
-    Add edge C−DC−D (minimum edge). Current MST: A−B−A−C−E−DA−B−A−C−E−D.
+### Steps with the Example Graph
 
-Both algorithms will give the same MST for this example: A−BA−B, C−EC−E, A−CA−C, and C−DC−D.    
+1. Start with vertex A. Current MST: A.
+2. Add edge (A, B) (minimum edge). Current MST: A-B.
+3. Add edge (A, C) (minimum edge). Current MST: A-B-A-C.
+4. Add edge (C, E) (minimum edge). Current MST: A-B-A-C-E.
+5. Add edge (C, D) (minimum edge). Current MST: A-B-A-C-E-D.
 
-### Problems
+## Problems
+- [Min Cost to Connect All Points](https://leetcode.com/problems/min-cost-to-connect-all-points)
+- [Find Critical and Pseudo-Critical Edges in Minimum Spanning Tree](https://leetcode.com/problems/find-critical-and-pseudo-critical-edges-in-minimum-spanning-tree/)
+- [Optimize Water Distribution in a Village](https://leetcode.com/problems/optimize-water-distribution-in-a-village/)
 
-    Min Cost to Connect All Points
-        Leetcode: Min Cost to Connect All Points
-        Leetcode: Find Critical and Pseudo-Critical Edges in Minimum Spanning Tree
-        Leetcode: Optimize Water Distribution in a Village
         
 ## Single Source Shortest Paths: Bellman-Ford's, Dijkstra's Algorithm
 
@@ -494,23 +504,24 @@ Single Source Shortest Paths (SSSP) is a classic problem in graph theory. The go
 
 Dijkstra's algorithm is used to find the shortest paths from a single source vertex to all other vertices in a graph with non-negative edge weights.
 
-Steps of Dijkstra's Algorithm:
+#### Steps of Dijkstra's Algorithm
 
-    Initialize distances from the source to all vertices as infinite, except for the source itself, which is set to 0.
-    Create a priority queue (min-heap) and insert the source vertex with distance 0.
-    While the priority queue is not empty:
-        Extract the vertex with the minimum distance (let's call it uu).
-        For each neighbor vv of uu:
-            If the distance to vv through uu is less than the current distance to vv:
-                Update the distance to vv.
-                Insert vv into the priority queue with the updated distance.
+1. Initialize distances from the source to all vertices as infinite, except for the source itself, which is set to 0.
+2. Create a priority queue (min-heap) and insert the source vertex with distance 0.
+3. While the priority queue is not empty:
+    - Extract the vertex with the minimum distance (let's call it u).
+    - For each neighbor v of u:
+        - If the distance to v through u is less than the current distance to v:
+            - Update the distance to v.
+            - Insert v into the priority queue with the updated distance.
 
-Time Complexity: O((V+E)log⁡V)O((V+E)logV), where VV is the number of vertices and EE is the number of edges, assuming the use of a priority queue.
+#### Time Complexity
 
-### Time Complexity
+- Time Complexity: \(O((V+E) \log V)\), where \(V\) is the number of vertices and \(E\) is the number of edges, assuming the use of a priority queue.
 
-    Time Complexity: O(Elog⁡V)O(ElogV), where EE is the number of edges and VV is the number of vertices.
+#### Java Implementation
 
+```java
 class Dijkstra {
     class Edge {
         int vertex, weight;
@@ -547,66 +558,74 @@ class Dijkstra {
         return dist;
     }
 }
+```
 
-Example:
-Consider a graph with vertices {A,B,C,D,E}{A,B,C,D,E} and edges with weights:
+#### Example
 
-    (A,B,4)(A,B,4)
-    (A,C,1)(A,C,1)
-    (C,B,2)(C,B,2)
-    (B,D,5)(B,D,5)
-    (C,D,8)(C,D,8)
-    (D,E,3)(D,E,3)
-    (C,E,10)(C,E,10)
+Consider a graph with vertices \(\{A,B,C,D,E\}\) and edges with weights:
 
-To find the shortest paths from AA:
+- \((A,B,4)\)
+- \((A,C,1)\)
+- \((C,B,2)\)
+- \((B,D,5)\)
+- \((C,D,8)\)
+- \((D,E,3)\)
+- \((C,E,10)\)
 
-    Initialize distances: {A:0,B:∞,C:∞,D:∞,E:∞}{A:0,B:∞,C:∞,D:∞,E:∞}.
-    Start with AA and update distances of its neighbors: {A:0,B:4,C:1,D:∞,E:∞}{A:0,B:4,C:1,D:∞,E:∞}.
-    Extract CC and update distances: {A:0,B:3,C:1,D:9,E:11}{A:0,B:3,C:1,D:9,E:11}.
-    Extract BB and update distances: {A:0,B:3,C:1,D:8,E:11}{A:0,B:3,C:1,D:8,E:11}.
-    Continue until all vertices are processed.
-    
-Example Problems
-        Leetcode: Network Delay Time
-        Leetcode: Cheapest Flights Within K Stops
-        
+To find the shortest paths from \(A\):
+
+1. Initialize distances: \(\{A:0,B:∞,C:∞,D:∞,E:∞\}\).
+2. Start with \(A\) and update distances of its neighbors: \(\{A:0,B:4,C:1,D:∞,E:∞\}\).
+3. Extract \(C\) and update distances: \(\{A:0,B:3,C:1,D:9,E:11\}\).
+4. Extract \(B\) and update distances: \(\{A:0,B:3,C:1,D:8,E:11\}\).
+5. Continue until all vertices are processed.
+
+#### Example Problems
+
+- Leetcode: Network Delay Time
+- Leetcode: Cheapest Flights Within K Stops
+
 ### Bellman-Ford Algorithm
 
-The Bellman-Ford algorithm is used to find the shortest paths from a source vertex to all other vertices in a graph that may have negative edge weights. 
-It can also detect negative weight cycles.
+The Bellman-Ford algorithm is used to find the shortest paths from a source vertex to all other vertices in a graph that may have negative edge weights. It can also detect negative weight cycles.
 
-    Initialize distances from the source to all vertices as infinite, except for the source itself, which is set to 0.
-    For each vertex, repeat the following steps V−1V−1 times (where VV is the number of vertices):
-        For each edge (u,v)(u,v) with weight ww:
-            If the distance to vv through uu is less than the current distance to vv:
-                Update the distance to vv.
-    Check for negative-weight cycles by repeating the edge relaxation step one more time. If any distance is updated, a negative weight cycle exists.
+#### Steps of Bellman-Ford Algorithm
+
+1. Initialize distances from the source to all vertices as infinite, except for the source itself, which is set to 0.
+2. For each vertex, repeat the following steps \(V-1\) times (where \(V\) is the number of vertices):
+    - For each edge \((u,v)\) with weight \(w\):
+        - If the distance to \(v\) through \(u\) is less than the current distance to \(v\):
+            - Update the distance to \(v\).
+3. Check for negative-weight cycles by repeating the edge relaxation step one more time. If any distance is updated, a negative weight cycle exists.
 
 #### Time Complexity
 
-    Time Complexity: O(VE)O(VE), where EE is the number of edges and VV is the number of vertices.
-    
-#### Example:
-Consider the same graph with vertices {A,B,C,D,E}{A,B,C,D,E} and edges with weights as before:
+- Time Complexity: \(O(VE)\), where \(E\) is the number of edges and \(V\) is the number of vertices.
 
-    (A,B,4)(A,B,4)
-    (A,C,1)(A,C,1)
-    (C,B,2)(C,B,2)
-    (B,D,5)(B,D,5)
-    (C,D,8)(C,D,8)
-    (D,E,3)(D,E,3)
-    (C,E,10)(C,E,10)
+#### Example
 
-To find the shortest paths from AA:
+Consider the same graph with vertices \(\{A,B,C,D,E\}\) and edges with weights as before:
 
-    Initialize distances: {A:0,B:∞,C:∞,D:∞,E:∞}{A:0,B:∞,C:∞,D:∞,E:∞}.
-    Relax edges repeatedly:
-        After first pass: {A:0,B:4,C:1,D:∞,E:∞}{A:0,B:4,C:1,D:∞,E:∞}.
-        After second pass: {A:0,B:3,C:1,D:8,E:∞}{A:0,B:3,C:1,D:8,E:∞}.
-        After third pass: {A:0,B:3,C:1,D:8,E:11}{A:0,B:3,C:1,D:8,E:11}.
-        Continue until no further updates.
+- \((A,B,4)\)
+- \((A,C,1)\)
+- \((C,B,2)\)
+- \((B,D,5)\)
+- \((C,D,8)\)
+- \((D,E,3)\)
+- \((C,E,10)\)
 
+To find the shortest paths from \(A\):
+
+1. Initialize distances: \(\{A:0,B:∞,C:∞,D:∞,E:∞\}\).
+2. Relax edges repeatedly:
+    - After first pass: \(\{A:0,B:4,C:1,D:∞,E:∞\}\).
+    - After second pass: \(\{A:0,B:3,C:1,D:8,E:∞\}\).
+    - After third pass: \(\{A:0,B:3,C:1,D:8,E:11\}\).
+3. Continue until no further updates.
+
+#### Java Implementation
+
+```java
 class BellmanFord {
     class Edge {
         int src, dest, weight;
@@ -649,37 +668,44 @@ class BellmanFord {
         return dist;
     }
 }
+```
 
-Leetcode: Network Delay Time
+#### Example Problems
 
-#### Differences
+- [743. Network Delay Time]( https://leetcode.com/problems/network-delay-time)   
+- [787. Cheapest Flights Within K Stops]( https://leetcode.com/problems/cheapest-flights-within-k-stops/)
 
-    Dijkstra's Algorithm: Efficient for graphs with non-negative weights, faster with priority queue implementation.
-    Bellman-Ford Algorithm: Handles negative weights and detects negative weight cycles, but less efficient for large graphs with many edges.
-    
+### Differences
+
+- **Dijkstra's Algorithm:** Efficient for graphs with non-negative weights, faster with priority queue implementation.
+- **Bellman-Ford Algorithm:** Handles negative weights and detects negative weight cycles, but less efficient for large graphs with many edges.
+
 ## All-Pairs Shortest Paths: Floyd-Warshall, Johnson’s Algorithm
 
-The All-Pairs Shortest Paths (APSP) problem involves finding the shortest paths between every pair of vertices in a given weighted graph. 
+The All-Pairs Shortest Paths (APSP) problem involves finding the shortest paths between every pair of vertices in a given weighted graph.
 
 ### Floyd-Warshall Algorithm
 
 The Floyd-Warshall algorithm is a dynamic programming approach that can handle graphs with negative weights (but no negative weight cycles).
 
-- Run this algo one more time if a negative cycle check is required. If the shortest distance of a vertex is reduced, then the graph has a negative cycle.
-
 #### Algorithm
-        Create a 2D array dist where dist[i][j] represents the shortest distance from vertex i to vertex j.
-        Initialize dist[i][i] = 0 for all vertices i.
-        Initialize dist[i][j] = weight(i, j) if there is an edge from i to j, otherwise set it to infinity.
 
-    Dynamic Programming:
-        For each vertex k:
-            Update dist[i][j] = min(dist[i][j], dist[i][k] + dist[k][j]) for all pairs of vertices i and j.
+1. Create a 2D array dist where dist[i][j] represents the shortest distance from vertex i to vertex j.
+2. Initialize dist[i][i] = 0 for all vertices i.
+3. Initialize dist[i][j] = weight(i, j) if there is an edge from i to j, otherwise set it to infinity.
 
-### Time Complexity
+#### Dynamic Programming
 
-    Time Complexity: O(V3), where V is the number of vertices.
+1. For each vertex k:
+    - Update dist[i][j] = min(dist[i][j], dist[i][k] + dist[k][j]) for all pairs of vertices i and j.
 
+#### Time Complexity
+
+- Time Complexity: \(O(V^3)\), where \(V\) is the number of vertices.
+
+#### Java Implementation
+
+```java
 class FloydWarshall {
     final static int INF = 99999;
 
@@ -706,73 +732,82 @@ class FloydWarshall {
                 if (dist[i][j] == INF)
                     System.out.print("INF ");
                 else
-                    System.out.print(dist[i][j] + " ");
+                    System.out.print
+
+(dist[i][j] + " ");
             }
             System.out.println();
         }
     }
-Time Complexity: O(V3)
+}
+```
 
-#### Example: 
+#### Example
 
-Consider a graph with vertices {A,B,C,D}{A,B,C,D} and the following edge weights:
+Consider a graph with vertices \(\{A,B,C,D\}\) and the following edge weights:
 
-    (A,B,3)(A,B,3)
-    (A,C,8)(A,C,8)
-    (A,D,∞)(A,D,∞)
-    (B,C,2)(B,C,2)
-    (B,D,5)(B,D,5)
-    (C,D,1)(C,D,1)
-    (D,A,7)(D,A,7)
+- \((A,B,3)\)
+- \((A,C,8)\)
+- \((A,D,∞)\)
+- \((B,C,2)\)
+- \((B,D,5)\)
+- \((C,D,1)\)
+- \((D,A,7)\)
 
-Initial distance matrix DD:
-    A    B    C    D
-A [ 0,   3,   8,  ∞ ]
-B [ ∞,   0,   2,   5 ]
-C [ ∞,  ∞,   0,   1 ]
-D [ 7,  ∞,  ∞,   0 ]
+Initial distance matrix \(D\):
 
-After running the algorithm, the final distance matrix DD would reflect the shortest paths between all pairs of vertices.
+\[ \begin{matrix}
+   & A & B & C & D \\
+A & 0 & 3 & 8 & ∞ \\
+B & ∞ & 0 & 2 & 5 \\
+C & ∞ & ∞ & 0 & 1 \\
+D & 7 & ∞ & ∞ & 0 \\
+\end{matrix} \]
 
-### Example Problems
+After running the algorithm, the final distance matrix \(D\) would reflect the shortest paths between all pairs of vertices.
 
-[1334. Find the City with the Smallest Number of Neighbors at a Threshold Distance](https://leetcode.com/problems/find-the-city-with-the-smallest-number-of-neighbors-at-a-threshold-distance/)
-[399. Evaluate Division](https://leetcode.com/problems/evaluate-division/)
-[787. Cheapest Flights Within K Stops](https://leetcode.com/problems/cheapest-flights-within-k-stops/)
-[1462. Course Schedule IV](https://leetcode.com/problems/course-schedule-iv/)
-[1617. Count Subtrees with Max Distance Between Cities](https://leetcode.com/problems/count-subtrees-with-max-distance-between-cities/)
+#### Example Problems
+
+- [1334. Find the City with the Smallest Number of Neighbors at a Threshold Distance](https://leetcode.com/problems/find-the-city-with-the-smallest-number-of-neighbors-at-a-threshold-distance/)
+- [399. Evaluate Division](https://leetcode.com/problems/evaluate-division/)
+- [787. Cheapest Flights Within K Stops](https://leetcode.com/problems/cheapest-flights-within-k-stops/)
+- [1462. Course Schedule IV](https://leetcode.com/problems/course-schedule-iv/)
+- [1617. Count Subtrees with Max Distance Between Cities](https://leetcode.com/problems/count-subtrees-with-max-distance-between-cities/)
 
 ### Johnson's Algorithm
 
 Johnson's algorithm is more efficient for sparse graphs and uses a combination of Bellman-Ford and Dijkstra's algorithms.
 
-#### Algorithm:
-    Add a new vertex ss to the graph, connecting ss to every other vertex with edge weight 0.
-    Use the Bellman-Ford algorithm to find the shortest path distances from ss to every other vertex. If a negative weight cycle is detected, 
-    terminate as the APSP problem cannot be solved.
-    Reweight the edges of the original graph to ensure all edge weights are non-negative.
-    Use Dijkstra's algorithm to find the shortest paths from each vertex to every other vertex in the reweighted graph.
-    Adjust the distances obtained in step 4 to get the actual shortest path distances in the original graph.
+#### Algorithm
+
+1. Add a new vertex \(s\) to the graph, connecting \(s\) to every other vertex with edge weight 0.
+2. Use the Bellman-Ford algorithm to find the shortest path distances from \(s\) to every other vertex. If a negative weight cycle is detected, terminate as the APSP problem cannot be solved.
+3. Reweight the edges of the original graph to ensure all edge weights are non-negative.
+4. Use Dijkstra's algorithm to find the shortest paths from each vertex to every other vertex in the reweighted graph.
+5. Adjust the distances obtained in step 4 to get the actual shortest path distances in the original graph.
 
 #### Time Complexity
 
-    Time Complexity: O(V2log⁡V+VE)O(V2logV+VE), where VV is the number of vertices and EE is the number of edges.
-    
-#### Example:
+- Time Complexity: \(O(V^2 \log V + VE)\), where \(V\) is the number of vertices and \(E\) is the number of edges.
 
-Consider a graph with vertices {A,B,C,D}{A,B,C,D} and the following edge weights:
+#### Example
 
-    (A,B,1)(A,B,1)
-    (B,C,−2)(B,C,−2)
-    (C,D,2)(C,D,2)
-    (D,A,−1)(D,A,−1)
+Consider a graph with vertices \(\{A,B,C,D\}\) and the following edge weights:
 
-    Add a new vertex ss and connect it to all vertices with edge weight 0.
-    Run Bellman-Ford from ss. If no negative cycle, proceed to reweighting.
-    Reweight edges using the distances obtained.
-    Run Dijkstra's algorithm from each vertex in the reweighted graph.
-    Adjust the distances to get the actual shortest path distances.
+- \((A,B,1)\)
+- \((B,C,-2)\)
+- \((C,D,2)\)
+- \((D,A,-1)\)
 
+1. Add a new vertex \(s\) and connect it to all vertices with edge weight 0.
+2. Run Bellman-Ford from \(s\). If no negative cycle, proceed to reweighting.
+3. Reweight edges using the distances obtained.
+4. Run Dijkstra's algorithm from each vertex in the reweighted graph.
+5. Adjust the distances to get the actual shortest path distances.
+
+#### Implementation
+
+```java
 class Johnson {
     class Edge {
         int src, dest, weight;
@@ -843,56 +878,60 @@ class Johnson {
         }
     }
 }
+```
 
 #### Example Problems
 
-    Leetcode: Cheapest Flights Within K Stops
-    Leetcode: Course Schedule IV
+- Leetcode: Cheapest Flights Within K Stops
+- Leetcode: Course Schedule IV
 
 ### Key Differences and Use Cases
 
-    Floyd-Warshall Algorithm: Simple and easy to implement, suitable for dense graphs, but not efficient for large graphs due to its O(V3)O(V3) complexity.
-    Johnson's Algorithm: More efficient for sparse graphs, uses both Bellman-Ford and Dijkstra's algorithms, and handles negative weights, 
-    but not suitable if the graph contains negative weight cycles.
+- **Floyd-Warshall Algorithm:** Simple and easy to implement, suitable for dense graphs, but not efficient for large graphs due to its \(O(V^3)\) complexity.
+- **Johnson's Algorithm:** More efficient for sparse graphs, uses both Bellman-Ford and Dijkstra's algorithms, and handles negative weights, but not suitable if the graph contains negative weight cycles.
     
-
 ## Strongly Connected Components
 
-Simple DFS and visited array is used to find SCC in an undirected graph. Tarjan's algorithm and Kosaraju's algorithm are used to find SCC in directed graphs.
+Simple DFS and visited array are used to find SCC in an undirected graph. Tarjan's algorithm and Kosaraju's algorithm are used to find SCC in directed graphs.
 
 ### Tarjan’s Algorithm
 
 Tarjan's algorithm uses depth-first search (DFS) to find all SCCs in a graph. It maintains a stack to keep track of the visited vertices and ensures that the vertices are considered in the order of their DFS completion times.
 
-Start DFS from each unvisited vertex.
-    During DFS, maintain three attributes for each vertex:
-        Discovery time (when the vertex is first visited)
-        Low link value (the lowest discovery time of any vertex reachable from the current vertex)
-        A boolean flag indicating whether the vertex is on the stack.
-    While traversing edges, push vertices onto the stack and update their low link values.
-    When a vertex with a low link value equal to its discovery time is found, it indicates the start of an SCC. 
-    Pop vertices from the stack until the current vertex is reached.
+#### Steps:
+
+1. **Start DFS from each unvisited vertex.**
+2. **During DFS, maintain three attributes for each vertex:**
+    - Discovery time (when the vertex is first visited)
+    - Low link value (the lowest discovery time of any vertex reachable from the current vertex)
+    - A boolean flag indicating whether the vertex is on the stack.
+3. **While traversing edges, push vertices onto the stack and update their low link values.**
+4. **When a vertex with a low link value equal to its discovery time is found, it indicates the start of an SCC.**
+5. **Pop vertices from the stack until the current vertex is reached.**
 
 #### Algorithm
 
-    Initialization:
-        Create an array disc[] to store the discovery times of visited vertices.
-        Create an array low[] to store the lowest vertex reachable from the subtree rooted with the vertex.
-        Create a stack st to store all visited vertices.
-        Maintain a boolean array stackMember[] to check if a vertex is in the stack.
+```plaintext
+Initialization:
+    Create an array disc[] to store the discovery times of visited vertices.
+    Create an array low[] to store the lowest vertex reachable from the subtree rooted with the vertex.
+    Create a stack st to store all visited vertices.
+    Maintain a boolean array stackMember[] to check if a vertex is in the stack.
 
-    DFS Traversal:
-        For every unvisited vertex, perform DFS.
-        During DFS, update disc[] and low[].
-        If the vertex v is not visited and is reachable from the subtree rooted with u, update low[u].
-        If u is the root of an SCC, pop the stack until u is found.
+DFS Traversal:
+    For every unvisited vertex, perform DFS.
+    During DFS, update disc[] and low[].
+    If the vertex v is not visited and is reachable from the subtree rooted with u, update low[u].
+    If u is the root of an SCC, pop the stack until u is found.
+```
 
 #### Time Complexity
 
-    Time Complexity: O(V+E)O(V+E), where VV is the number of vertices and EE is the number of edges.
+Time Complexity: \(O(V + E)\), where \(V\) is the number of vertices and \(E\) is the number of edges.
 
 #### Example Implementation
 
+```java
 class TarjanSCC {
     private int time = 0;
     private static final int NIL = -1;
@@ -936,49 +975,51 @@ class TarjanSCC {
                 SCCUtil(i, disc, low, st, stackMember, adj);
         }
     }
- 
- ### Example Problems  
-[SCC Video](https://www.youtube.com/watch?v=aZXi1unBdJA&ab_channel=WilliamFiset)
-[Bridge and Articulation Point Video](https://www.youtube.com/watch?v=aZXi1unBdJA&ab_channel=WilliamFiset)
-[Implementation](https://leetcode.com/problems/critical-connections-in-a-network)
-https://leetcode.com/problems/course-schedule-ii/
+}
+```
+
+### Example Problems
+
+- [SCC Video](https://www.youtube.com/watch?v=aZXi1unBdJA&ab_channel=WilliamFiset)
+- [Bridge and Articulation Point Video](https://www.youtube.com/watch?v=aZXi1unBdJA&ab_channel=WilliamFiset)
+- [Implementation](https://leetcode.com/problems/critical-connections-in-a-network)
+- [Course Schedule II](https://leetcode.com/problems/course-schedule-ii/)
 
 ### Kosaraju’s Algorithm
 
-Kosaraju's Algorithm is a widely used algorithm to find Strongly Connected Components in a directed graph. 
+Kosaraju's Algorithm is a widely used algorithm to find Strongly Connected Components in a directed graph.
 
-#### It works in two phases:
-Phase 1: DFS to find finishing times
+#### Steps:
 
-    Perform a Depth-First Search (DFS) on the graph, recording the finishing time of each vertex when it completes exploration
-    (i.e., when all vertices reachable from it have been explored).
-    Create a stack and push vertices onto it in the order of their finishing times.
-
-Phase 2: DFS to find SCCs
-
-    Reverse the direction of all edges in the graph.
-    Pop vertices from the stack one by one.
-    Perform DFS on each popped vertex. Each DFS traversal starting from a vertex will find one SCC.
+1. **Phase 1: DFS to find finishing times**
+    - Perform a Depth-First Search (DFS) on the graph, recording the finishing time of each vertex when it completes exploration (i.e., when all vertices reachable from it have been explored).
+    - Create a stack and push vertices onto it in the order of their finishing times.
+2. **Phase 2: DFS to find SCCs**
+    - Reverse the direction of all edges in the graph.
+    - Pop vertices from the stack one by one.
+    - Perform DFS on each popped vertex. Each DFS traversal starting from a vertex will find one SCC.
 
 #### Algorithm
 
-    First Pass (Order of Finish Time):
-        Perform a DFS on the graph and push each vertex onto a stack when its DFS is complete.
+```plaintext
+First Pass (Order of Finish Time):
+    Perform a DFS on the graph and push each vertex onto a stack when its DFS is complete.
 
-    Transpose Graph:
-        Reverse all the edges of the graph to obtain the transpose graph.
+Transpose Graph:
+    Reverse all the edges of the graph to obtain the transpose graph.
 
-    Second Pass (On Transposed Graph):
-        Pop vertices from the stack and perform DFS on the transposed graph.
-        Each DFS call in this step gives a strongly connected component.
+Second Pass (On Transposed Graph):
+    Pop vertices from the stack and perform DFS on the transposed graph.
+    Each DFS call in this step gives a strongly connected component.
+```
 
 #### Time Complexity
 
-    Time Complexity: O(V+E)O(V+E), where VV is the number of vertices and EE is the number of edges.
+Time Complexity: \(O(V + E)\), where \(V\) is the number of vertices and \(E\) is the number of edges.
 
 #### Example Implementation
 
-
+```java
 class KosarajuSCC {
     private int V;
     private List<Integer>[] adj;
@@ -1048,15 +1089,17 @@ class KosarajuSCC {
             }
         }
     }
-    
+}
+```
+
 ### Example Problems
- 
-[Video](https://www.youtube.com/watch?v=RpgcYiky7uw&ab_channel=TusharRoy-CodingMadeSimple)
-[Implementation](https://leetcode.com/problems/course-schedule/discuss/249688/Different-O(V%2BE)-solution-using-Kosaraju's-algorithm)
-https://leetcode.com/problems/course-schedule/
-https://leetcode.com/problems/find-the-town-judge/
-https://www.hackerearth.com/practice/algorithms/graphs/strongly-connected-components/practice-problems/algorithm/a-walk-to-remember-qualifier2/submissions/
-https://www.youtube.com/watch?v=aZXi1unBdJA
+
+- [Video](https://www.youtube.com/watch?v=RpgcYiky7uw&ab_channel=TusharRoy-CodingMadeSimple)
+- [Implementation](https://leetcode.com/problems/course-schedule/discuss/249688/Different-O(V%2BE)-solution-using-Kosaraju's-algorithm)
+- [Course Schedule](https://leetcode.com/problems/course-schedule/)
+- [Find the Town Judge](https://leetcode.com/problems/find-the-town-judge/)
+- [A Walk to Remember](https://www.hackerearth.com/practice/algorithms/graphs/strongly-connected-components/practice-problems/algorithm/a-walk-to-remember-qualifier2/submissions/)
+- [YouTube Video](https://www.youtube.com/watch?v=aZXi1unBdJA)
 
 ## Union-Find (Disjoint Set)
 
@@ -1064,90 +1107,101 @@ Union-Find, also known as Disjoint Set, is a data structure that keeps track of 
 
 ### Basics of Union-Find
 
-    Initialization: Initially, each element is in its own set, representing a singleton set.
-    Union Operation: Merge two sets into one by connecting their representatives.
-    Find Operation: Determine which set a particular element belongs to. It returns the representative of the set to which the element belongs.
+- **Initialization**: Initially, each element is in its own set, representing a singleton set.
+- **Union Operation**: Merge two sets into one by connecting their representatives.
+- **Find Operation**: Determine which set a particular element belongs to. It returns the representative of the set to which the element belongs.
 
 ### Path Compression and Union by Rank
 
 Two optimization techniques commonly used with Union-Find are Path Compression and Union by Rank.
 
-    Path Compression: During the find operation, each visited node on the path to the root is connected directly to the root. This flattens the structure of the tree, reducing the time complexity of future find operations.
-    Union by Rank: During the union operation, the tree with the smaller rank (depth) is attached to the root of the tree with the larger rank. This helps keep the tree balanced, ensuring better overall performance.
+- **Path Compression**: During the find operation, each visited node on the path to the root is connected directly to the root. This flattens the structure of the tree, reducing the time complexity of future find operations.
+- **Union by Rank**: During the union operation, the tree with the smaller rank (depth) is attached to the root of the tree with the larger rank. This helps keep the tree balanced, ensuring better overall performance.
 
 ### Applications:
 
-    Kruskal's algorithm for finding Minimum Spanning Trees
-    Cycle detection in graphs
-    Connected components in an undirected graph
-    Dynamic connectivity in social networks and computer networks
+- Kruskal's algorithm for finding Minimum Spanning Trees
+- Cycle detection in graphs
+- Connected components in an undirected graph
+- Dynamic connectivity in social networks and computer networks
 
 ### Time Complexity:
 
-    With Path Compression and Union by Rank optimizations, both Find and Union operations have nearly constant time complexity on average, O(α(n)), 
-    where α(n)α(n) is the inverse Ackermann function, which grows extremely slowly.
-    Without optimizations, the worst-case time complexity of Find and Union operations can be O(log⁡n), where nn is the number of elements.
-    
-### Implementation of Union-Find
+With Path Compression and Union by Rank optimizations, both Find and Union operations have nearly
 
+ constant time complexity, \(O(\alpha(n))\), where \(\alpha\) is the inverse Ackermann function.
+
+### Implementation
+
+```java
 class UnionFind {
-    private int[] parent;
-    private int[] rank;
+    private int[] parent, rank;
 
-    public UnionFind(int n) {
-        parent = new int[n];
-        rank = new int[n];
-        for (int i = 0; i < n; i++) {
-            parent[i] = i;  // Initially, each element is its own parent
-            rank[i] = 0;    // Initially, rank of each element is 0
+    UnionFind(int size) {
+        parent = new int[size];
+        rank = new int[size];
+        for (int i = 0; i < size; i++) {
+            parent[i] = i;
+            rank[i] = 0;
         }
     }
 
-    public int find(int x) {
-        if (parent[x] != x) {
-            parent[x] = find(parent[x]); // Path compression
+    int find(int p) {
+        if (parent[p] != p) {
+            parent[p] = find(parent[p]);
         }
-        return parent[x];
+        return parent[p];
     }
 
-    public void union(int x, int y) {
-        int rootX = find(x);
-        int rootY = find(y);
-        if (rootX != rootY) {
-            if (rank[rootX] < rank[rootY]) {
-                parent[rootX] = rootY;
-            } else if (rank[rootX] > rank[rootY]) {
-                parent[rootY] = rootX;
+    void union(int p, int q) {
+        int rootP = find(p);
+        int rootQ = find(q);
+        if (rootP != rootQ) {
+            if (rank[rootP] < rank[rootQ]) {
+                parent[rootP] = rootQ;
+            } else if (rank[rootP] > rank[rootQ]) {
+                parent[rootQ] = rootP;
             } else {
-                parent[rootY] = rootX;
-                rank[rootX]++;
+                parent[rootQ] = rootP;
+                rank[rootP]++;
             }
         }
     }
 }
+```
 
 ### Example Problems
-- [Friend Circles](https://leetcode.com/problems/friend-circles/)
+
+- [Number of Islands](https://leetcode.com/problems/number-of-islands/)
 - [Redundant Connection](https://leetcode.com/problems/redundant-connection/)
-- [Most Stones Removed with Same Row or Column](https://leetcode.com/problems/most-stones-removed-with-same-row-or-column/)
-- [Number of Operations to Make Network Connected](https://leetcode.com/problems/number-of-operations-to-make-network-connected/)
-- [Satisfiability of Equality Equations](https://leetcode.com/problems/satisfiability-of-equality-equations/)
-- [Accounts Merge](https://leetcode.com/problems/accounts-merge/)
-- [Connecting Cities with Minimum Cost](https://leetcode.com/problems/connecting-cities-with-minimum-cost/)
-    https://www.youtube.com/watch?v=wU6udHRIkcc
+- [Graph Valid Tree](https://leetcode.com/problems/graph-valid-tree/)
+- [The Earliest Moment When Everyone Become Friends](https://leetcode.com/problems/the-earliest-moment-when-everyone-become-friends/)
+- [Optimize Water Distribution in a Village](https://leetcode.com/problems/optimize-water-distribution-in-a-village/)
+- [Connecting Cities With Minimum Cost](https://leetcode.com/problems/connecting-cities-with-minimum-cost/)
+- [Bridges in a Graph](https://www.geeksforgeeks.org/bridge-in-a-graph/)
+
+By using Union-Find and Strongly Connected Components algorithms, many complex graph problems can be solved efficiently, ensuring optimal performance even for large datasets.
+
+
+Here's the revised version of the `git.md` file with a more structured and organized approach:
+
+---
 
 ## Travelling Salesman Problem (TSP)
 
-The Traveling Salesman Problem (TSP) is a classic optimization problem in which the goal is to find the shortest possible route that visits each city exactly once and returns to the original city. TSP is a well-known NP-hard problem, meaning that there is no known polynomial-time algorithm that can solve all instances optimally.
+The Traveling Salesman Problem (TSP) is a classic optimization problem where the goal is to find the shortest possible route that visits each city exactly once and returns to the original city. TSP is a well-known NP-hard problem, meaning that there is no known polynomial-time algorithm that can solve all instances optimally.
 
-#### Brute Force Approach
+### Brute Force Approach
 
 The most straightforward way to solve the TSP is to try all possible permutations of the cities and calculate the total distance for each permutation. The shortest route found among all permutations would be the optimal solution. However, this approach becomes impractical as the number of cities increases due to its exponential time complexity.
-#### Dynamic Programming Approach
+
+### Dynamic Programming Approach
 
 Dynamic Programming (DP) can be used to solve TSP efficiently for smaller instances. The idea is to store the subproblem solutions in a table and reuse them to compute larger subproblems. The DP approach is based on the principle of overlapping subproblems and optimal substructure.
-Example Implementation
 
+#### Example Implementation
+
+```java
 class TSP {
     private static final int INF = Integer.MAX_VALUE;
 
@@ -1185,90 +1239,79 @@ class TSP {
         return minDist;
     }
 }
+```
 
-Example Problem
-https://leetcode.com/problems/find-the-shortest-superstring/
+#### Example Problem
 
-Approximation Algorithms
+- [Find the Shortest Superstring](https://leetcode.com/problems/find-the-shortest-superstring/)
 
-For larger instances of TSP, approximation algorithms like the Nearest Neighbor Algorithm, the Christofides Algorithm, and the Lin-Kernighan 
-Heuristic are commonly used to find suboptimal solutions with reasonable time complexity
+### Approximation Algorithms
 
+For larger instances of TSP, approximation algorithms like the Nearest Neighbor Algorithm, the Christofides Algorithm, and the Lin-Kernighan Heuristic are commonly used to find suboptimal solutions with reasonable time complexity.
 
-- It is a Hamiltonian circuit. It is a Hamiltonian path if returning to the start vertex is not needed.
+### Key Points
+
+- TSP is a Hamiltonian circuit. It is a Hamiltonian path if returning to the start vertex is not needed.
 - Time Complexity is \(O(N^2 \cdot 2^N)\).
 - Implemented using DP with bit masking as `dp[1 << N][N]` where N is the number of vertices.
 
-[Implementation](https://www.hackerearth.com/practice/notes/codemonk-dynamic-programming-ii-1/)
-[Find the Shortest Superstring](https://leetcode.com/problems/find-the-shortest-superstring/)
+#### Additional Resources
+
+- [Implementation](https://www.hackerearth.com/practice/notes/codemonk-dynamic-programming-ii-1/)
+- [Find the Shortest Superstring](https://leetcode.com/problems/find-the-shortest-superstring/)
+
+---
 
 ## Eulerian Path/Cycle & Hamiltonian Path/Cycle
 
 Euler's and Hamilton's algorithms are both related to finding paths in graphs, but they address different types of paths: Eulerian and Hamiltonian paths/cycles, respectively.
+
 ### Eulerian Path/Cycle
 
 An Eulerian path in a graph is a path that traverses each edge of the graph exactly once. If the path ends at the same vertex where it started, it is called an Eulerian cycle. A graph can have an Eulerian path or cycle if and only if all vertices have even degrees (or exactly two vertices have odd degrees in the case of a path).
-Euler's Algorithm
+
+#### Euler's Algorithm
 
 Euler's algorithm is used to find Eulerian paths or cycles in a graph. The algorithm starts at a specified vertex and traverses edges until it returns to the starting vertex while covering every edge exactly once.
 
 #### Example Problem
 
-[Video](https://www.youtube.com/watch?v=8MpoO2zA2l4&ab_channel=WilliamFiset)
-[Implementation](https://leetcode.com/problems/reconstruct-itinerary/)
+- [Video](https://www.youtube.com/watch?v=8MpoO2zA2l4&ab_channel=WilliamFiset)
+- [Implementation](https://leetcode.com/problems/reconstruct-itinerary/)
 
 ### Hamiltonian Path/Cycle
 
 A Hamiltonian path in a graph is a path that visits each vertex exactly once. If the path ends at the same vertex where it started, it is called a Hamiltonian cycle.
-Hamilton's Algorithm
-
-Finding Hamiltonian paths or cycles is generally more difficult than finding Eulerian paths or cycles. There is no known polynomial-time algorithm that solves the Hamiltonian cycle problem for all graphs.
 
 #### Example Problem
 
-https://leetcode.com/problems/find-the-shortest-superstring/
-[Implementation](https://www.hackerearth.com/practice/algorithms/graphs/hamiltonian-path/tutorial/)
+- [Find the Shortest Superstring](https://leetcode.com/problems/find-the-shortest-superstring/)
+- [Implementation](https://www.hackerearth.com/practice/algorithms/graphs/hamiltonian-path/tutorial/)
 
 ### Differences
 
-    Eulerian paths/cycles involve traversing each edge exactly once, while Hamiltonian paths/cycles involve visiting each vertex exactly once.
-    Eulerian paths/cycles can be found efficiently using Euler's algorithm if certain conditions are met, whereas finding Hamiltonian paths/cycles is generally more difficult and often requires exponential time algorithms for general graphs.
-
-### Conclusion
-
-Euler's and Hamilton's algorithms address different types of paths in graphs, each with its own set of properties and challenges.
-While Eulerian paths/cycles can often be found efficiently using Euler's algorithm, finding Hamiltonian paths/cycles is generally more difficult and often requires more sophisticated approaches.
+- **Eulerian paths/cycles** involve traversing each edge exactly once, while **Hamiltonian paths/cycles** involve visiting each vertex exactly once.
+- Eulerian paths/cycles can be found efficiently using Euler's algorithm if certain conditions are met, whereas finding Hamiltonian paths/cycles is generally more difficult and often requires exponential time algorithms for general graphs.
 
 ### Hierholzer's Algorithm
+
 Hierholzer's algorithm is a method for finding Eulerian cycles and paths in a graph. It efficiently computes a cycle that traverses each edge of a graph exactly once, given that the graph has an Eulerian cycle or path.
 
-### Key Observations
+#### Algorithm Steps
 
-    The graph must be connected.
-    All vertices in the graph must have even degrees for an Eulerian cycle, except for exactly two vertices for an Eulerian path.
-    Hierholzer's algorithm is generally used to find Eulerian cycles but can also be adapted to find Eulerian paths.
+1. **Choose a Starting Vertex**: Start at any vertex of the graph. If the graph has an Eulerian cycle, this vertex will be the starting and ending point of the cycle. If the graph has an Eulerian path, this vertex will be the starting point.
+2. **Follow Edges**: From the chosen starting vertex, follow any available edge to an adjacent vertex. If there are multiple choices, select an arbitrary edge.
+3. **Repeat Until Exhausted**: Continue following edges, visiting each edge exactly once, until returning to the starting vertex. If a vertex has multiple edges, select edges in any order.
+4. **Backtrack as Necessary**: If a vertex has no more unvisited edges, backtrack to the previous vertex that still has unvisited edges. Continue the process from there.
+5. **Combine Paths**: If the graph has multiple disconnected components, repeat steps 1-4 for each component. Finally, combine the Eulerian cycles or paths of each component into a single Eulerian cycle or path for the entire graph.
 
-### Algorithm:
+#### Time Complexity
 
-    Choose a Starting Vertex: Start at any vertex of the graph. If the graph has an Eulerian cycle, this vertex will be the starting and ending point of the cycle. 
-    If the graph has an Eulerian path, this vertex will be the starting point.
+- The overall time complexity of Hierholzer's algorithm is \(O(E)\).
 
-    Follow Edges: From the chosen starting vertex, follow any available edge to an adjacent vertex. If there are multiple choices, select an arbitrary edge.
+#### Example Implementation
 
-    Repeat Until Exhausted: Continue following edges, visiting each edge exactly once, until returning to the starting vertex. If a vertex has multiple edges, 
-    select edges in any order.
-
-    Backtrack as Necessary: If a vertex has no more unvisited edges, backtrack to the previous vertex that still has unvisited edges. 
-    Continue the process from there.
-
-    Combine Paths: If the graph has multiple disconnected components, repeat steps 1-4 for each component. Finally, combine the Eulerian cycles 
-    or paths of each component into a single Eulerian cycle or path for the entire graph.
-
-#### Time Complexity:
-
-    Combining the complexities of traversing edges and backtracking, the overall time complexity of Hierholzer's algorithm is O(E).
-#### Example Implementation:
-
+```java
 class Graph {
     private int V;
     private List<Integer>[] adj;
@@ -1316,94 +1359,125 @@ class Graph {
         return cycle;
     }
 }
+```
 
-####  Example Problem
-[Reconstruct Itinerary](https://leetcode.com/problems/reconstruct-itinerary/)
+#### Example Problem
+
+- [Reconstruct Itinerary](https://leetcode.com/problems/reconstruct-itinerary/)
+
+---
 
 ## Max-Flow, Min-Cut
 
-Max-Flow, Min-Cut is a classic problem in graph theory and network flows. It involves finding the maximum flow that can be sent from a source
-node to a sink node in a flow network, while minimizing the capacity of the cut that separates the source from the sink.
+Max-Flow, Min-Cut is a classic problem in graph theory and network flows. It involves finding the maximum flow that can be sent from a source node to a sink node in a flow network, while minimizing the capacity of the cut that separates the source from the sink.
 
+### Max-Flow Problem
 
-#### Max-Flow Problem:
+Given a flow network with capacities on edges and a source vertex \(s\) and a sink vertex \(t\), the goal is to find the maximum flow from \(s\) to \(t\) while satisfying capacity constraints on edges and flow conservation at vertices.
 
-Given a flow network with capacities on edges and a source vertex ss and a sink vertex tt, the goal is to find the maximum flow from ss to 
-tt while satisfying capacity constraints on edges and flow conservation at vertices.
-Ford-Fulkerson Algorithm:
+#### Ford-Fulkerson Algorithm
 
-Ford-Fulkerson is a well-known algorithm for solving the max-flow problem. It iteratively augments the flow along augmenting paths from ss 
-to tt until no augmenting path exists. The algorithm can be implemented using various methods to find augmenting paths, such as DFS or BFS.
+Ford-Fulkerson is a well-known algorithm for solving the max-flow problem. It iteratively augments the flow along augmenting paths from \(s\) to \(t\) until no augmenting path exists. The algorithm can be implemented using various methods to find augmenting paths, such as DFS or BFS.
 
-#### Min-Cut Problem:
+### Min-Cut Problem
 
-A cut in a flow network is a partition of the vertices into two disjoint sets SS and TT, such that the source ss is in SS and the sink tt is in TT. 
-The capacity of a cut is the sum of capacities of edges from SS to TT.
+A cut in a flow network is a partition of the vertices into two disjoint sets \(S\) and \(T\
 
-#### Min-Cut Theorem:
+), such that the source \(s\) is in \(S\) and the sink \(t\) is in \(T\). The capacity of a cut is the sum of capacities of edges from \(S\) to \(T\).
+
+### Min-Cut Theorem
 
 The value of the maximum flow in a flow network equals the capacity of the minimum cut.
 
-#### Applications:
+### Applications
 
-    Network flow problems: transportation networks, communication networks, etc.
-    Assignment and scheduling problems.
-    Bipartite matching problems.
-    Network reliability analysis.
+- Network flow problems: transportation networks, communication networks, etc.
+- Assignment and scheduling problems.
+- Bipartite matching problems.
+- Network reliability analysis.
+
+### Example Problem
+
+- **Maximum Flow Problem**: Given a network of pipes with various capacities, find the maximum amount of water that can flow from a source pipe to a destination pipe.
+- **Minimum Cut Problem**: Given a communication network with various connections between nodes, identify the minimum number of connections that, if removed, would disconnect the network.
+
+### Ford-Fulkerson Algorithm Steps
+
+1. **Initialization**: Start with a flow of zero on all edges.
+2. **Find Augmenting Paths**: Repeat until no augmenting path exists from the source \(s\) to the sink \(t\):
+    - Use a path-finding algorithm (such as BFS or DFS) to find an augmenting path from \(s\) to \(t\).
+    - An augmenting path is a simple path from \(s\) to \(t\) along which additional flow can be sent.
+3. **Augment the Flow**: Along the augmenting path found in step 2, determine the maximum amount of flow that can be sent (limited by the capacity of the bottleneck edge). Increase the flow along this path by this maximum amount.
+4. **Repeat**: Go back to step 2 and repeat until no augmenting path exists.
+
+```python
+def ford_fulkerson(graph, source, sink):
+    parent = [-1] * len(graph)
+    max_flow = 0
     
-#### Example Problem:
+    def bfs(source, sink):
+        visited = [False] * len(graph)
+        queue = []
+        queue.append(source)
+        visited[source] = True
+        
+        while queue:
+            u = queue.pop(0)
+            for ind, val in enumerate(graph[u]):
+                if visited[ind] == False and val > 0:
+                    queue.append(ind)
+                    visited[ind] = True
+                    parent[ind] = u
+                    if ind == sink:
+                        return True
+        return False
 
-    Maximum Flow Problem:
-        Given a network of pipes with various capacities, find the maximum amount of water that can flow from a source pipe to a destination pipe.
-    Minimum Cut Problem:
-        Given a communication network with various connections between nodes, identify the minimum number of connections that, if removed, would disconnect the network.
+    while bfs(source, sink):
+        path_flow = float("Inf")
+        s = sink
+        
+        while s != source:
+            path_flow = min(path_flow, graph[parent[s]][s])
+            s = parent[s]
+        
+        v = sink
+        while v != source:
+            u = parent[v]
+            graph[u][v] -= path_flow
+            graph[v][u] += path_flow
+            v = parent[v]
+        
+        max_flow += path_flow
+    
+    return max_flow
+```
 
+#### Complexity
 
-### Ford-Fulkerson Algorithm
+The time complexity of the Ford-Fulkerson algorithm depends on the choice of path-finding algorithm used to find augmenting paths. Using breadth-first search (BFS) to find augmenting paths yields a time complexity of \(O(E \cdot |f|)\), where \(|f|\) is the maximum flow value and \(E\) is the number of edges. In the worst case, the algorithm may require \(O(|f|)\) iterations, resulting in a total time complexity of \(O(E \cdot |f|^2)\).
 
-The Ford-Fulkerson algorithm is a classic method for solving the maximum flow problem in a flow network. It finds the maximum flow that can be sent from a source vertex to a sink vertex by iteratively augmenting the flow along augmenting paths. The algorithm was first published by L. R. Ford Jr. and D. R. Fulkerson in 1956.
+#### Example Problem
 
-#### Algorithm Steps:
+- [Maximum Students Taking Exam](https://leetcode.com/problems/maximum-students-taking-exam)
 
-    Initialization: Start with a flow of zero on all edges.
-    Find Augmenting Paths: Repeat until no augmenting path exists from the source ss to the sink tt:
-        Use a path-finding algorithm (such as BFS or DFS) to find an augmenting path from ss to tt.
-        An augmenting path is a simple path from ss to tt along which additional flow can be sent.
-    Augment the Flow: Along the augmenting path found in step 2, determine the maximum amount of flow that can be sent (limited by the capacity of the bottleneck edge). Increase the flow along this path by this maximum amount.
-    Repeat: Go back to step 2 and repeat until no augmenting path exists.
-
-FordFulkerson(G, s, t):
-    Initialize flow f to 0 on all edges of G
-    Repeat:
-        Find an augmenting path p from s to t using BFS or DFS
-        If no augmenting path exists, break
-        Determine the bottleneck capacity c of path p
-        Augment flow f along path p by c
-    Return flow f
-
-#### Complexity:
-
-The time complexity of the Ford-Fulkerson algorithm depends on the choice of path-finding algorithm used to find augmenting paths. Using breadth-first search (BFS) to find augmenting paths yields a time complexity of O(E∣f∣)O(E∣f∣), where ∣f∣∣f∣ is the maximum flow value and EE is the number of edges. In the worst case, the algorithm may require O(∣f∣)O(∣f∣) iterations, resulting in a total time complexity of O(E∣f∣2)O(E∣f∣2).
-
-#### Example Problem:
-
-[Implementation](https://leetcode.com/problems/maximum-students-taking-exam)
+---
 
 ## Graph Coloring
 
 Graph coloring is a fundamental problem in graph theory that involves assigning colors to the vertices of a graph such that no two adjacent vertices share the same color. The minimum number of colors required to color a graph without any adjacent vertices sharing the same color is called the chromatic number of the graph.
 
-#### Example Problem:
+### Example Problems
 
 - [Possible Bipartition](https://leetcode.com/problems/possible-bipartition/)
 - [Is Graph Bipartite?](https://leetcode.com/problems/is-graph-bipartite/)
 
+---
+
 ## Connected Components Problems
 
-A connected component of an undirected graph is a maximal subset of vertices such that there is a path between every pair of vertices in the subset. 
-In other words, within each connected component, every vertex is reachable from every other vertex by traversing edges of the graph.
+A connected component of an undirected graph is a maximal subset of vertices such that there is a path between every pair of vertices in the subset. In other words, within each connected component, every vertex is reachable from every other vertex by traversing edges of the graph.
 
-#### Example Problems:
+### Example Problems
 
 - [Number of Provinces](https://leetcode.com/problems/number-of-provinces/)
 - [Number of Connected Components in an Undirected Graph](https://leetcode.com/problems/number-of-connected-components-in-an-undirected-graph/)
@@ -1411,10 +1485,16 @@ In other words, within each connected component, every vertex is reachable from 
 - [Accounts Merge](https://leetcode.com/problems/accounts-merge/)
 - [Critical Connections in a Network](https://leetcode.com/problems/critical-connections-in-a-network/)
 
+---
+
 ## Flood Fill Algorithm
 
 The Flood Fill Algorithm is a technique used to determine a connected area within a grid or bitmap and replace or manipulate its color. It is commonly used in image processing, computer graphics, and various other applications involving grid-based data structures.
 
-#### Example Problem:
+### Example Problem
 
-[Implementation](https://leetcode.com/problems/maximum-students-taking-exam/)
+- [Flood Fill](https://leetcode.com/problems/flood-fill/)
+
+---
+
+This structured approach helps in understanding each problem and algorithm clearly and provides relevant examples and implementations for better comprehension.
