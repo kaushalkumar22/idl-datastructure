@@ -99,7 +99,7 @@ The DFS algorithm is a recursive algorithm that uses the idea of backtracking. I
 3. Helper Function:
     - A recursive function to perform the actual DFS.
 
-```java
+```
 void DFS(int v) {
     boolean[] visited = new boolean[vertices];
     DFSUtil(v, visited);
@@ -189,27 +189,26 @@ void DFSIterative(int v) {
 Topological sort is a linear ordering of vertices in a directed acyclic graph (DAG) such that for every directed edge u→vu→v, vertex uu comes before vv in the ordering. This is only possible if the graph has no directed cycles, i.e., it is a DAG. 
 
 ### Applications
-Task Scheduling
-Software Dependency Resolution
-Compiler Optimizations
-Course Scheduling
+- Task Scheduling
+- Software Dependency Resolution
+- Compiler Optimizations
+- Course Scheduling
 
 ### Topological Sort Algorithms
-    Kahn’s Algorithm (BFS-based)
-    Depth-First Search (DFS)-based Algorithm
 
 #### 1. Kahn’s Algorithm (BFS-based)
 
 Kahn's Algorithm uses the concept of in-degrees:
 
-    Calculate in-degrees (number of incoming edges) for all vertices.
-    Initialize a queue with all vertices having in-degree 0.
-    While the queue is not empty:
-        Dequeue a vertex from the queue, add it to the topological order.
-        Reduce the in-degree of all adjacent vertices by 1.
-        If the in-degree of an adjacent vertex becomes 0, enqueue it.
-    If all vertices are processed, the graph is a DAG and the topological order is valid. If not, the graph has at least one cycle, and topological sorting is not possible.
+- Calculate in-degrees (number of incoming edges) for all vertices.
+- Initialize a queue with all vertices having in-degree 0.
+- While the queue is not empty:
+  - Dequeue a vertex from the queue, add it to the topological order.
+  - Reduce the in-degree of all adjacent vertices by 1.
+  - If the in-degree of an adjacent vertex becomes 0, enqueue it.
+- If all vertices are processed, the graph is a DAG and the topological order is valid. If not, the graph has at least one cycle, and topological sorting is not possible.
 
+```java
 public List<Integer> topologicalSort(int vertices, List<List<Integer>> adj) {
     int[] inDegree = new int[vertices];
     for (int i = 0; i < vertices; i++) {
@@ -244,20 +243,22 @@ public List<Integer> topologicalSort(int vertices, List<List<Integer>> adj) {
 
     return topoOrder;
 }
+```
 
 #### 2. DFS-based Algorithm
 
 The DFS-based algorithm uses the concept of backtracking and post-order:
 
-    Perform a DFS traversal of the graph.
-    Use a boolean array to mark all the vertices as not visited.
-    Use a stack to store the vertices in the order of their finishing times (i.e., when a vertex has no more unvisited adjacent vertices).
-    For every unvisited vertex, call the recursive helper function.
-    In the helper function, mark the current vertex as visited.
-        Recur for all its adjacent vertices.
-        Push the current vertex onto the stack.
-    Pop all vertices from the stack to get the topological order.
-    
+- Perform a DFS traversal of the graph.
+- Use a boolean array to mark all the vertices as not visited.
+- Use a stack to store the vertices in the order of their finishing times (i.e., when a vertex has no more unvisited adjacent vertices).
+- For every unvisited vertex, call the recursive helper function.
+- In the helper function, mark the current vertex as visited.
+  - Recur for all its adjacent vertices.
+  - Push the current vertex onto the stack.
+- Pop all vertices from the stack to get the topological order.
+
+```java
 public List<Integer> topologicalSortDFS(int vertices, List<List<Integer>> adj) {
     boolean[] visited = new boolean[vertices];
     Stack<Integer> stack = new Stack<>();
@@ -287,14 +288,15 @@ private void dfs(int node, boolean[] visited, Stack<Integer> stack, List<List<In
 
     stack.push(node);
 }
+```
 
-#### Problems
+### Problems
 - [Course Schedule](https://leetcode.com/problems/course-schedule/)
 - [Course Schedule II](https://leetcode.com/problems/course-schedule-ii/)
 - [Sequence Reconstruction](https://leetcode.com/problems/sequence-reconstruction/)
 - [Alien Dictionary](https://leetcode.com/problems/alien-dictionary/solution/)
-  Leetcode: Minimum Height Trees
-  Leetcode: Parallel Courses
+- [Minimum Height Trees](https://leetcode.com/problems/minimum-height-trees/description/)
+- [Parallel Courses](https://leetcode.com/problems/parallel-courses/description/)
 
 ## Minimum Spanning Trees: Prim's, Kruskal's Algorithm
 
