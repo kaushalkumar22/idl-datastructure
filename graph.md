@@ -186,7 +186,7 @@ void DFSIterative(int v) {
 
 ## Topological Sort:
 
-Topological sort is a linear ordering of vertices in a directed acyclic graph (DAG) such that for every directed edge u→vu→v, vertex uu comes before vv in the ordering. This is only possible if the graph has no directed cycles, i.e., it is a DAG. 
+Topological sort is a linear ordering of vertices in a directed acyclic graph (DAG) such that for every directed edge u→v, vertex u comes before v in the ordering. This is only possible if the graph has no directed cycles, i.e., it is a DAG. 
 
 ### Applications
 - Task Scheduling
@@ -244,8 +244,14 @@ public List<Integer> topologicalSort(int vertices, List<List<Integer>> adj) {
     return topoOrder;
 }
 ```
+#### Complexity
 
-#### 2. DFS-based Algorithm
+    Time Complexity: O(V+E). 
+    - The outer for loop will be executed V number of times and the inner for loop will be executed E number of times.  
+    Auxiliary Space: O(V).  
+    - The queue needs to store all the vertices of the graph. So the space required is O(V)  
+
+### 2. DFS-based Algorithm
 
 The DFS-based algorithm uses the concept of backtracking and post-order:
 
