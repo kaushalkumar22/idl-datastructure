@@ -246,10 +246,10 @@ public List<Integer> topologicalSort(int vertices, List<List<Integer>> adj) {
 ```
 #### Complexity
 
-    Time Complexity: O(V+E). 
-    - The outer for loop will be executed V number of times and the inner for loop will be executed E number of times.  
-    Auxiliary Space: O(V).  
-    - The queue needs to store all the vertices of the graph. So the space required is O(V)  
+- Time Complexity: O(V+E):
+    The outer for loop will be executed V number of times and the inner for loop will be executed E number of times.
+- Auxiliary Space: O(V):  
+    The queue needs to store all the vertices of the graph. So the space required is O(V)
 
 ### 2. DFS-based Algorithm
 
