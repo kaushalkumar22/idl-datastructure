@@ -1,4 +1,5 @@
 # Graph Algorithms
+---
 
 ## Breadth-First Search (BFS)
 
@@ -66,6 +67,8 @@ public void BFS(int start) {
 - [1091. Shortest Path in Binary Matrix](https://leetcode.com/problems/shortest-path-in-binary-matrix/)
 - [909. Snakes and Ladders](https://leetcode.com/problems/snakes-and-ladders/)
 - [127. Word Ladder](https://leetcode.com/problems/word-ladder/)
+
+---
 
 ## Depth-First Search (DFS)
 
