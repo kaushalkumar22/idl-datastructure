@@ -99,7 +99,7 @@ The DFS algorithm is a recursive algorithm that uses the idea of backtracking. I
 3. Helper Function:
     - A recursive function to perform the actual DFS.
 
-```
+```java
 void DFS(int v) {
     boolean[] visited = new boolean[vertices];
     DFSUtil(v, visited);
